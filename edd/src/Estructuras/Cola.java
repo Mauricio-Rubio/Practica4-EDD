@@ -1,41 +1,63 @@
 package edd.src.Estructuras;
 
 public class Cola<T> extends PushPop<T> {
+
     /**
-     * Regresa una representación en cadena de la cola.
-     * 
-     * @return una representación en cadena de la cola.
+     * Agregar al final
+     */
+    public void push(T elemento) {
+        if(elemento == null){
+            throw new IllegalArgumentException("");
+        }
+        Nodo aux = new Nodo(elemento);
+        if (longi == 0) {
+            cabeza = aux;
+            longi++;
+            ultimo = cabeza;
+            return;
+        }
+        Nodo temp = cabeza;
+        while (temp.siguiente != null) {
+            temp = temp.siguiente;
+        }
+        temp.siguiente = aux;
+        aux.siguiente = null;
+        ultimo = aux;
+        longi++;
+
+    }
+
+    /**
+     * Sale por la izquierda, entra por la derecha
+     */
+    public Cola<T> clone() {
+        Cola<T> nueva = new Cola<>();
+        if (this.isEmpty()) {
+            return nueva;
+        }
+        nueva.push(this.cabeza.elemento);
+        Nodo aux = cabeza;
+        while(aux.siguiente != null){
+            aux = aux.siguiente;
+            nueva.push(aux.elemento);
+        }
+        return nueva;
+    }
+
+    /**
+     * Sale por la izquierda, entra por la derecha
      */
     @Override
     public String toString() {
-        if (isEmpty())
+        if (this.isEmpty()) {
             return "";
-        String a = "";
-        Nodo b = cabeza;
-        while (b != null) {
-            a += b.elemento + ",";
-            b = b.siguiente;
         }
-        return a;
-    }
-    
-    /**
-     * Agrega un elemento al final de la cola.
-     * 
-     * @param elemento el elemento a agregar.
-     * @throws IllegalArgumentException si <code>elemento</code> es
-     *                                  <code>null</code>.
-     */
-    @Override public void push(T elemento){
-        if (elemento == null) {
-            throw new IllegalArgumentException("");
+        String regreso = this.cabeza.elemento.toString();
+        Nodo n = this.cabeza;
+        while (n.siguiente != null) {
+            regreso += ", " + n.siguiente.elemento.toString();
+            n = n.siguiente;
         }
-        Nodo nuevo = new Nodo(elemento);
-        if (cabeza == null) {
-            this.cabeza = ultimo = nuevo;
-            return;
-        }
-        ultimo.siguiente = nuevo;
-        ultimo = nuevo;
+        return regreso;
     }
 }
