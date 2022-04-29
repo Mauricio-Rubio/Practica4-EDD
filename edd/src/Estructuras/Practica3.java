@@ -3,6 +3,8 @@ package edd.src.Estructuras;
 import java.util.Comparator;
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 public class Practica3 {
 
   static Scanner sc;
@@ -95,9 +97,62 @@ public class Practica3 {
 
   public static void permutacionesCadena(String cadena) {}
 
-  public static void primosQueSuman(int S, int P, int N) {}
+  /*Dados 3 números, la suma S, el primo P, y un entero N, encuentra N primos mayores que P, tal que
+su suma sea igual a S.*/
+  private static void primosQueSuman(int S, int P, int N) {
+    System.out.println("Iniciando primos que suman");
+    Lista<Integer> numeros = new Lista<>();
+    System.out.println(tamizEratostenes(S, P));
+    
+    //combinacionesSuma(S);
+  }
+
+  private static Lista<Integer> tamizEratostenes(int s, int nPrimo) {
+    Lista <Integer> numerosPrimos = new Lista<>();
+    boolean primo[] = new boolean[s];
+    primo[0] = false;
+    for (int i = 1; i < s; i++) {
+      primo[i] = true;
+    }
+    for (int p = 2; p <= s; p++) {
+      // Si el primo no cambia, entonces es primo
+      if (primo[p-1] == true) {
+        // Actualiza todos los múltiplos de p
+        //System.out.println(p);
+        if(p > nPrimo ){
+          numerosPrimos.add(p);
+        }
+        //numerosPrimos.add(p);
+        for (int j = p * p; j <= s; j += p) {
+          primo[j-1] = false;
+        }
+      }
+    }
+    return numerosPrimos;
+  }
+
+  private static void combinacionesSuma(int S, int suma) {
+    //Lista <Integer> lista = tamizEratostenes(S);
+    //System.out.println("Mostrando la lista "+lista);
+    for (int i = 1; i <= S; i++) {
+      suma+=i;
+      if(suma <= S){
+
+      }
+    }
+  }
 
   private static boolean esPrimo(int n) {
+    // El 0, 1 y 4 no son primos
+    if (n == 0 || n == 1 || n == 4) {
+      return false;
+    }
+    for (int x = 2; x < n / 2; x++) {
+      // Si es divisible por cualquiera de estos números, no
+      // es primo
+      if (n % x == 0) return false;
+    }
+    // Si no se pudo dividir por ninguno de los de arriba, sí es primo
     return true;
   }
 
@@ -112,9 +167,12 @@ public class Practica3 {
         int p = sc.nextInt();
         System.out.println("Ingresa la suma  S");
         int s = sc.nextInt();
-        if (esPrimo(n)) {
+        if (esPrimo(p)) {
           aux = true;
-          //sumaCercana(lista, n);
+          primosQueSuman(s, p, n);
+        } else {
+          System.out.println(p + " no es un numero primo");
+          throw new Exception();
         }
       } catch (Exception e) {
         System.out.println("Ingresa un numero valido");
@@ -127,6 +185,8 @@ public class Practica3 {
   public static void main(String[] args) {
     if (args.length > 1) {
       pedirDatosSuma(args);
+    } else {
+      pedirDatosSumaPrimos();
     }
   }
 }
