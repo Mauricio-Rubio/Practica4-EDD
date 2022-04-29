@@ -2,14 +2,16 @@ package edd.src.Estructuras;
 
 import java.util.Comparator;
 
-public class ArbolBinarioOrdenado<T extends Comparable<T>>
-  extends ArbolBinario {
+/*public class ArbolBinarioOrdenado<T extends Comparable<T>> extends ArbolBinario {
 
     public ArbolBinarioOrdenado(Lista <T> lista, boolean isSorted){
         if(isSorted){
-            buildSorted(lista);
+            //buildSorted(lista);
         }else{
-            buildUnsorted(lista);
+            //buildUnsorted(lista);
         }
     }
-  }
+
+    public void delete(T objecT){}
+    public void pop(){}
+  }*/

@@ -47,7 +47,7 @@ public class Pila<T> extends PushPop<T> {
   
     public String toString() {
       if (this.isEmpty()) {
-        return "*";
+        return "*Empty*";
       }
       String regreso = "< " + this.cabeza.elemento.toString();
       Nodo n = this.cabeza;

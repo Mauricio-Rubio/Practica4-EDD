@@ -13,10 +13,10 @@ import java.util.Iterator;
  * árbol siempre es lo más cercano posible a estar lleno.
  * </p>
  */
-public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
-    /* Clase privada para iteradores de árboles binarios completos. */
+/*public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
+     Clase privada para iteradores de árboles binarios completos. 
     private class Iterador implements Iterator<T>{
-        /* Cola para recorrer los vértices en BFS. */
+         Cola para recorrer los vértices en BFS. 
         private Cola<Vertice> cola;
 
         public Iterador(){
@@ -26,7 +26,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             cola.push(raiz);
         }
         
-        /* Nos dice si hay un elemento siguiente. */
+         Nos dice si hay un elemento siguiente. 
         public boolean hasNext(){
             return !cola.isEmpty();
         }
@@ -47,7 +47,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     /**
      * Constructor sin parámetros. Para no perder el constructor sin parámetros
      * de {@link ArbolBinario}.
-     */
+     *
     public ArbolBinarioCompleto() {
         super();
     }
@@ -58,7 +58,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * 
      * @param coleccion la colección a partir de la cual creamos el árbol
      *                  binario completo.
-     */
+     *
     public ArbolBinarioCompleto(Collection<T> coleccion) {
         super(coleccion);
     }
@@ -70,7 +70,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * @param elemento el elemento a agregar al árbol.
      * @throws IllegalArgumentException si <code>elemento</code> es
      *                                  <code>null</code>.
-     */
+     *
     @Override public void add(T elemento){
         if(elemento == null){
             throw new IllegalArgumentException();
@@ -121,7 +121,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * siempre es ⌊log<sub>2</sub><em>n</em>⌋.
      * 
      * @return la altura del árbol.
-     */
+     *
     @Override
     public int altura() {
         return (int) Math.floor(Math.log(elementos) / Math.log(2));
@@ -131,7 +131,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * Regresa un iterador para iterar el árbol. El árbol se itera en orden BFS.
      * 
      * @return un iterador para iterar el árbol.
-     */
+     *
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
@@ -139,4 +139,4 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
 
 
 
-}
+}*/
