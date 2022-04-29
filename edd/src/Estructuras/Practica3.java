@@ -12,7 +12,7 @@ public class Practica3 {
     boolean auxPunteros = false;
     boolean tieneSolucion = false;
     System.out.println("Ordenando la lista");
-    Lista<Lista<Integer>> pila = new Lista<>();
+    Lista<Lista<Integer>> listaSoluciones = new Lista<>();
     Lista<Integer> listaOrdenada = lista.mergeSort(
       new Comparator<Integer>() {
         @Override
@@ -33,10 +33,10 @@ public class Practica3 {
     );
     System.out.println("Calculando");
     while (punteroIzquierdo < punteroDerecho) {
-      Lista<Integer> pilaAux = new Lista<>();
-      pilaAux.add(punteroIzquierdo);
-      pilaAux.add(punteroDerecho);
-      pila.add(pilaAux);
+      Lista<Integer> listaSolucionesAux = new Lista<>();
+      listaSolucionesAux.add(punteroIzquierdo);
+      listaSolucionesAux.add(punteroDerecho);
+      listaSoluciones.add(listaSolucionesAux);
       if (punteroIzquierdo + punteroDerecho == N) {
         System.out.println(
           "resultado " + punteroIzquierdo + " + " + punteroDerecho + " = " + N
@@ -48,21 +48,19 @@ public class Practica3 {
         System.out.println("Lista delete " + listaOrdenadaAux);
         punteroIzquierdo = listaOrdenadaAux.peek();
         System.out.println("Puntero izq " + punteroIzquierdo);
-        auxPunteros = true;
       } else {
         listaOrdenadaAux.pop();
         punteroDerecho = listaOrdenadaAux.peekInverse();
         System.out.println("Lista delete " + listaOrdenadaAux);
         System.out.println("Puntero der " + punteroDerecho);
-        auxPunteros = false;
       }
     }
-    System.out.println("Mostrando la pila " + pila);
-    System.out.println("aux punteros " + auxPunteros);
-    Lista<Integer> soluciones = pila.pop();
+
     if (!tieneSolucion) {
+      System.out.println("Mostrando la lista " + listaSoluciones);
+      Lista<Integer> soluciones = listaSoluciones.pop();
       System.out.println(
-        "La mejor solucion es " +
+        "La solucion mas cercana es " +
         soluciones.peek() +
         "+ " +
         soluciones.peekInverse() +
