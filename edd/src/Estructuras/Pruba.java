@@ -84,7 +84,7 @@ public class Pruba {
     /*for (int a : set) {
       System.out.println("este es set -->"+a);
     }*/
-    combinaciones.remove(combinaciones.size() - 1);
+    combinaciones.eliminarIndice0(combinaciones.size() - 1);
     /*for (int a : set) {
       System.out.println("este es set 2.0 -->"+a);
     }*/

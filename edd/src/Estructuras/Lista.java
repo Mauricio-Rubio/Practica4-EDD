@@ -575,7 +575,11 @@ public class Lista<T> implements Collection<T> {
     return aux.elemento;
   }
 
-  public void remove(int indice) {
+  /**
+   * Elimina usando indices iniciando desde 0
+   * @param indice
+   */
+  public void eliminarIndice0(int indice) {
     if (indice == 0) {
       delete(this.cabeza.elemento);
     } else {

@@ -8,20 +8,20 @@ public class Practica3 {
   static Scanner sc;
   static boolean aux;
 
-/**-------------------------------------------------------Problema 1-------------------------------------------------------*/
-/**
- * Metodo en el que vamos a calcular la suma mas cercana a un numero N, primero
- * ordenamos la lista de numeros con Merge Sort teniendo presente que la 
- * complejidad de dicho algoritmo de ordenamiento es O(n logn). La estrategia
- * para resolver este problema es teniendo la referencia al primer y ultimo numero, 
- * es decir, al numero mas pequeño y mas grande, si la suma de estos dos es menor al 
- * numero que se desea, entonces aumentamos la referencia izquierda (primer numero), puesto
- * que necesitamos un numero mas grande, cuando la suma es mas pequeña, desplazamos la referencia
- * izquierda (a la izquierda) para obtener un numero mas pequeño.
- * recorriendo 
- * @param lista
- * @param N
- */
+  /**-------------------------------------------------------Problema 1-------------------------------------------------------*/
+  /**
+   * Metodo en el que vamos a calcular la suma mas cercana a un numero N, primero
+   * ordenamos la lista de numeros con Merge Sort teniendo presente que la
+   * complejidad de dicho algoritmo de ordenamiento es O(n logn). La estrategia
+   * para resolver este problema es teniendo la referencia al primer y ultimo numero,
+   * es decir, al numero mas pequeño y mas grande, si la suma de estos dos es menor al
+   * numero que se desea, entonces aumentamos la referencia izquierda (primer numero), puesto
+   * que necesitamos un numero mas grande, cuando la suma es mas pequeña, desplazamos la referencia
+   * izquierda (a la izquierda) para obtener un numero mas pequeño.
+   * recorriendo
+   * @param lista
+   * @param N
+   */
 
   public static void sumaCercana(Lista lista, int N) {
     boolean auxPunteros = false;
@@ -74,7 +74,7 @@ public class Practica3 {
     if (!tieneSolucion) {
       System.out.println("Mostrando la lista " + listaSoluciones);
       Lista<Integer> soluciones = listaSoluciones.peek();
-      if(listaSoluciones.size() > 2){
+      if (listaSoluciones.size() > 2) {
         soluciones = listaSoluciones.pop();
       }
       System.out.println(
@@ -116,22 +116,21 @@ public class Practica3 {
     } while (!aux);
   }
 
-/**-------------------------------------------------------Problema 2-------------------------------------------------------*/
+  /**-------------------------------------------------------Problema 2-------------------------------------------------------*/
   public static void permutacionesCadena(String cadena) {}
 
   static Lista<Integer> numerosPrimos;
   static Lista<Integer> combinaciones = new Lista<>();
   static boolean tieneSolucion = false;
 
+  /**-------------------------------------------------------Problema 3-------------------------------------------------------*/
 
-/**-------------------------------------------------------Problema 3-------------------------------------------------------*/
-  
-/**
- * 
- * @param S
- * @param P
- * @param N
- */
+  /**
+   * Metodo para iniciar los calculos
+   * @param S
+   * @param P
+   * @param N
+   */
   private static void primosQueSuman(int S, int P, int N) {
     System.out.println("Iniciando primos que suman");
     cribaEratostenes(N, S, P);
@@ -140,11 +139,10 @@ public class Practica3 {
     if (!tieneSolucion) {
       System.out.println("No hay solucion");
     }
-    //combinacionesSuma(N, S, P, numerosPrimos);
   }
 
   /**
-   * Algoritmo de la criba de eratostenes, calcula lo numero primos menores a s, pero
+   * Algoritmo de la criba de eratostenes, calcula los numeros primos menores a s, pero
    * mayor al numero nPrimo. Regresa una lista de dichos numeros
    * @param s
    * @param nPrimo
@@ -161,11 +159,9 @@ public class Practica3 {
       // Si el primo no cambia, entonces es primo
       if (primo[p - 1] == true) {
         // Actualiza todos los múltiplos de p
-        //System.out.println(p);
         if (p > nPrimo) {
           numerosPrimos.add(p);
         }
-        //numerosPrimos.add(p);
         for (int j = p * p; j <= s; j += p) {
           primo[j - 1] = false;
         }
@@ -177,59 +173,90 @@ public class Practica3 {
     }
   }
 
+  /**
+   * Metodo que hace uso del backtracking para encontrar la suma de numeros primos igual a suma, en donde N es
+   * el numero de factores en la suma. Total es el acumulador de las sumas que vayamos haciendo. Suma es el resultado
+   * que debe dar la operacion suma con N factores, indice nos irá diciendo el numero que ocupamos de la lista de primos
+   * @param total
+   * @param N
+   * @param suma
+   * @param indice
+   */
   private static void generarSuma(int total, int N, int suma, int indice) {
-    // add prime.get(index)
-    // to set vector
-    //System.out.print("combinaciones 1 -->");
-    //display();
-
+    /*
+     *   Caso base --> Si total = suma, significa que la suma que hemos hecho de primos es la indicada por el usuario
+     *   Si el tamaño de combinaciones = N, significa que si ocupamos los N factores necesarios ingresados por el usuario
+     *   para alcanzar la suma ingresada
+     */
     if (total == suma && combinaciones.size() == N) {
       tieneSolucion = true;
       System.out.println("Solucion");
       System.out.println(combinaciones);
       return;
     }
+    /*
+     *   Estos casos son para descartar, es decir, cuado se cumpla algunas de estas condiciones significa que no hemos
+     *   encontrado el numero por lo que acabara aqui las ejecuciones
+     */
     if (
       total > suma ||
       indice == numerosPrimos.size() ||
       combinaciones.size() >= N
     ) return;
 
+    /**
+     *   Agregamos a combinaciones cada unos de los numeros primos de la lista numeros primos
+     *   esto es porque tenemos que probar todos los numeros primos de la lista para encontrar
+     *   las posibles soluciones
+     */
     combinaciones.add(numerosPrimos.get(indice));
-    //System.out.print("combinaciones 2 -->");
-    //display();
-    // include the (index)th
-    // prime to total
-    //System.out.println("Indice "+prime.get(index));
+
+    /**
+     *   Intentamos volver a ejecutar el metodo con el siguiente numero, es decir, para completar la suma intentando llegar a
+     *   suma, a total le sumamos el numero primo que arriba tomamos (por eso es acumulador), mientras que intentamos probar el
+     *   siguiente numero primo (por eso se le suma 1 a indice)
+     */
     generarSuma(total + numerosPrimos.get(indice), N, suma, indice + 1);
 
-    // remove element
-    // from set vector
-    /*for (int a : set) {
-      System.out.println("este es set -->"+a);
-    }*/
-    combinaciones.remove(combinaciones.size() - 1);
-    /*for (int a : set) {
-      System.out.println("este es set 2.0 -->"+a);
-    }*/
-    // exclude (index)th prime
+    /**
+     *   Vamos a ir removiendo los elementos, puesto que si la suma no es la deseada o no con los factores N, entonces no nos
+     *   sirve tener dicho numero en la lista. En caso de que si haya funcionado, en la llamada anterior podrá entrar al primer
+     *   if y en ese caso ser mostrados.
+     */
+    combinaciones.eliminarIndice0(combinaciones.size() - 1);
+
+    /**
+     *   Volver a intentar todo lo anterior pero partiendo desde el comienzo, aunque con el siguiente numero primo
+     */
     generarSuma(total, N, suma, indice + 1);
   }
 
   private static boolean esPrimo(int n) {
-    // El 0, 1 y 4 no son primos
+    /**
+     *   El 0, 1 y 4 no son primos
+     */
     if (n == 0 || n == 1 || n == 4) {
       return false;
     }
     for (int x = 2; x < n / 2; x++) {
-      // Si es divisible por cualquiera de estos números, no
-      // es primo
+      /**
+       *   Si es divisible por cualquiera de estos números, no
+       *   es primo
+       */
+
       if (n % x == 0) return false;
     }
-    // Si no se pudo dividir por ninguno de los de arriba, sí es primo
+    /**
+     *   Si no se pudo dividir por ninguno de los de arriba, sí es primo
+     *
+     */
     return true;
   }
 
+  /**
+   * Metodo que pide al usuario N, P y S, todos numeros naturales, ademas de hacer la 
+   * verificacion de que P sea un numero primo
+   */
   private static void pedirDatosSumaPrimos() {
     sc = new Scanner(System.in);
     aux = false;
@@ -255,6 +282,7 @@ public class Practica3 {
     } while (!aux);
   }
 
+/**-------------------------------------------------------Problema 4-------------------------------------------------------*/
   public static void N_Reinas(int N) {}
 
   public static void main(String[] args) {
