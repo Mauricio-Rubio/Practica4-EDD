@@ -63,7 +63,9 @@ public class Pruba {
     // has reached last
     // element
     // or if set size reached to maximum or greater than maximum
-    if (total > S || index == numerosPrimos.size() || combinaciones.size() >= N) return;
+    if (
+      total > S || index == numerosPrimos.size() || combinaciones.size() >= N
+    ) return;
 
     // add prime.get(index)
     // to set vector

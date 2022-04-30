@@ -8,6 +8,21 @@ public class Practica3 {
   static Scanner sc;
   static boolean aux;
 
+/**-------------------------------------------------------Problema 1-------------------------------------------------------*/
+/**
+ * Metodo en el que vamos a calcular la suma mas cercana a un numero N, primero
+ * ordenamos la lista de numeros con Merge Sort teniendo presente que la 
+ * complejidad de dicho algoritmo de ordenamiento es O(n logn). La estrategia
+ * para resolver este problema es teniendo la referencia al primer y ultimo numero, 
+ * es decir, al numero mas pequeño y mas grande, si la suma de estos dos es menor al 
+ * numero que se desea, entonces aumentamos la referencia izquierda (primer numero), puesto
+ * que necesitamos un numero mas grande, cuando la suma es mas pequeña, desplazamos la referencia
+ * izquierda (a la izquierda) para obtener un numero mas pequeño.
+ * recorriendo 
+ * @param lista
+ * @param N
+ */
+
   public static void sumaCercana(Lista lista, int N) {
     boolean auxPunteros = false;
     boolean tieneSolucion = false;
@@ -58,7 +73,10 @@ public class Practica3 {
 
     if (!tieneSolucion) {
       System.out.println("Mostrando la lista " + listaSoluciones);
-      Lista<Integer> soluciones = listaSoluciones.pop();
+      Lista<Integer> soluciones = listaSoluciones.peek();
+      if(listaSoluciones.size() > 2){
+        soluciones = listaSoluciones.pop();
+      }
       System.out.println(
         "La solucion mas cercana es " +
         soluciones.peek() +
@@ -70,6 +88,11 @@ public class Practica3 {
     }
   }
 
+  /**
+   * Metodo que va a convertir el arreglo pasado como argumento del programa
+   * a una lista, además de solicitar un numero entero y hacer su verificación
+   * @param nums
+   */
   private static void pedirDatosSuma(String[] nums) {
     sc = new Scanner(System.in);
     Lista<Integer> lista = new Lista<>();
@@ -93,20 +116,28 @@ public class Practica3 {
     } while (!aux);
   }
 
+/**-------------------------------------------------------Problema 2-------------------------------------------------------*/
   public static void permutacionesCadena(String cadena) {}
 
   static Lista<Integer> numerosPrimos;
   static Lista<Integer> combinaciones = new Lista<>();
   static boolean tieneSolucion = false;
 
-  /*Dados 3 números, la suma S, el primo P, y un entero N, encuentra N primos mayores que P, tal que
-su suma sea igual a S.*/
+
+/**-------------------------------------------------------Problema 3-------------------------------------------------------*/
+  
+/**
+ * 
+ * @param S
+ * @param P
+ * @param N
+ */
   private static void primosQueSuman(int S, int P, int N) {
     System.out.println("Iniciando primos que suman");
     cribaEratostenes(N, S, P);
     System.out.println("Primos disponibles " + numerosPrimos);
     generarSuma(0, N, S, 0);
-    if(! tieneSolucion){
+    if (!tieneSolucion) {
       System.out.println("No hay solucion");
     }
     //combinacionesSuma(N, S, P, numerosPrimos);

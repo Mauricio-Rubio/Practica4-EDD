@@ -578,7 +578,7 @@ public class Lista<T> implements Collection<T> {
   public void remove(int indice) {
     if (indice == 0) {
       delete(this.cabeza.elemento);
-    }else{
+    } else {
       int numAux = 1;
       Nodo aux = this.cabeza;
       while (numAux <= indice) {
