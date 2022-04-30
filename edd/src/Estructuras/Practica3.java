@@ -1,9 +1,7 @@
 package edd.src.Estructuras;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 public class Practica3 {
 
@@ -97,15 +95,20 @@ public class Practica3 {
 
   public static void permutacionesCadena(String cadena) {}
 
-  static ArrayList<Integer> numerosPrimos;
-  static ArrayList<Integer> combinaciones = new ArrayList<>();
+  static Lista<Integer> numerosPrimos;
+  static Lista<Integer> combinaciones = new Lista<>();
+  static boolean tieneSolucion = false;
 
   /*Dados 3 números, la suma S, el primo P, y un entero N, encuentra N primos mayores que P, tal que
 su suma sea igual a S.*/
   private static void primosQueSuman(int S, int P, int N) {
     System.out.println("Iniciando primos que suman");
-    tamizEratostenes(N, S, P);
+    cribaEratostenes(N, S, P);
     System.out.println("Primos disponibles " + numerosPrimos);
+    generarSuma(0, N, S, 0);
+    if(! tieneSolucion){
+      System.out.println("No hay solucion");
+    }
     //combinacionesSuma(N, S, P, numerosPrimos);
   }
 
@@ -116,8 +119,8 @@ su suma sea igual a S.*/
    * @param nPrimo
    * @return Lista<Integer>
    */
-  private static void tamizEratostenes(int N, int s, int nPrimo) {
-    numerosPrimos = new ArrayList<>();
+  private static void cribaEratostenes(int N, int s, int nPrimo) {
+    numerosPrimos = new Lista<>();
     boolean primo[] = new boolean[s];
     primo[0] = false;
     for (int i = 1; i < s; i++) {
@@ -141,11 +144,6 @@ su suma sea igual a S.*/
       System.out.println("No hay numeros primos disponibles para la operacion");
       return;
     }
-    System.out.println("Tamiz eratostenes");
-    //System.out.println("Esto estas buscando "+numerosPrimos.get(10));
-    System.out.println("Lenght " + numerosPrimos.size());
-    generarSuma(0, N, s, 0);
-    //System.out.println("Soluciones "+combinaciones);
   }
 
   private static void generarSuma(int total, int N, int suma, int indice) {
@@ -155,7 +153,7 @@ su suma sea igual a S.*/
     //display();
 
     if (total == suma && combinaciones.size() == N) {
-      // display the N primes
+      tieneSolucion = true;
       System.out.println("Solucion");
       System.out.println(combinaciones);
       return;

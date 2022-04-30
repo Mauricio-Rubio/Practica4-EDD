@@ -575,8 +575,23 @@ public class Lista<T> implements Collection<T> {
     return aux.elemento;
   }
 
- /* public T get(int indice){
-    if (indice == 0){
+  public void remove(int indice) {
+    if (indice == 0) {
+      delete(this.cabeza.elemento);
+    }else{
+      int numAux = 1;
+      Nodo aux = this.cabeza;
+      while (numAux <= indice) {
+        aux = aux.siguiente;
+        numAux++;
+      }
+      delete(aux.elemento);
+      return;
+    }
+  }
+
+  public T get(int indice) {
+    if (indice == 0) {
       return cabeza.elemento;
     }
     int numAux = 0;
@@ -586,7 +601,7 @@ public class Lista<T> implements Collection<T> {
       numAux++;
     }
     return aux.elemento;
-  }*/
+  }
 
   public T elemInd(int indice) {
     int numAux = 1;
