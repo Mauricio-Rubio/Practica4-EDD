@@ -36,6 +36,11 @@ public class Pruba {
     for (int i = 0; i < length; i++) System.out.print(set.get(i) + " ");
     System.out.println();
   }
+  static void display2() {
+    int length = prime.size();
+    for (int i = 0; i < length; i++) System.out.print(prime.get(i) + " ");
+    System.out.println();
+  }
 
   // function to evaluate
   // all possible N primes
@@ -59,16 +64,25 @@ public class Pruba {
 
     // add prime.get(index)
     // to set vector
+    //System.out.print("combinaciones 1 -->");
+    //display();
     set.add(prime.get(index));
-    System.out.println("Index "+prime.get(index));
+    //System.out.print("combinaciones 2 -->");
+    //display();
     // include the (index)th
     // prime to total
+    //System.out.println("Indice "+prime.get(index));
     primeSum(total + prime.get(index), N, S, index + 1);
 
     // remove element
     // from set vector
+    /*for (int a : set) {
+      System.out.println("este es set -->"+a);
+    }*/
     set.remove(set.size() - 1);
-
+    /*for (int a : set) {
+      System.out.println("este es set 2.0 -->"+a);
+    }*/
     // exclude (index)th prime
     primeSum(total, N, S, index + 1);
   }
@@ -87,6 +101,7 @@ public class Pruba {
     // if primes are
     // less than N
     if (prime.size() < N) return;
+    System.out.println("Lenght "+prime.size());
     primeSum(0, N, S, 0);
   }
 

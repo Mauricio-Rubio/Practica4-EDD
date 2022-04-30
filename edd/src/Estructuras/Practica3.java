@@ -1,5 +1,6 @@
 package edd.src.Estructuras;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
@@ -96,8 +97,8 @@ public class Practica3 {
 
   public static void permutacionesCadena(String cadena) {}
 
-  static Lista<Integer> numerosPrimos;
-  static Lista<Integer> combinaciones = new Lista<>();
+  static ArrayList<Integer> numerosPrimos;
+  static ArrayList<Integer> combinaciones = new ArrayList<>();
 
   /*Dados 3 números, la suma S, el primo P, y un entero N, encuentra N primos mayores que P, tal que
 su suma sea igual a S.*/
@@ -116,7 +117,7 @@ su suma sea igual a S.*/
    * @return Lista<Integer>
    */
   private static void tamizEratostenes(int N, int s, int nPrimo) {
-    numerosPrimos = new Lista<>();
+    numerosPrimos = new ArrayList<>();
     boolean primo[] = new boolean[s];
     primo[0] = false;
     for (int i = 1; i < s; i++) {
@@ -141,27 +142,48 @@ su suma sea igual a S.*/
       return;
     }
     System.out.println("Tamiz eratostenes");
-    System.out.println("Esto estas buscando "+numerosPrimos.buscar(1));
-    //generarSuma(0, N, s, 0);
+    //System.out.println("Esto estas buscando "+numerosPrimos.get(10));
+    System.out.println("Lenght " + numerosPrimos.size());
+    generarSuma(0, N, s, 0);
+    //System.out.println("Soluciones "+combinaciones);
   }
 
   private static void generarSuma(int total, int N, int suma, int indice) {
+    // add prime.get(index)
+    // to set vector
+    //System.out.print("combinaciones 1 -->");
+    //display();
+
     if (total == suma && combinaciones.size() == N) {
+      // display the N primes
       System.out.println("Solucion");
       System.out.println(combinaciones);
+      return;
     }
     if (
       total > suma ||
       indice == numerosPrimos.size() ||
       combinaciones.size() >= N
-    ) {
-      return;
-    }
-    System.out.println("Esto estas buscando "+numerosPrimos.buscar(indice));
-    combinaciones.add(numerosPrimos.buscar(indice+1));
-    System.out.println("Aqui trono ");
-    generarSuma(total + numerosPrimos.buscar(indice), N, suma, indice + 1);
-    combinaciones.delete(combinaciones.size() - 1);
+    ) return;
+
+    combinaciones.add(numerosPrimos.get(indice));
+    //System.out.print("combinaciones 2 -->");
+    //display();
+    // include the (index)th
+    // prime to total
+    //System.out.println("Indice "+prime.get(index));
+    generarSuma(total + numerosPrimos.get(indice), N, suma, indice + 1);
+
+    // remove element
+    // from set vector
+    /*for (int a : set) {
+      System.out.println("este es set -->"+a);
+    }*/
+    combinaciones.remove(combinaciones.size() - 1);
+    /*for (int a : set) {
+      System.out.println("este es set 2.0 -->"+a);
+    }*/
+    // exclude (index)th prime
     generarSuma(total, N, suma, indice + 1);
   }
 

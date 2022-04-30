@@ -159,18 +159,6 @@ public class Lista<T> implements Collection<T> {
     return null;
   }
 
-  public T buscar(T elemento) {
-    Nodo n = cabeza;
-    while (n != null) {
-      if (elemento.equals(n.elemento)) {
-        System.out.println("elemento"+n.elemento);
-        return n.elemento;
-      }
-      n = n.siguiente;
-    }
-    return null;
-  }
-
   /**
    * Elimina un elemento de la lista.
    *
@@ -586,6 +574,19 @@ public class Lista<T> implements Collection<T> {
     delete(aux.elemento);
     return aux.elemento;
   }
+
+ /* public T get(int indice){
+    if (indice == 0){
+      return cabeza.elemento;
+    }
+    int numAux = 0;
+    Nodo aux = this.cabeza;
+    while (numAux < indice) {
+      aux = aux.siguiente;
+      numAux++;
+    }
+    return aux.elemento;
+  }*/
 
   public T elemInd(int indice) {
     int numAux = 1;
