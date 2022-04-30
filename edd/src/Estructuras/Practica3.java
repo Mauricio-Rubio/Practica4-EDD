@@ -2,7 +2,6 @@ package edd.src.Estructuras;
 
 import java.util.Comparator;
 import java.util.Scanner;
-
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 public class Practica3 {
@@ -97,18 +96,27 @@ public class Practica3 {
 
   public static void permutacionesCadena(String cadena) {}
 
+  static Lista<Integer> numerosPrimos;
+  static Lista<Integer> combinaciones = new Lista<>();
+
   /*Dados 3 números, la suma S, el primo P, y un entero N, encuentra N primos mayores que P, tal que
 su suma sea igual a S.*/
   private static void primosQueSuman(int S, int P, int N) {
     System.out.println("Iniciando primos que suman");
-    Lista<Integer> numeros = new Lista<>();
-    System.out.println(tamizEratostenes(S, P));
-    
-    //combinacionesSuma(S);
+    tamizEratostenes(N, S, P);
+    System.out.println("Primos disponibles " + numerosPrimos);
+    //combinacionesSuma(N, S, P, numerosPrimos);
   }
 
-  private static Lista<Integer> tamizEratostenes(int s, int nPrimo) {
-    Lista <Integer> numerosPrimos = new Lista<>();
+  /**
+   * Algoritmo de la criba de eratostenes, calcula lo numero primos menores a s, pero
+   * mayor al numero nPrimo. Regresa una lista de dichos numeros
+   * @param s
+   * @param nPrimo
+   * @return Lista<Integer>
+   */
+  private static void tamizEratostenes(int N, int s, int nPrimo) {
+    numerosPrimos = new Lista<>();
     boolean primo[] = new boolean[s];
     primo[0] = false;
     for (int i = 1; i < s; i++) {
@@ -116,30 +124,45 @@ su suma sea igual a S.*/
     }
     for (int p = 2; p <= s; p++) {
       // Si el primo no cambia, entonces es primo
-      if (primo[p-1] == true) {
+      if (primo[p - 1] == true) {
         // Actualiza todos los múltiplos de p
         //System.out.println(p);
-        if(p > nPrimo ){
+        if (p > nPrimo) {
           numerosPrimos.add(p);
         }
         //numerosPrimos.add(p);
         for (int j = p * p; j <= s; j += p) {
-          primo[j-1] = false;
+          primo[j - 1] = false;
         }
       }
     }
-    return numerosPrimos;
+    if (numerosPrimos.size() < N) {
+      System.out.println("No hay numeros primos disponibles para la operacion");
+      return;
+    }
+    System.out.println("Tamiz eratostenes");
+    System.out.println("Esto estas buscando "+numerosPrimos.buscar(1));
+    //generarSuma(0, N, s, 0);
   }
 
-  private static void combinacionesSuma(int S, int suma) {
-    //Lista <Integer> lista = tamizEratostenes(S);
-    //System.out.println("Mostrando la lista "+lista);
-    for (int i = 1; i <= S; i++) {
-      suma+=i;
-      if(suma <= S){
-
-      }
+  private static void generarSuma(int total, int N, int suma, int indice) {
+    if (total == suma && combinaciones.size() == N) {
+      System.out.println("Solucion");
+      System.out.println(combinaciones);
     }
+    if (
+      total > suma ||
+      indice == numerosPrimos.size() ||
+      combinaciones.size() >= N
+    ) {
+      return;
+    }
+    System.out.println("Esto estas buscando "+numerosPrimos.buscar(indice));
+    combinaciones.add(numerosPrimos.buscar(indice+1));
+    System.out.println("Aqui trono ");
+    generarSuma(total + numerosPrimos.buscar(indice), N, suma, indice + 1);
+    combinaciones.delete(combinaciones.size() - 1);
+    generarSuma(total, N, suma, indice + 1);
   }
 
   private static boolean esPrimo(int n) {
@@ -176,6 +199,7 @@ su suma sea igual a S.*/
         }
       } catch (Exception e) {
         System.out.println("Ingresa un numero valido");
+        System.out.println(e.getMessage());
       }
     } while (!aux);
   }

@@ -159,6 +159,18 @@ public class Lista<T> implements Collection<T> {
     return null;
   }
 
+  public T buscar(T elemento) {
+    Nodo n = cabeza;
+    while (n != null) {
+      if (elemento.equals(n.elemento)) {
+        System.out.println("elemento"+n.elemento);
+        return n.elemento;
+      }
+      n = n.siguiente;
+    }
+    return null;
+  }
+
   /**
    * Elimina un elemento de la lista.
    *
