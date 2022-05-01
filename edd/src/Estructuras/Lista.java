@@ -591,6 +591,38 @@ public class Lista<T> implements Collection<T> {
     this.nodoIndice(indice2).elemento = elemento;
   }
 
+  public Nodo nodoIndice(int indice) {
+    int numAux = 0;
+    Nodo aux = this.cabeza;
+    while (numAux < indice) {
+      aux = aux.siguiente;
+      numAux++;
+    }
+
+    return aux;
+  }
+
+  /**
+   * Elimina usando indices iniciando desde 0 (return)
+   * @param indice
+   */
+  public T eliminarIndice0R(int indice) {
+    if (indice == 0) {
+      T aux = this.peek();
+      delete(this.cabeza.elemento);
+      return aux;
+    } else {
+      int numAux = 1;
+      Nodo aux = this.cabeza;
+      while (numAux <= indice) {
+        aux = aux.siguiente;
+        numAux++;
+      }
+      delete(aux.elemento);
+      return aux.elemento;
+    }
+  }
+
   /**
    * Elimina usando indices iniciando desde 0
    * @param indice
