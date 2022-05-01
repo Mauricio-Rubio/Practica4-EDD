@@ -557,14 +557,18 @@ public class Practica3 {
       pedirDatosSumaPrimos();
     }*/
     //pedirDatosBinariSearch();
-    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
-    for (int i = 0; i < 7; i++) {
-      miArbol.add(i);
+    Lista <Integer> miLista = new Lista<>();
+    for (int i = 3; i <= 13; i+=2) {
+      miLista.add(i);
     }
-    miArbol.add(-10);
-    miArbol.add(0);
-    System.out.println(miArbol);
-    miArbol.pop();
-    System.out.println(miArbol);
+    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
+    System.out.println("Mi arbol \n"+miArbol);
+    miArbol.insert(miArbol.raiz, 2);
+    miArbol.insert(miArbol.raiz, 6);
+    miArbol.insert(miArbol.raiz, 1);  
+    System.out.println("Mi arbol \n"+miArbol);
+    //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
+    //miArbol.add(-10);
+    //miArbol.add(0);
   }
 }
