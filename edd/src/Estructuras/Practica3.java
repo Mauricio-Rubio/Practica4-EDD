@@ -117,7 +117,77 @@ public class Practica3 {
   }
 
   /**-------------------------------------------------------Problema 2-------------------------------------------------------*/
-  public static void permutacionesCadena(String cadena) {}
+  
+    private static int factorialRecursivo(int numero) {
+      if (numero <= 1)
+        return 1;
+      return numero * factorialRecursivo(numero - 1);
+    }
+      static int contador = 0;
+      static int k=0, j =0,p=0,c=0,z=0, auxi=0;
+     static  Lista<String> permutaciones = new Lista<String>();
+  
+      private static String intercambiarLetras(char[] arreglo, int indice1, int indice2){
+    String cadenaAux="";
+          char temporal = arreglo[indice1];
+          arreglo[indice1] = arreglo[indice2];
+          arreglo[indice2] = temporal;
+    
+  
+       for(int betha=0; betha<arreglo.length; betha++){
+            cadenaAux+=arreglo[betha];
+        
+    }
+  
+        return cadenaAux;
+      }
+  
+      
+      public static void permutacionesCadena(String cadena){
+      char[] letras = new char[cadena.length()];
+    k=cadena.length()-1;
+    //if(combinaciones.size()!=factorialRecursivo(cadena.length())){
+      //count=combinaciones.size();
+      if(permutaciones.size()<=factorialRecursivo(cadena.length())){
+        //System.out.println(combinaciones.toString());
+    // }else{
+      for(int gamma=0; gamma<cadena.length(); gamma++){
+        letras[gamma]=cadena.charAt(gamma);
+    }
+    //	ite.start();
+    if(c==k){
+         if(!permutaciones.contains(cadena)){
+          permutaciones.add(cadena);
+          //count++;
+            }
+    }else{
+        // String  cadenaAux="";
+              for (int i = c; i <=k; i++){
+                
+      cadena = intercambiarLetras(letras,c,i);
+      c++;
+      /*	if(c>=cadena.length()){
+             c =0;
+             }*/
+      
+                  permutacionesCadena(cadena);
+      c--;
+      cadena = intercambiarLetras(letras,c,i);
+                  
+              }
+         
+      }
+
+      }else{
+        System.out.println(permutaciones.toString());
+      }
+      if(count==0 && permutaciones.size()==factorialRecursivo(cadena.length())){
+      System.out.println(permutaciones.toString());
+      count++;
+      }
+      }
+
+    
 
   static Lista<Integer> numerosPrimos;
   static Lista<Integer> combinaciones = new Lista<>();
@@ -283,7 +353,145 @@ public class Practica3 {
   }
 
   /**-------------------------------------------------------Problema 4-------------------------------------------------------*/
-  public static void N_Reinas(int N) {}
+    private static boolean validarPos(char[][] arr,int fila, int columna,int N){
+      if(arr[fila][columna]=='Q'){
+        return false;
+      }
+
+      for(int k=columna+1; k<N; k++){
+          // System.out.println("HELP");
+        if(arr[fila][k]=='Q'){
+      return false;
+      
+        }
+    }
+  
+        for( k=columna-1; 0<=k; k--){
+        if(arr[fila][k]=='Q'){
+          return false;
+        }
+        }
+  
+      for (k=fila-1; 0<=k; k--){
+        if(arr[k][columna]=='Q'){
+          return false;
+        }
+      }
+  
+    
+        for (k=fila+1; k<N; k++){
+        if(arr[k][columna]=='Q'){
+          return false;
+        }
+        
+        }
+            int columnaAux=columna;
+         for (k=fila-1; 0<=k; k--){
+        columnaAux--;
+        if(k==columnaAux || k == columnaAux-1  ||(k==columnaAux+1 && columnaAux>0)||((k-fila==columnaAux-columna)&&(k>=0&&columnaAux>=0))){
+        if(arr[k][columnaAux]=='Q'){
+          return false;
+        }
+        }
+      }
+         
+         columnaAux=columna;
+          for (k=fila+1; k<N; k++){
+        columnaAux++;
+        if(k==columnaAux || (k+1==columnaAux && columnaAux<N) |((k-fila==columnaAux-columna)&&(k>=0&&columnaAux<N))){
+        if(arr[k][columnaAux]=='Q'){
+      return false;
+        }
+        }
+        
+        
+        }
+  
+  
+  
+           columnaAux=columna;
+          for (k=fila-1; 0<=k; k--){
+        columnaAux++;
+            if(columnaAux<N){
+        if(arr[k][columnaAux]=='Q'){
+        return false;
+           }
+        }
+        }
+  
+  
+  
+  
+           columnaAux=columna;
+          for (k=fila+1; k<N; k++){
+        
+        columnaAux--;
+        if(columnaAux>=0){
+        if(arr[k][columnaAux]=='Q'){
+      return false;
+        }
+        
+        }
+        }
+  
+  
+       return true;
+      }
+
+    private static void imprimirTablero(char[][] arr){
+                for (int x=0; x < tablero.length; x++){
+                   for (int y=0; y < tablero[x].length; y++)  {
+               
+                    System.out.print("[");System.out.print (tablero[x][y]); System.out.print("] ");
+               
+                       }
+                      System.out.println();
+                     }
+                   }
+                   static char[][] tablero;
+            public static void colocarReinas(char[][] tab, int fila,int N){
+                if(fila<N){
+                  for(int i=0;i<N;i++){
+                    if(validarPos(tab, i, fila, N)){
+                      tab[i][fila]='Q';
+                      colocarReinas(tab, fila+1,N);
+                      tab[i][fila]='*';
+                    }
+                  }
+                }else{
+                //  if(count==0){
+                  for(int alpha=0; alpha<N; alpha++){
+                    for(int betha=0; betha<N; betha ++){
+
+                      if(tablero[alpha][betha]!='Q'){
+                        tablero[alpha][betha]='*';
+                      }
+                    }
+                  }
+                  System.out.println("SOLUCION");
+                  imprimirTablero(tab);
+                  System.out.println();
+                  //count++;
+                 /* }else{
+                    return;
+                  }*/
+                  //System.exit(0);
+                // tablero=tab;
+                 
+                }
+                //return tab;
+              }
+
+
+      static int count=0;
+     
+    public static void N_Reinas(int N){
+      //int[] reinasCol= new int[N];
+      tablero=new char[N][N];
+     colocarReinas(tablero,0,N);
+     
+     // imprimirTablero(tablero);
+    }
 
   /**-------------------------------------------------------Problema 5-------------------------------------------------------*/
   static void sqrtBinariSearch(int x) {
