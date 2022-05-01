@@ -558,13 +558,42 @@ public class Practica3 {
     }*/
     //pedirDatosBinariSearch();
     ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
-    for (int i = 0; i < 7; i++) {
+   /* for (int i = 0; i < 7; i++) {
       miArbol.add(i);
-    }
-    miArbol.add(-10);
-    miArbol.add(0);
+    }*/
+   // miArbol.add(-10);
+   // miArbol.add(0);
     System.out.println(miArbol);
     miArbol.pop();
     System.out.println(miArbol);
+
+    ArbolBinarioBusqueda<Integer> ab= miArbol;
+    ab.add(51);
+    ab.insert(ab.raiz, 43);
+    ab.insert(ab.raiz, 13);
+    ab.insert(ab.raiz, 23);
+    ab.insert(ab.raiz, 18);
+    ab.insert(ab.raiz, 21);
+    ab.insert(ab.raiz, 67);
+    ab.insert(ab.raiz, 1);
+    ab.insert(ab.raiz, 0);
+    ab.insert(ab.raiz, 9);
+    ab.insert(ab.raiz, -2);
+
+
+    ab.insert(ab.raiz, 134);
+    ab.insert(ab.raiz, -21);
+    ab.insert(ab.raiz, 8);
+    ab.insert(ab.raiz, 3);
+
+    ab.insert(ab.raiz, 89);
+    ab.insert(ab.raiz, 1203);
+    ab.insert(ab.raiz, 325);
+    ab.insert(ab.raiz, 3205);
+    System.out.println(miArbol);
+   // ab.insert(t);
+    System.out.println(ab.ptoString());
+    //System.out.println(miArbol);
   }
-}
+  }
+ 
