@@ -286,10 +286,18 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
 
   }
 
+  public ArbolBinarioBusqueda<T> buildSorted(Lista<T> lista) {
+    T elemento = lista.peek();
+    this.raiz = new Vertice(lista.peek());
+    return null;
+  }
+
   public ArbolBinarioBusqueda(Lista<T> lista, boolean isSorted) {
     if (isSorted) {
-      //buildSorted(lista);
+      
+      buildSorted(lista);
     } else {
+      System.out.println("Unsorted");
       buildUnsorted(lista);
     }
   }

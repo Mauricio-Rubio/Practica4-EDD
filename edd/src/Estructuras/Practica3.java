@@ -349,7 +349,7 @@ public class Practica3 {
       pedirDatosSumaPrimos();
     }*/
     //pedirDatosBinariSearch();
-    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
+    /*ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
     for (int i = 0; i < 7; i++) {
       miArbol.add(i);
     }
@@ -357,6 +357,15 @@ public class Practica3 {
     miArbol.add(0);
     System.out.println(miArbol);
     miArbol.pop();
+    System.out.println(miArbol);*/
+    Lista<Integer> miLista = new Lista<>();
+    miLista.add(5);
+    miLista.add(8);
+    miLista.add(10);
+    /*miLista.add(2);
+    miLista.add(6);
+    miLista.add(1);*/
+    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
     System.out.println(miArbol);
   }
 }
