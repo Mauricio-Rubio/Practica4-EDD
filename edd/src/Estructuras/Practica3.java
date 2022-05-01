@@ -254,7 +254,7 @@ public class Practica3 {
   }
 
   /**
-   * Metodo que pide al usuario N, P y S, todos numeros naturales, ademas de hacer la 
+   * Metodo que pide al usuario N, P y S, todos numeros naturales, ademas de hacer la
    * verificacion de que P sea un numero primo
    */
   private static void pedirDatosSumaPrimos() {
@@ -282,14 +282,45 @@ public class Practica3 {
     } while (!aux);
   }
 
-/**-------------------------------------------------------Problema 4-------------------------------------------------------*/
+  /**-------------------------------------------------------Problema 4-------------------------------------------------------*/
   public static void N_Reinas(int N) {}
 
+  /**-------------------------------------------------------Problema 5-------------------------------------------------------*/
+  static void sqrtBinariSearch(int x) {
+    double solucion = 0;
+    if (x == 1) {
+      solucion = 1;
+    } else if (x == 0) {
+      solucion = 0;
+    } else {}
+    System.out.println("Solucion: " + solucion);
+  }
+
+  static void pedirDatosBinariSearch() {
+    boolean aux = false;
+    do {
+      try {
+        sc = new Scanner(System.in);
+        System.out.println("Ingresa un numero");
+        int x = sc.nextInt();
+        if (x < 0) {
+          System.out.println("No existen raices negativas");
+          throw new Exception();
+        }
+        aux = true;
+        sqrtBinariSearch(x);
+      } catch (Exception e) {
+        System.out.println("Ingresa una opcion valida");
+      }
+    } while (!aux);
+  }
+
   public static void main(String[] args) {
-    if (args.length > 1) {
+    /*if (args.length > 1) {
       pedirDatosSuma(args);
     } else {
       pedirDatosSumaPrimos();
-    }
+    }*/
+    pedirDatosBinariSearch();
   }
 }
