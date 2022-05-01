@@ -300,6 +300,7 @@ public class Practica3 {
        * ¿Que intevalo debemos ocupar?
        * veamos que la raiz de cualquier numero (sin contar al 0 y al 1) es por lo menos mas grande a 1 por lo que 
        * el intervalo será (1 , ??]
+       * para este caso consideraremos el intervalo derecho como x, que es el radicando
        */
       while ((intervaloDer - intervaloIzq) > margen) {
         double mitad = (intervaloDer + intervaloIzq) / 2;
@@ -347,6 +348,15 @@ public class Practica3 {
     } else {
       pedirDatosSumaPrimos();
     }*/
-    pedirDatosBinariSearch();
+    //pedirDatosBinariSearch();
+    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
+    for (int i = 0; i < 7; i++) {
+      miArbol.add(i);
+    }
+    miArbol.add(-10);
+    miArbol.add(0);
+    System.out.println(miArbol);
+    miArbol.pop();
+    System.out.println(miArbol);
   }
 }
