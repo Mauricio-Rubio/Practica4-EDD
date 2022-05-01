@@ -147,6 +147,23 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     return verti;
   }
 
+  public boolean search(Vertice vertice, T elemento){    
+    if(vertice == null){
+      return false;
+    }
+    if(vertice.elemento == elemento){
+      return true;
+    }
+    if(vertice.get().compareTo(elemento) < 0){
+      return search(vertice.derecho, elemento);
+      
+    }
+    if(vertice.get().compareTo(elemento) > 0){
+      return search(vertice.izquierdo, elemento);
+    }
+    return false;
+  }
+
   public void insert(Vertice verti, T elemento) {
     if (verti.get().compareTo(elemento) > 0) {
       if (!verti.hayIzquierdo()) {
@@ -284,6 +301,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     //   System.out.println(ordenarLista(lista));
 
   }
+
+
 
   public void buildSorted(Lista<T> lista) {
     if (lista.size() == 0) {
