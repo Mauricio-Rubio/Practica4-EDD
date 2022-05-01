@@ -288,12 +288,39 @@ public class Practica3 {
   /**-------------------------------------------------------Problema 5-------------------------------------------------------*/
   static void sqrtBinariSearch(int x) {
     double solucion = 0;
+    double margen = 10E-5;
+    double intervaloIzq = 1;
+    double intervaloDer = x;
     if (x == 1) {
       solucion = 1;
     } else if (x == 0) {
       solucion = 0;
-    } else {}
+    } else {
+      /**
+       * ¿Que intevalo debemos ocupar?
+       * veamos que la raiz de cualquier numero (sin contar al 0 y al 1) es por lo menos mas grande a 1 por lo que 
+       * el intervalo será (1 , ??]
+       * para este caso consideraremos el intervalo derecho como x, que es el radicando
+       */
+      while ((intervaloDer - intervaloIzq) > margen) {
+        double mitad = (intervaloDer + intervaloIzq) / 2;
+        if(producto(mitad) < x){
+          intervaloIzq = mitad;
+        }else{
+          intervaloDer = mitad;
+        }
+      }
+      solucion = intervaloIzq;
+    }
     System.out.println("Solucion: " + solucion);
+  }
+
+  static double producto(double numero){
+    double aux = 1;
+    for (int i = 1; i <= 2; i++) {
+      aux = aux * numero;
+    }
+    return aux;
   }
 
   static void pedirDatosBinariSearch() {
@@ -321,6 +348,15 @@ public class Practica3 {
     } else {
       pedirDatosSumaPrimos();
     }*/
-    pedirDatosBinariSearch();
+    //pedirDatosBinariSearch();
+    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
+    for (int i = 0; i < 7; i++) {
+      miArbol.add(i);
+    }
+    miArbol.add(-10);
+    miArbol.add(0);
+    System.out.println(miArbol);
+    miArbol.pop();
+    System.out.println(miArbol);
   }
 }

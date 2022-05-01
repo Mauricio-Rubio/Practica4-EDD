@@ -38,6 +38,12 @@ public abstract class ArbolBinario<T> implements Collection<T> {
         }
 
         /**
+         * toString
+         */
+        @Override public String toString(){
+            return " "+this.elemento;
+        }
+        /**
          * Nos dice si el vértice tiene vértice padre.
          * @return <tt>true</tt> si el vértice tiene vértice padre, <tt>false</tt>
          *         en otro caso.
