@@ -43,8 +43,62 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
   }
 
   public boolean delete(T object) {
+    Vertice vertice = this.search(this.raiz, object);
+    if (vertice == null) {
+      System.out.println("No se ha encontrado");
+      return false;
+    }
+    if (vertice.izquierdo == null && vertice.derecho == null) {
+      System.out.println("No tiene hijos");
+      System.out.println("Vertice " + vertice);
+      //Vertice n = search(this.raiz, vertice.elemento);
+      System.out.println("Padre " + vertice.padre);
+      /*if(vertice.padre.get().compareTo(vertice.elemento) < 0){
+        vertice.padre.derecho = null;
+      }else {
+        vertice.padre.izquierdo = null;
+      }*/
+      //vertice = null;
+      /*if (vertice.get().compareTo(elemento) < 0) {
+        return search(vertice.derecho, elemento);
+      }*/
+      return true;
+    }
+    if (vertice.izquierdo == null || vertice.derecho != null) {
+      System.out.println("1 solo hijo derecho");
+      vertice = vertice.derecho;
+      return true;
+    }
+    if (vertice.izquierdo != null || vertice.derecho == null) {
+      System.out.println("1 solo hijo izquierdo");
+      vertice = vertice.izquierdo;
+      return true;
+    }
+
     return true;
   }
+
+
+  /*private void buscarEliminar(Vertice vertice, Vertice elementoEliminar) {
+    if (vertice == null) {
+      return;
+    }
+    if (vertice.equals(elementoEliminar)) {
+      System.out.println("Encontré el vértice");
+      vertice = null;
+      System.out.println("Vertice " + vertice);
+      return;
+    }
+    if (vertice.get().compareTo(elementoEliminar.elemento) < 0) {
+      buscarEliminar(vertice.derecho, elementoEliminar);
+      return;
+    }
+    if (vertice.get().compareTo(elementoEliminar.elemento) > 0) {
+      buscarEliminar(vertice.izquierdo, elementoEliminar);
+      return;
+    }
+    return;
+  }*/
 
   public T pop() {
     return null;
@@ -147,22 +201,39 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     return verti;
   }
 
-  public boolean search(Vertice vertice, T elemento){    
-    if(vertice == null){
-      return false;
+  public Vertice search(Vertice vertice, T elemento) {
+    if (vertice == null) {
+      return null;
     }
-    if(vertice.elemento == elemento){
-      return true;
+    if (vertice.elemento == elemento) {
+      System.out.println("Padre metodo search "+vertice.hayPadre());
+      return vertice;
     }
-    if(vertice.get().compareTo(elemento) < 0){
+    if (vertice.get().compareTo(elemento) < 0) {
       return search(vertice.derecho, elemento);
-      
     }
-    if(vertice.get().compareTo(elemento) > 0){
+    if (vertice.get().compareTo(elemento) > 0) {
       return search(vertice.izquierdo, elemento);
     }
-    return false;
+    return null;
   }
+
+  /* public Vertice search(T elemento) {
+    Vertice vertice = this.raiz;
+    if (vertice == null) {
+      return null;
+    }
+    if (vertice.elemento == elemento) {
+      return vertice;
+    }
+    if (vertice.get().compareTo(elemento) < 0) {
+      return search(elemento);
+    }
+    if (vertice.get().compareTo(elemento) > 0) {
+      return search(elemento);
+    }
+    return null;
+  }*/
 
   public void insert(Vertice verti, T elemento) {
     if (verti.get().compareTo(elemento) > 0) {
@@ -301,8 +372,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     //   System.out.println(ordenarLista(lista));
 
   }
-
-
 
   public void buildSorted(Lista<T> lista) {
     if (lista.size() == 0) {
