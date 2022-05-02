@@ -42,6 +42,25 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     }
   }
 
+  private boolean esHijoIzq = false;
+
+  public Vertice verticeReemplazo(Vertice vertice) {
+    Vertice reemplazarPadre = vertice;
+    Vertice reemplazo = vertice;
+    Vertice aux = vertice.derecho;
+    while (aux != null) {
+      reemplazarPadre = reemplazo;
+      reemplazo = aux;
+      aux = aux.izquierdo;
+    }
+    if(!reemplazo.equals(vertice.derecho)){
+      reemplazarPadre.izquierdo = reemplazo.derecho;
+      reemplazo.derecho = vertice.derecho; 
+    }
+    System.out.println("Vertice reemplazo "+reemplazo);
+    return reemplazo;
+  }
+
   public boolean delete(T object) {
     Vertice vertice = this.search(this.raiz, object);
     //System.out.println("Mi arbol \n"+miArbol);
@@ -54,35 +73,18 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     }
     if (vertice.izquierdo != null && vertice.derecho != null) {
       System.out.println("Tiene ambos hijos " + object);
-      Lista<T> lista = new Lista<>();
-      if (this.raiz.equals(vertice)) {
-        lista = inOrden(this.raiz, lista);
-        Lista<T> listaAux = lista;
-        System.out.println("Si son iguales");
-        listaAux.trim(lista.indexOf(this.raiz.elemento));
-        Vertice aux = this.search(this.raiz, lista.peek());
-        //aux.izquierdo = this.raiz.izquierdo;
-        aux.derecho = raiz.derecho;
-        System.out.println("Vertice aux derecho " + aux.derecho);
-
-        System.out.println("Vertice aux izquierdo " + aux.izquierdo);
-        /*aux.derecho = raiz.derecho;
-        aux.izquierdo = raiz.izquierdo;
-        this.raiz = aux;*/
+      Vertice aux = vertice;
+      Vertice padre = vertice.padre;
+      Vertice reemplazo = verticeReemplazo(aux);
+      if (aux.equals(this.raiz)) {
+        this.raiz = reemplazo;
+      } else if (esHijoIzq) {
+        padre.izquierdo = reemplazo;
+      } else {
+        padre.derecho = reemplazo;
       }
-      //System.out.println("Lista " + lista);
-      //System.out.println("Contains " + this.raiz.elemento + lista.contains(this.raiz.elemento));
-      //lista.trim(lista.indexOf(this.raiz.elemento));
-      //Vertice aux = this.search(this.raiz, lista.peek());
-      //new Vertice(lista.peek());
-      //System.out.println("Vertice aux " + aux);
-      //aux.izquierdo = this.raiz.izquierdo;
-      //System.out.println("Vertice aux derecho " + aux.derecho);
-      //System.out.println("Vertice aux izquierdo " + aux.izquierdo);
-      //lista.trim(0);
-      //System.out.println("Lista "+lista);
-      //lista.pop();
-      //System.out.println("Minimo subArbol izquierdo es "+lista.peekInverse());
+      reemplazo.izquierdo = aux.izquierdo;
+      System.out.println("Es hijo izq " + esHijoIzq);
       return true;
     }
     if (vertice.izquierdo == null && vertice.derecho == null) {
@@ -241,6 +243,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
       return search(vertice.derecho, elemento);
     }
     if (vertice.get().compareTo(elemento) > 0) {
+      esHijoIzq = true;
       return search(vertice.izquierdo, elemento);
     }
     return null;

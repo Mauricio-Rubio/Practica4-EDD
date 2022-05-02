@@ -685,13 +685,17 @@ public class Practica3 {
 
     //pedirDatosBinariSearch();
     Lista <Integer> miLista = new Lista<>();
-    /*for (int i = 3; i <= 20; i+=2) {
+    for (int i = 3; i <= 20; i+=2) {
       miLista.add(i);
-    }*/
+    }
     miLista.add(10);
     ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
     miArbol.insert(miArbol.raiz, 6);
     miArbol.insert(miArbol.raiz, 11);
+    miArbol.insert(miArbol.raiz, 7);
+    miArbol.insert(miArbol.raiz, 5);
+    miArbol.insert(miArbol.raiz, 14);
+    miArbol.insert(miArbol.raiz, 12);
     //System.out.println("Mi arbol \n"+miArbol);
     /*miArbol.insert(miArbol.raiz, 2);
     miArbol.insert(miArbol.raiz, 6);
@@ -705,8 +709,8 @@ public class Practica3 {
     System.out.println("Raiz ->"+miArbol.raiz);
     System.out.println("Izquierdo ->"+miArbol.raiz.izquierdo());
     System.out.println("Derecho ->"+miArbol.raiz.derecho());*/
-    System.out.println(miArbol.delete(6));
-    System.out.println(miArbol.delete(11));
+    //System.out.println(miArbol.delete(10));
+    System.out.println(miArbol.delete(5));
     System.out.println("Mi arbol \n"+miArbol);
     //System.out.println("Mi arbol \n"+miArbol);
     //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
