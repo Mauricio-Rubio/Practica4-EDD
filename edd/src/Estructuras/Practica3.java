@@ -1,5 +1,5 @@
 package edd.src.Estructuras;
-
+import java.util.InputMismatchException;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -617,6 +617,59 @@ public class Practica3 {
   }
 
   public static void main(String[] args) {
+    Scanner escaner = new Scanner(System.in);
+    
+    
+    //valido = false;
+    String cadena = "";
+    boolean valido = true;
+    do {
+     valido=true;
+      System.out.println("Ingresa la cadena para obtener las permutaciones");
+      try {
+        cadena = escaner.nextLine();
+        if (cadena=="") {
+          System.out.println("Eso no sirve, intenta de nuevo");
+          throw new InputMismatchException();
+        } 
+      } catch (InputMismatchException et) {
+        valido = false;
+        //escaner.next();
+      }
+    } while (valido == false);
+    permutacionesCadena(cadena);
+    //ESPACIO PROBLEMA 3//
+    int n=3;
+    do {
+      valido=true;
+       System.out.println("Ingresa el numero de reinas para el problema de las N_REINAS");
+       try {
+          n= escaner.nextInt();
+         if(n<=3){
+          System.out.println("Necesitamos mas reinas");
+          valido=false;
+         }
+       } catch (InputMismatchException et) {
+         valido = false;
+         System.out.println("Eso no sirve, intenta de nuevo");
+         escaner.next();
+       }
+     } while (valido == false);
+     N_Reinas(n);
+
+
+Lista<Integer> listu = new Lista<Integer>();
+     for (int i = 0; i < 7; i++) {
+      listu.add(i);
+    }
+
+    for (int i = 27; i < 35; i++) {
+      listu.add(i);
+    }
+    for (int i = -7; i < 0; i++) {
+      listu.add(i);
+    }
+
     /*if (args.length > 1) {
       pedirDatosSuma(args);
     } else {
@@ -624,20 +677,46 @@ public class Practica3 {
     }*/
 
     //pedirDatoinariSearch();
-    Lista<Integer>  listu= new Lista<Integer>();
-    /*for (int i = -7; i < 0; i++) {
+   /* Lista<Integer>  listu= new Lista<Integer>();
+    for (int i = 0; i < 7; i++) {
       listu.add(i);
     }
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = -7; i < 0; i++) {
       listu.add(i);
-    }*/
+    }
+
+    
     ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
+    //System.out.println(miArbol);
    // ArbolBinario arbolix = ArbolBinario(listu);
     
    
     //System.out.println(arbolix);
-    //System.out.println(miArbol.modBFS(arbolix).toString());
+    ArbolBinarioBusqueda<Integer> ab= new ArbolBinarioBusqueda<Integer>();
+    ab.add(35);
+    miArbol.add(100);
+    ab.add(0);
+    ab.add(-9);
+    ab.add(23);
+    ab.add(1);
+    ab.add(12);
+    ab.add(356);
+    ab.add(98);
+    ab.add(120);
+    
+
+    /*ab.insert(ab.raiz, 43);
+    ab.insert(ab.raiz, 13);
+    ab.insert(ab.raiz, 23);
+    ab.insert(ab.raiz, 18);
+    ab.insert(ab.raiz, 21);
+    ab.insert(ab.raiz, 67);*/
+    //System.out.println(miArbol.modBFS(ab).toString());
+   ////System.out.println(ab.toString());
+//System.out.println(ab.ptoString());
+   //System.out.println(miArbol.convertBST(ab).toString());
+   // System.out.println(ab.toString());
    
    // miArbol.add(-10);
    // miArbol.add(0);
@@ -645,14 +724,9 @@ public class Practica3 {
     /*miArbol.pop();
     System.out.println(miArbol);
 
-    ArbolBinarioBusqueda<Integer> ab= miArbol;
+   
     ab.add(51);
-    ab.insert(ab.raiz, 43);
-    ab.insert(ab.raiz, 13);
-    ab.insert(ab.raiz, 23);
-    ab.insert(ab.raiz, 18);
-    ab.insert(ab.raiz, 21);
-    ab.insert(ab.raiz, 67);
+    
     ab.insert(ab.raiz, 1);
     ab.insert(ab.raiz, 0);
     ab.insert(ab.raiz, 9);
@@ -672,14 +746,14 @@ public class Practica3 {
     ab.insert(ab.raiz, 3);
 
     a
-    //System.out.println(miArbol);
+   
    // ab.insert(t);
     
     //System.out.println(miArbol);
 
     */
     //N_Reinas(10);
-    permutacionesCadena("abcd");
+    //permutacionesCadena("abcd");
 
   }
 
