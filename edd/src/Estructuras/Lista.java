@@ -731,4 +731,12 @@ public class Lista<T> implements Collection<T> {
     }
     return resultado;
   }
+  
+  
+  
+  
+  
+  
+  
+  
 }

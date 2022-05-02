@@ -134,22 +134,26 @@ public class Practica3 {
       }
     }
       
-    //Variables estaticas para no perderse al hacer recursion 
-      static int k=0,c=0;
-      //Lista estatica para guardar las permutaciones
-     static  Lista<String> permutaciones = new Lista<String>();
+    
+      
   
      /**
       * Metodo que sirve para intercamiar de posicion dos elmentos (en este caso letras) de un arreglo
-      *
+      *@author Alcantara Estrada Kevin
+      *@author Rubio Haro Mauricio
+      *@param arreglo Arreglo con los elementos
+      *@param indice1 Indice del primer elemento a cambiar
+      *@param indice2 Indice del segundo elemento a intercambiar
+      *@return String
       */
       private static String intercambiarLetras(char[] arreglo, int indice1, int indice2){
     String cadenaAux="";
+    //Se realiza el cambio
           char temporal = arreglo[indice1];
           arreglo[indice1] = arreglo[indice2];
           arreglo[indice2] = temporal;
     
-  
+        //Se reagrupa la cadena
        for(int betha=0; betha<arreglo.length; betha++){
             cadenaAux+=arreglo[betha];
         
@@ -158,36 +162,43 @@ public class Practica3 {
         return cadenaAux;
       }
   
-      static int count=0;
+      //Varibales estaticas para no morir en recursion
+      static int count=0,k=0,c=0;
+
+      //Lista estatica para guardar las permutaciones
+     static  Lista<String> permutaciones = new Lista<String>();
       public static void permutacionesCadena(String cadena){
+        //Creamos el arreglo que usaremos para manipular las letras
       char[] letras = new char[cadena.length()];
+      //Asignamos a la variable este valor para no pasarnos de con el numero de letras
     k=cadena.length()-1;
-    //if(combinaciones.size()!=factorialRecursivo(cadena.length())){
-      //count=combinaciones.size();
+    //Frenamos si ya completamos el numero de permutaciones
       if(permutaciones.size()<=factorialRecursivo(cadena.length())){
-        //System.out.println(combinaciones.toString());
-    // }else{
+        //Transportamos la cadena de Strings a el arreglo letras caracter por caracter
       for(int gamma=0; gamma<cadena.length(); gamma++){
         letras[gamma]=cadena.charAt(gamma);
     }
-    //	ite.start();
+   
+    //Si la letra esta en una posicion que no hemos probado y permutacion aun no esta en la lista, la agregamos
+   
     if(c==k){
          if(!permutaciones.contains(cadena)){
           permutaciones.add(cadena);
-          //count++;
+         
             }
     }else{
-        // String  cadenaAux="";
+        //Buscamos ubicar nuestra letra en una posicion que no haya sido probada
               for (int i = c; i <=k; i++){
-                
+        //Intercambiamos las letras de posicion        
       cadena = intercambiarLetras(letras,c,i);
+   //Aumentamos el valor de c
       c++;
-      /*	if(c>=cadena.length()){
-             c =0;
-             }*/
-      
+     
+      //Llamamos a la recursion
                   permutacionesCadena(cadena);
+      //Si ya llegamos a una combinacion valida, salimos de la recursion y bajamos el valor c
       c--;
+      //Intercambiamos letras de la cadena para proar nuevas combinaciones
       cadena = intercambiarLetras(letras,c,i);
                   
               }
@@ -195,8 +206,9 @@ public class Practica3 {
       }
 
       }else{
-        System.out.println(permutaciones.toString());
+        //System.out.println(permutaciones.toString());
       }
+      //Si ya encontramos las permutaciones las imprimimos a manera de lista
       if(count==0 && permutaciones.size()==factorialRecursivo(cadena.length())){
       System.out.println(permutaciones.toString());
       count++;
@@ -664,11 +676,15 @@ public class Practica3 {
    // ab.insert(t);
     
     //System.out.println(miArbol);
+
     */
+    //N_Reinas(10);
+    permutacionesCadena("abcd");
+
   }
 
     //pedirDatosBinariSearch();
-    Lista <Integer> miLista = new Lista<>();
+    /*Lista <Integer> miLista = new Lista<>();
     for (int i = 3; i <= 20; i+=2) {
       miLista.add(i);
     }
@@ -681,7 +697,7 @@ public class Practica3 {
     System.out.println(miArbol.search(miArbol.raiz, 19));
     //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
     //miArbol.add(-10);
-    //miArbol.add(0);
-
+    //miArbol.add(0);*/
+    
   }
  

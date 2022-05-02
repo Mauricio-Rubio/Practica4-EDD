@@ -159,61 +159,9 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     return false;
   }
 
-  public void insert(Vertice verti, T elemento) {
-    if (verti.get().compareTo(elemento) > 0) {
-      if (!verti.hayIzquierdo()) {
-        Vertice nuevo = nuevoVertice(elemento);
-        verti.izquierdo = nuevo;
-      } else {
-        insert(verti.izquierdo, elemento);
-      }
-    }
+ 
 
-    if (verti.get().compareTo(elemento) < 0) {
-      if (!verti.hayDerecho()) {
-        Vertice nuevo = nuevoVertice(elemento);
-        verti.derecho = nuevo;
-      } else {
-        insert(verti.derecho, elemento);
-      }
-    }
-  }
-
-  /*public void insert(T elemento) {
-    Vertice verti = this.BFS();
-
-    if (verti.get().compareTo(elemento) > 0) {
-      if (!verti.hayIzquierdo()) {
-        Vertice anadido = nuevoVertice(elemento);
-        verti.izquierdo = anadido;
-      } else {
-        //verti=this.ultimoIzquierdo(verti);
-        while (verti.hayIzquierdo()) {
-          verti = verti.izquierdo;
-          if (verti.get().compareTo(elemento) < 0 && !verti.hayDerecho()) {
-            Vertice anadido = nuevoVertice(elemento);
-            verti.derecho = anadido;
-            return;
-          }
-        }
-        if (verti.get().compareTo(elemento) > 0) {
-          Vertice anadido = nuevoVertice(elemento);
-          Vertice anadidoAux = verti.derecho;
-          verti.izquierdo = anadido;
-          verti.derecho = anadidoAux;
-        } else {
-          Vertice anadido = nuevoVertice(elemento);
-          verti.derecho = anadido;
-        }
-      }
-    } else {
-      while (verti.hayDerecho()) {
-        verti = verti.derecho;
-      }
-      Vertice anadido = nuevoVertice(elemento);
-      verti.derecho = anadido;
-    }
-  }*/
+ 
 
   private void ordenarLista(Lista<T> lista, int inicio, int ultimo) {
     Lista<T> listaNueva = new Lista<T>();
@@ -268,11 +216,15 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
 
     //return lista;
   }
+  
 
-
+/**
+ * 
+ * 
+ */
   public void buildUnsorted(Lista<T> lista) {
     ArbolBinarioBusqueda<T> arbolinio = new ArbolBinarioBusqueda<T>();
-    if(lista.isEmpty){
+    if(lista.isEmpty()){
       System.out.println("No puedo proceder con una lista vacia");
       return;
     }
@@ -282,27 +234,21 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     arbolinio.add(elem);
     lista.delete(elem);
     buildSorted(lista);
-      /* elementoAgreg= lista.elemIndice(p);
-    arbolinio.add(elementoAgreg);
-    lista.delete(elementoAgreg);
-
-    elementoAgreg= lista.elemIndice(p);
-    arbolinio.add(elementoAgreg);
-    lista.delete(elementoAgreg);*/
-
+     
     }
-   // return arbolinio;
-    // Iterator<T> ite = new lista.iterator();
-    //   System.out.println(ordenarLista(lista));
+   
 
-  }
+  
+
 
   
   /**
-   * 
-   * @param verti
-   * @param elemento
+   * Metodo para insertar un elemento en el arbol
+   * @author Alcantara Estrada Kevin Isaac
+   * @param verti Vertice donde se comienza a ver si se puede insertar
+   * @param elemento Elemento a insertar
    */
+
   public void insert(Vertice verti, T elemento){
         if(verti.get().compareTo(elemento)>0){
             if(!verti.hayIzquierdo()){
@@ -323,6 +269,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
                 insert(verti.derecho,elemento);
             }
         }
+
+      }
 
 
   public void buildSorted(Lista<T> lista) {
