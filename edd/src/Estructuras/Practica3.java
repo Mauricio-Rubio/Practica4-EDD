@@ -124,98 +124,95 @@ public class Practica3 {
    * @param numero Numero del cual se quiere el factorial
    * @return int
    */
-    private static int factorialRecursivo(int numero) {
-      //Caso base
-      if (numero <= 1){
-        return 1;
-        //caso recursivo
-      }else{
+  private static int factorialRecursivo(int numero) {
+    //Caso base
+    if (numero <= 1) {
+      return 1;
+      //caso recursivo
+    } else {
       return numero * factorialRecursivo(numero - 1);
-      }
     }
-      
-    
-      
-  
-     /**
-      * Metodo que sirve para intercamiar de posicion dos elmentos (en este caso letras) de un arreglo
-      *@author Alcantara Estrada Kevin
-      *@author Rubio Haro Mauricio
-      *@param arreglo Arreglo con los elementos
-      *@param indice1 Indice del primer elemento a cambiar
-      *@param indice2 Indice del segundo elemento a intercambiar
-      *@return String
-      */
-      private static String intercambiarLetras(char[] arreglo, int indice1, int indice2){
-    String cadenaAux="";
+  }
+
+  /**
+   * Metodo que sirve para intercamiar de posicion dos elmentos (en este caso letras) de un arreglo
+   *@author Alcantara Estrada Kevin
+   *@author Rubio Haro Mauricio
+   *@param arreglo Arreglo con los elementos
+   *@param indice1 Indice del primer elemento a cambiar
+   *@param indice2 Indice del segundo elemento a intercambiar
+   *@return String
+   */
+  private static String intercambiarLetras(
+    char[] arreglo,
+    int indice1,
+    int indice2
+  ) {
+    String cadenaAux = "";
     //Se realiza el cambio
-          char temporal = arreglo[indice1];
-          arreglo[indice1] = arreglo[indice2];
-          arreglo[indice2] = temporal;
-    
-        //Se reagrupa la cadena
-       for(int betha=0; betha<arreglo.length; betha++){
-            cadenaAux+=arreglo[betha];
-        
-    }
-  
-        return cadenaAux;
-      }
-  
-      //Varibales estaticas para no morir en recursion
-      static int count=0,k=0,c=0;
+    char temporal = arreglo[indice1];
+    arreglo[indice1] = arreglo[indice2];
+    arreglo[indice2] = temporal;
 
-      //Lista estatica para guardar las permutaciones
-     static  Lista<String> permutaciones = new Lista<String>();
-      public static void permutacionesCadena(String cadena){
-        //Creamos el arreglo que usaremos para manipular las letras
-      char[] letras = new char[cadena.length()];
-      //Asignamos a la variable este valor para no pasarnos de con el numero de letras
-    k=cadena.length()-1;
+    //Se reagrupa la cadena
+    for (int betha = 0; betha < arreglo.length; betha++) {
+      cadenaAux += arreglo[betha];
+    }
+
+    return cadenaAux;
+  }
+
+  //Varibales estaticas para no morir en recursion
+  static int count = 0, k = 0, c = 0;
+
+  //Lista estatica para guardar las permutaciones
+  static Lista<String> permutaciones = new Lista<String>();
+
+  public static void permutacionesCadena(String cadena) {
+    //Creamos el arreglo que usaremos para manipular las letras
+    char[] letras = new char[cadena.length()];
+    //Asignamos a la variable este valor para no pasarnos de con el numero de letras
+    k = cadena.length() - 1;
     //Frenamos si ya completamos el numero de permutaciones
-      if(permutaciones.size()<=factorialRecursivo(cadena.length())){
-        //Transportamos la cadena de Strings a el arreglo letras caracter por caracter
-      for(int gamma=0; gamma<cadena.length(); gamma++){
-        letras[gamma]=cadena.charAt(gamma);
-    }
-   
-    //Si la letra esta en una posicion que no hemos probado y permutacion aun no esta en la lista, la agregamos
-   
-    if(c==k){
-         if(!permutaciones.contains(cadena)){
-          permutaciones.add(cadena);
-         
-            }
-    }else{
-        //Buscamos ubicar nuestra letra en una posicion que no haya sido probada
-              for (int i = c; i <=k; i++){
-        //Intercambiamos las letras de posicion        
-      cadena = intercambiarLetras(letras,c,i);
-   //Aumentamos el valor de c
-      c++;
-     
-      //Llamamos a la recursion
-                  permutacionesCadena(cadena);
-      //Si ya llegamos a una combinacion valida, salimos de la recursion y bajamos el valor c
-      c--;
-      //Intercambiamos letras de la cadena para proar nuevas combinaciones
-      cadena = intercambiarLetras(letras,c,i);
-                  
-              }
-         
+    if (permutaciones.size() <= factorialRecursivo(cadena.length())) {
+      //Transportamos la cadena de Strings a el arreglo letras caracter por caracter
+      for (int gamma = 0; gamma < cadena.length(); gamma++) {
+        letras[gamma] = cadena.charAt(gamma);
       }
 
-      }else{
-        //System.out.println(permutaciones.toString());
+      //Si la letra esta en una posicion que no hemos probado y permutacion aun no esta en la lista, la agregamos
+
+      if (c == k) {
+        if (!permutaciones.contains(cadena)) {
+          permutaciones.add(cadena);
+        }
+      } else {
+        //Buscamos ubicar nuestra letra en una posicion que no haya sido probada
+        for (int i = c; i <= k; i++) {
+          //Intercambiamos las letras de posicion
+          cadena = intercambiarLetras(letras, c, i);
+          //Aumentamos el valor de c
+          c++;
+
+          //Llamamos a la recursion
+          permutacionesCadena(cadena);
+          //Si ya llegamos a una combinacion valida, salimos de la recursion y bajamos el valor c
+          c--;
+          //Intercambiamos letras de la cadena para proar nuevas combinaciones
+          cadena = intercambiarLetras(letras, c, i);
+        }
       }
-      //Si ya encontramos las permutaciones las imprimimos a manera de lista
-      if(count==0 && permutaciones.size()==factorialRecursivo(cadena.length())){
+    } else {
+      //System.out.println(permutaciones.toString());
+    }
+    //Si ya encontramos las permutaciones las imprimimos a manera de lista
+    if (
+      count == 0 && permutaciones.size() == factorialRecursivo(cadena.length())
+    ) {
       System.out.println(permutaciones.toString());
       count++;
-      }
-      }
-
-    
+    }
+  }
 
   static Lista<Integer> numerosPrimos;
   static Lista<Integer> combinaciones = new Lista<>();
@@ -381,183 +378,183 @@ public class Practica3 {
   }
 
   //-------------------------------------------------------Problema 4-------------------------------------------------------*/
-  /** 
-   * 
-  *Metodo que verifica si el lugar en donde se quiere colocar la reina es valido o no
+  /**
+   *
+   *Metodo que verifica si el lugar en donde se quiere colocar la reina es valido o no
    *segun las reinas ya colocadas y su respectivo alcance
    *@author Alcantara Estrada Kevin
    *@author Rubio Haro Mauricio
-  *@param arr  Arreglo bidimensional que representa el tablero
-  *@param fila Representa la fila en donde se quiere colocar la reina
-  *@param columna Representa la columa en donde se quiere colocar la reina
-  *@param N es el numero de reinas
-  *@return boolean
+   *@param arr  Arreglo bidimensional que representa el tablero
+   *@param fila Representa la fila en donde se quiere colocar la reina
+   *@param columna Representa la columa en donde se quiere colocar la reina
+   *@param N es el numero de reinas
+   *@return boolean
    */
-  
-  private static boolean validarPos(char[][] arr,int fila, int columna,int N){
+
+  private static boolean validarPos(
+    char[][] arr,
+    int fila,
+    int columna,
+    int N
+  ) {
     //Revisamos que no hay reinas donde deseamos colocar la reina
-      if(arr[fila][columna]=='Q'){
+    if (arr[fila][columna] == 'Q') {
+      return false;
+    }
+
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma fila hacia la derecha
+    for (int k = columna + 1; k < N; k++) {
+      if (arr[fila][k] == 'Q') {
         return false;
       }
-
-      //Revisamos que la reina no esté al alcance de otra reina por estar en la misma fila hacia la derecha
-      for(int k=columna+1; k<N; k++){
-        if(arr[fila][k]=='Q'){
-      return false;
-      
-        }
     }
-  //Revisamos que la reina no esté al alcance de otra reina por estar en la misma fila hacia la izquierda
-        for( k=columna-1; 0<=k; k--){
-        if(arr[fila][k]=='Q'){
-          return false;
-        }
-        }
-  //Revisamos que la reina no esté al alcance de otra reina por estar en la misma columna hacia arriba
-      for (k=fila-1; 0<=k; k--){
-        if(arr[k][columna]=='Q'){
-          return false;
-        }
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma fila hacia la izquierda
+    for (k = columna - 1; 0 <= k; k--) {
+      if (arr[fila][k] == 'Q') {
+        return false;
       }
-  
+    }
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma columna hacia arriba
+    for (k = fila - 1; 0 <= k; k--) {
+      if (arr[k][columna] == 'Q') {
+        return false;
+      }
+    }
+
     //Revisamos que la reina no esté al alcance de otra reina por estar en la misma columna hacia abajo
-        for (k=fila+1; k<N; k++){
-        if(arr[k][columna]=='Q'){
-          return false;
-        }
-        
-        }
-
-        //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia arriba a la izquierda
-            int columnaAux=columna;
-         for (k=fila-1; 0<=k; k--){
-        columnaAux--;
-        if(k==columnaAux || k == columnaAux-1  ||(k==columnaAux+1 && columnaAux>0)||((k-fila==columnaAux-columna)&&(k>=0&&columnaAux>=0))){
-        if(arr[k][columnaAux]=='Q'){
-          return false;
-        }
-        }
-      }
-         
-         columnaAux=columna;
-          //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia abajo a la derecha
-          for (k=fila+1; k<N; k++){
-        columnaAux++;
-        if(k==columnaAux || (k+1==columnaAux && columnaAux<N) |((k-fila==columnaAux-columna)&&(k>=0&&columnaAux<N))){
-        if(arr[k][columnaAux]=='Q'){
-      return false;
-        }
-        }
-        
-        
-        }
-  
-  
-  
-           columnaAux=columna;
-            //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia arriba a la derecha
-          for (k=fila-1; 0<=k; k--){
-        columnaAux++;
-            if(columnaAux<N){
-        if(arr[k][columnaAux]=='Q'){
+    for (k = fila + 1; k < N; k++) {
+      if (arr[k][columna] == 'Q') {
         return false;
-           }
-        }
-        }
-  
-  
-  
-   //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia abajo a la izquierda
-           columnaAux=columna;
-          for (k=fila+1; k<N; k++){
-        
-        columnaAux--;
-        if(columnaAux>=0){
-        if(arr[k][columnaAux]=='Q'){
-      return false;
-        }
-        
-        }
-        }
-  
-  
-       return true;
       }
-
-      /**
-       * Metodo que imprime en consola el tablero
-       * @author Alcantara Estrada Kevin
-       * @author Rubio Haro Mauricio
-       * @param arr Tablero a pintar
-       */
-    private static void imprimirTablero(char[][] arr){
-                for (int x=0; x < tablero.length; x++){
-                   for (int y=0; y < tablero[x].length; y++)  {
-               
-                    System.out.print("[");System.out.print (tablero[x][y]); System.out.print("] ");
-               
-                       }
-                      System.out.println();
-                     }
-                   }
-
-                   //Tablero estatico para que no se reinicio durante la recursion
-                   static char[][] tablero;
-                   /**
-                    * Metodo para colocar las reinas en el tablero hasta encontrar una solucion
-                    * @author Alcantara Kevin Isaac
-                    * @author Rubio Haro Mauricio
-                    * @param tab Tablero a colocar la reinas
-                    *@param fila Fila donde se va colocando la reina
-                    * @param N numero de reinas
-                    */
-            public static void colocarReinas(char[][] tab, int fila,int N){
-               //Condicion de freno por si ya recorrimos todo el tablero d izquierda a derecha
-              if(fila<N){
-                //Recorremos el tablero de arriba hacia abajo de izquierda a derecha
-                  for(int i=0;i<N;i++){
-                    //Verificamos que se pueda colocar la reina
-                    if(validarPos(tab, i, fila, N)){
-                      //La colocamos
-                      tab[i][fila]='Q';
-                      //Llamamos a recursion
-                      colocarReinas(tab, fila+1,N);
-                      //Si hemos colocado todas las reinas en posibles sitios 
-                      //y no hay una en cada fila, realizamos el backtracking al cambiar la reina anterior de posicion
-                      tab[i][fila]='*';
-                    }
-                  }
-                }else{
-                  //Rellenar el tablero con * por diseño
-                  for(int alpha=0; alpha<N; alpha++){
-                    for(int betha=0; betha<N; betha ++){
-
-                      if(tablero[alpha][betha]!='Q'){
-                        tablero[alpha][betha]='*';
-                      }
-                    }
-                  }
-                  System.out.println("SOLUCION");
-                  //Imprimimos la solucion(es) encontrada(s)
-                  imprimirTablero(tab);
-                  System.out.println();
-                }
-              }
-
-
-     
-     /**
-    * Metodo para encontrar las soluciones al problema de las N Damas o N Reinas usando backtracking
-    * @author Alcantara Kevin Isaac
-    * @author Rubio Haro Mauricio
-    * @param N numero de reinas
-    */
-    public static void N_Reinas(int N){
-      //Le damos tamaño al tablero
-      tablero=new char[N][N];
-     colocarReinas(tablero,0,N);
-     
     }
+
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia arriba a la izquierda
+    int columnaAux = columna;
+    for (k = fila - 1; 0 <= k; k--) {
+      columnaAux--;
+      if (
+        k == columnaAux ||
+        k == columnaAux - 1 ||
+        (k == columnaAux + 1 && columnaAux > 0) ||
+        ((k - fila == columnaAux - columna) && (k >= 0 && columnaAux >= 0))
+      ) {
+        if (arr[k][columnaAux] == 'Q') {
+          return false;
+        }
+      }
+    }
+
+    columnaAux = columna;
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia abajo a la derecha
+    for (k = fila + 1; k < N; k++) {
+      columnaAux++;
+      if (
+        k == columnaAux ||
+        (k + 1 == columnaAux && columnaAux < N) |
+        ((k - fila == columnaAux - columna) && (k >= 0 && columnaAux < N))
+      ) {
+        if (arr[k][columnaAux] == 'Q') {
+          return false;
+        }
+      }
+    }
+
+    columnaAux = columna;
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia arriba a la derecha
+    for (k = fila - 1; 0 <= k; k--) {
+      columnaAux++;
+      if (columnaAux < N) {
+        if (arr[k][columnaAux] == 'Q') {
+          return false;
+        }
+      }
+    }
+
+    //Revisamos que la reina no esté al alcance de otra reina por estar en la misma diagonal hacia abajo a la izquierda
+    columnaAux = columna;
+    for (k = fila + 1; k < N; k++) {
+      columnaAux--;
+      if (columnaAux >= 0) {
+        if (arr[k][columnaAux] == 'Q') {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Metodo que imprime en consola el tablero
+   * @author Alcantara Estrada Kevin
+   * @author Rubio Haro Mauricio
+   * @param arr Tablero a pintar
+   */
+  private static void imprimirTablero(char[][] arr) {
+    for (int x = 0; x < tablero.length; x++) {
+      for (int y = 0; y < tablero[x].length; y++) {
+        System.out.print("[");
+        System.out.print(tablero[x][y]);
+        System.out.print("] ");
+      }
+      System.out.println();
+    }
+  }
+
+  //Tablero estatico para que no se reinicio durante la recursion
+  static char[][] tablero;
+
+  /**
+   * Metodo para colocar las reinas en el tablero hasta encontrar una solucion
+   * @author Alcantara Kevin Isaac
+   * @author Rubio Haro Mauricio
+   * @param tab Tablero a colocar la reinas
+   *@param fila Fila donde se va colocando la reina
+   * @param N numero de reinas
+   */
+  public static void colocarReinas(char[][] tab, int fila, int N) {
+    //Condicion de freno por si ya recorrimos todo el tablero d izquierda a derecha
+    if (fila < N) {
+      //Recorremos el tablero de arriba hacia abajo de izquierda a derecha
+      for (int i = 0; i < N; i++) {
+        //Verificamos que se pueda colocar la reina
+        if (validarPos(tab, i, fila, N)) {
+          //La colocamos
+          tab[i][fila] = 'Q';
+          //Llamamos a recursion
+          colocarReinas(tab, fila + 1, N);
+          //Si hemos colocado todas las reinas en posibles sitios
+          //y no hay una en cada fila, realizamos el backtracking al cambiar la reina anterior de posicion
+          tab[i][fila] = '*';
+        }
+      }
+    } else {
+      //Rellenar el tablero con * por diseño
+      for (int alpha = 0; alpha < N; alpha++) {
+        for (int betha = 0; betha < N; betha++) {
+          if (tablero[alpha][betha] != 'Q') {
+            tablero[alpha][betha] = '*';
+          }
+        }
+      }
+      System.out.println("SOLUCION");
+      //Imprimimos la solucion(es) encontrada(s)
+      imprimirTablero(tab);
+      System.out.println();
+    }
+  }
+
+  /**
+   * Metodo para encontrar las soluciones al problema de las N Damas o N Reinas usando backtracking
+   * @author Alcantara Kevin Isaac
+   * @author Rubio Haro Mauricio
+   * @param N numero de reinas
+   */
+  public static void N_Reinas(int N) {
+    //Le damos tamaño al tablero
+    tablero = new char[N][N];
+    colocarReinas(tablero, 0, N);
+  }
 
   /**-------------------------------------------------------Problema 5-------------------------------------------------------*/
   static void sqrtBinariSearch(int x) {
@@ -572,15 +569,15 @@ public class Practica3 {
     } else {
       /**
        * ¿Que intevalo debemos ocupar?
-       * veamos que la raiz de cualquier numero (sin contar al 0 y al 1) es por lo menos mas grande a 1 por lo que 
+       * veamos que la raiz de cualquier numero (sin contar al 0 y al 1) es por lo menos mas grande a 1 por lo que
        * el intervalo será (1 , ??]
        * para este caso consideraremos el intervalo derecho como x, que es el radicando
        */
       while ((intervaloDer - intervaloIzq) > margen) {
         double mitad = (intervaloDer + intervaloIzq) / 2;
-        if(producto(mitad) < x){
+        if (producto(mitad) < x) {
           intervaloIzq = mitad;
-        }else{
+        } else {
           intervaloDer = mitad;
         }
       }
@@ -589,7 +586,7 @@ public class Practica3 {
     System.out.println("Solucion: " + solucion);
   }
 
-  static double producto(double numero){
+  static double producto(double numero) {
     double aux = 1;
     for (int i = 1; i <= 2; i++) {
       aux = aux * numero;
@@ -624,7 +621,7 @@ public class Practica3 {
     }*/
 
     //pedirDatoinariSearch();
-    Lista<Integer>  listu= new Lista<Integer>();
+    Lista<Integer> listu = new Lista<Integer>();
     /*for (int i = -7; i < 0; i++) {
       listu.add(i);
     }
@@ -633,15 +630,14 @@ public class Practica3 {
       listu.add(i);
     }*/
     //ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
-   // ArbolBinario arbolix = ArbolBinario(listu);
-    
-   
+    // ArbolBinario arbolix = ArbolBinario(listu);
+
     //System.out.println(arbolix);
     //System.out.println(miArbol.modBFS(arbolix).toString());
-   
-   // miArbol.add(-10);
-   // miArbol.add(0);
-    
+
+    // miArbol.add(-10);
+    // miArbol.add(0);
+
     /*miArbol.pop();
     System.out.println(miArbol);
 
@@ -681,15 +677,16 @@ public class Practica3 {
     //N_Reinas(10);
     //permutacionesCadena("abcd");
 
-  
-
     //pedirDatosBinariSearch();
-    Lista <Integer> miLista = new Lista<>();
-    for (int i = 3; i <= 20; i+=2) {
+    Lista<Integer> miLista = new Lista<>();
+    for (int i = 3; i <= 20; i += 2) {
       miLista.add(i);
     }
     miLista.add(10);
-    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
+    ArbolBinarioBusqueda<Integer> miArbol = new ArbolBinarioBusqueda<Integer>(
+      miLista,
+      true
+    );
     miArbol.insert(miArbol.raiz, 6);
     miArbol.insert(miArbol.raiz, 11);
     miArbol.insert(miArbol.raiz, 7);
@@ -703,19 +700,18 @@ public class Practica3 {
     miArbol.insert(miArbol.raiz, 12);
     miArbol.insert(miArbol.raiz, 16);  
     miArbol.insert(miArbol.raiz, 10);*/
-    System.out.println("Mi arbol \n"+miArbol);
+    System.out.println("Mi arbol \n" + miArbol);
     //System.out.println("Existe el 12? "+miArbol.search(miArbol.raiz, 12));
     /*System.out.println("Mi arbol \n"+miArbol);
     System.out.println("Raiz ->"+miArbol.raiz);
     System.out.println("Izquierdo ->"+miArbol.raiz.izquierdo());
     System.out.println("Derecho ->"+miArbol.raiz.derecho());*/
     //System.out.println(miArbol.delete(10));
-    System.out.println(miArbol.delete(5));
-    System.out.println("Mi arbol \n"+miArbol);
+    System.out.println(miArbol.delete(6));
+    System.out.println("Mi arbol \n" + miArbol);
     //System.out.println("Mi arbol \n"+miArbol);
     //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
     //miArbol.add(-10);
     //miArbol.add(0);
   }
-  }
- 
+}

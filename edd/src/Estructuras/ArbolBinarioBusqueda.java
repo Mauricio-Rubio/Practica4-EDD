@@ -63,10 +63,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
 
   public boolean delete(T object) {
     Vertice vertice = this.search(this.raiz, object);
-    //System.out.println("Mi arbol \n"+miArbol);
-    //System.out.println("Raiz ->" + this.raiz);
-    //System.out.println("Izquierdo ->" + this.raiz.izquierdo());
-    //System.out.println("Derecho ->" + this.raiz.derecho());
     if (vertice == null) {
       System.out.println("No se ha encontrado");
       return false;
@@ -359,6 +355,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
       }
     }
   }
+
 
   public void buildSorted(Lista<T> lista) {
     if (lista.size() == 0) {
