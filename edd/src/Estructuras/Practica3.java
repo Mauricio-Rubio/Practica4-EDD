@@ -1,6 +1,7 @@
 package edd.src.Estructuras;
-import java.util.InputMismatchException;
+
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Practica3 {
@@ -98,6 +99,7 @@ public class Practica3 {
     Lista<Integer> lista = new Lista<>();
     do {
       try {
+        System.out.println("Problema 1");
         System.out.println("Ingresa un entero");
         int numero = sc.nextInt();
         if (numero < 0) {
@@ -357,6 +359,7 @@ public class Practica3 {
     aux = false;
     do {
       try {
+        System.out.println("Problema 3");
         System.out.println("Ingresa un entero N");
         int n = sc.nextInt();
         System.out.println("Ingresa un primo P");
@@ -599,7 +602,8 @@ public class Practica3 {
     do {
       try {
         sc = new Scanner(System.in);
-        System.out.println("Ingresa un numero");
+        System.out.println("Problema 5");
+        System.out.println("Ingresa un numero para calcular su raiz");
         int x = sc.nextInt();
         if (x < 0) {
           System.out.println("No existen raices negativas");
@@ -615,144 +619,56 @@ public class Practica3 {
 
   public static void main(String[] args) {
     Scanner escaner = new Scanner(System.in);
-    
-    
-    //valido = false;
+
+    //PROBLEMA 1
+    if (args.length > 2) {
+      pedirDatosSuma(args);
+    }
+    //PROBLEMA 2
     String cadena = "";
     boolean valido = true;
     do {
-     valido=true;
+      valido = true;
       System.out.println("Ingresa la cadena para obtener las permutaciones");
       try {
         cadena = escaner.nextLine();
-        if (cadena=="") {
+        if (cadena == "") {
           System.out.println("Eso no sirve, intenta de nuevo");
           throw new InputMismatchException();
-        } 
+        }
       } catch (InputMismatchException et) {
         valido = false;
         //escaner.next();
       }
     } while (valido == false);
     permutacionesCadena(cadena);
-    //ESPACIO PROBLEMA 3//
-    int n=3;
+    //PROBLEMA 3
+    pedirDatosSumaPrimos();
+    //PROBLEMA 4
+    int n = 3;
     do {
-      valido=true;
-       System.out.println("Ingresa el numero de reinas para el problema de las N_REINAS");
-       try {
-          n= escaner.nextInt();
-         if(n<=3){
+      valido = true;
+      System.out.println(
+        "Ingresa el numero de reinas para el problema de las N_REINAS"
+      );
+      try {
+        n = escaner.nextInt();
+        if (n <= 3) {
           System.out.println("Necesitamos mas reinas");
-          valido=false;
-         }
-       } catch (InputMismatchException et) {
-         valido = false;
-         System.out.println("Eso no sirve, intenta de nuevo");
-         escaner.next();
-       }
-     } while (valido == false);
-     N_Reinas(n);
+          valido = false;
+        }
+      } catch (InputMismatchException et) {
+        valido = false;
+        System.out.println("Eso no sirve, intenta de nuevo");
+        escaner.next();
+      }
+    } while (valido == false);
+    N_Reinas(n);
 
+    //PROBLEMA 5
+    pedirDatosBinariSearch();
 
-Lista<Integer> listu = new Lista<Integer>();
-     for (int i = 0; i < 7; i++) {
-      listu.add(i);
-    }
-
-    for (int i = 27; i < 35; i++) {
-      listu.add(i);
-    }
-    for (int i = -7; i < 0; i++) {
-      listu.add(i);
-    }
-
-    /*if (args.length > 1) {
-      pedirDatosSuma(args);
-    } else {
-      pedirDatosSumaPrimos();
-    }*/
-
-    //pedirDatoinariSearch();
-   /* Lista<Integer>  listu= new Lista<Integer>();
-    for (int i = 0; i < 7; i++) {
-      listu.add(i);
-    }
-
-    for (int i = -7; i < 0; i++) {
-      listu.add(i);
-    }
-
-    
-    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
-    //System.out.println(miArbol);
-   // ArbolBinario arbolix = ArbolBinario(listu);
-    
-   
-    //System.out.println(arbolix);
-    ArbolBinarioBusqueda<Integer> ab= new ArbolBinarioBusqueda<Integer>();
-    ab.add(35);
-    miArbol.add(100);
-    ab.add(0);
-    ab.add(-9);
-    ab.add(23);
-    ab.add(1);
-    ab.add(12);
-    ab.add(356);
-    ab.add(98);
-    ab.add(120);
-    
-
-    /*ab.insert(ab.raiz, 43);
-    ab.insert(ab.raiz, 13);
-    ab.insert(ab.raiz, 23);
-    ab.insert(ab.raiz, 18);
-    ab.insert(ab.raiz, 21);
-    ab.insert(ab.raiz, 67);*/
-    //System.out.println(miArbol.modBFS(ab).toString());
-   ////System.out.println(ab.toString());
-//System.out.println(ab.ptoString());
-   //System.out.println(miArbol.convertBST(ab).toString());
-   // System.out.println(ab.toString());
-   
-   // miArbol.add(-10);
-   // miArbol.add(0);
-    
-    /*miArbol.pop();
-    System.out.println(miArbol);
-
-   
-    ab.add(51);
-    
-    ab.insert(ab.raiz, 1);
-    ab.insert(ab.raiz, 0);
-    ab.insert(ab.raiz, 9);
-    ab.insert(ab.raiz, -2);
-    ab.insert(ab.raiz, 89);
-    ab.insert(ab.raiz, 1203);
-    ab.insert(ab.raiz, 325);
-    ab.insert(ab.raiz, 3205);
-    System.out.println(ab.toString());
-    System.out.println(ab.ultimoDerecho(ab.raiz).padre.get());
-    System.out.println(ab.ptoString());
-/*
-
-    ab.insert(ab.raiz, 134);
-    ab.insert(ab.raiz, -21);
-    ab.insert(ab.raiz, 8);
-    ab.insert(ab.raiz, 3);
-
-    a
-   
-   // ab.insert(t);
-    
-    //System.out.println(miArbol);
-
-    */
-    //N_Reinas(10);
-    //permutacionesCadena("abcd");
-
-    //pedirDatosBinariSearch();
+    //PRUEBAS EN ARBOLES
     Lista<Integer> miLista = new Lista<>();
     for (int i = 3; i <= 20; i += 2) {
       miLista.add(i);
@@ -768,25 +684,9 @@ Lista<Integer> listu = new Lista<Integer>();
     miArbol.insert(miArbol.raiz, 5);
     miArbol.insert(miArbol.raiz, 14);
     miArbol.insert(miArbol.raiz, 12);
-    //System.out.println("Mi arbol \n"+miArbol);
-    /*miArbol.insert(miArbol.raiz, 2);
-    miArbol.insert(miArbol.raiz, 6);
-    miArbol.insert(miArbol.raiz, 4);
-    miArbol.insert(miArbol.raiz, 12);
-    miArbol.insert(miArbol.raiz, 16);  
-    miArbol.insert(miArbol.raiz, 10);*/
     System.out.println("Mi arbol \n" + miArbol);
-    //System.out.println("Existe el 12? "+miArbol.search(miArbol.raiz, 12));
-    /*System.out.println("Mi arbol \n"+miArbol);
-    System.out.println("Raiz ->"+miArbol.raiz);
-    System.out.println("Izquierdo ->"+miArbol.raiz.izquierdo());
-    System.out.println("Derecho ->"+miArbol.raiz.derecho());*/
-    //System.out.println(miArbol.delete(10));
     System.out.println(miArbol.delete(6));
+    System.out.println(miArbol.delete(12));
     System.out.println("Mi arbol \n" + miArbol);
-    //System.out.println("Mi arbol \n"+miArbol);
-    //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
-    //miArbol.add(-10);
-    //miArbol.add(0);
   }
 }
