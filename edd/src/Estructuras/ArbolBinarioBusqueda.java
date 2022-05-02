@@ -93,28 +93,30 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     return null;
   }
 
-  private Vertice modBFS() {
+  public Cola<T> modBFS(ArbolBinario arbolE) {
     if (this.isEmpty()) {
       return null;
     }
     Cola<Vertice> a = new Cola<Vertice>();
-    a.push(raiz);
+    Cola<T> colaBFS = new Cola<T>();
+    a.push(arbolE.raiz);
     while (a.cabeza != null) {
       Vertice b = a.pop();
+      colaBFS.push(b.get());
       if (b.hayIzquierdo()) {
         a.push(b.izquierdo);
       }
       if (b.hayDerecho()) {
         a.push(b.derecho);
       }
-      if (!b.hayIzquierdo() && !b.hayDerecho()) {
-        return b;
-      }
+      /*if (!b.hayIzquierdo() && !b.hayDerecho()) {
+        //return b;
+      }*/
     }
-    return null;
+    return colaBFS;
   }
 
-  public Vertice ultimoIzquierdo(Vertice verti) {
+  private Vertice ultimoIzquierdo(Vertice verti) {
     //Vertice nuevo = nuevoVertice(verti.get());
 
     if (verti.hayIzquierdo()) {
@@ -231,6 +233,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
             if(!verti.hayIzquierdo()){
                 Vertice nuevo = nuevoVertice(elemento);
                 verti.izquierdo=nuevo;
+                nuevo.padre=verti;
             }else{
                 insert(verti.izquierdo,elemento);
             }
@@ -240,6 +243,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
             if(!verti.hayDerecho()){
                 Vertice nuevo = nuevoVertice(elemento);
                 verti.derecho=nuevo;
+                nuevo.padre=verti;
             }else{
                 insert(verti.derecho,elemento);
             }
