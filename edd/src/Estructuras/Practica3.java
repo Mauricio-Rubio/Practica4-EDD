@@ -644,6 +644,10 @@ public class Practica3 {
     ab.insert(ab.raiz, 0);
     ab.insert(ab.raiz, 9);
     ab.insert(ab.raiz, -2);
+    ab.insert(ab.raiz, 89);
+    ab.insert(ab.raiz, 1203);
+    ab.insert(ab.raiz, 325);
+    ab.insert(ab.raiz, 3205);
     System.out.println(ab.toString());
     System.out.println(ab.ultimoDerecho(ab.raiz).padre.get());
     System.out.println(ab.ptoString());
@@ -654,10 +658,7 @@ public class Practica3 {
     ab.insert(ab.raiz, 8);
     ab.insert(ab.raiz, 3);
 
-    ab.insert(ab.raiz, 89);
-    ab.insert(ab.raiz, 1203);
-    ab.insert(ab.raiz, 325);
-    ab.insert(ab.raiz, 3205);
+    a
     //System.out.println(miArbol);
    // ab.insert(t);
     
