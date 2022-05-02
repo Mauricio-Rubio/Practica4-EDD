@@ -610,6 +610,7 @@ public class Practica3 {
     } else {
       pedirDatosSumaPrimos();
     }*/
+
     //pedirDatoinariSearch();
     Lista<Integer>  listu= new Lista<Integer>();
     /*for (int i = -7; i < 0; i++) {
@@ -665,5 +666,22 @@ public class Practica3 {
     //System.out.println(miArbol);
     */
   }
+
+    //pedirDatosBinariSearch();
+    Lista <Integer> miLista = new Lista<>();
+    for (int i = 3; i <= 20; i+=2) {
+      miLista.add(i);
+    }
+    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
+    System.out.println("Mi arbol \n"+miArbol);
+    miArbol.insert(miArbol.raiz, 2);
+    miArbol.insert(miArbol.raiz, 6);
+    miArbol.insert(miArbol.raiz, 4);  
+    System.out.println("Mi arbol \n"+miArbol);
+    System.out.println(miArbol.search(miArbol.raiz, 19));
+    //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
+    //miArbol.add(-10);
+    //miArbol.add(0);
+
   }
  

@@ -142,7 +142,78 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     return verti;
   }
 
-  
+  public boolean search(Vertice vertice, T elemento){    
+    if(vertice == null){
+      return false;
+    }
+    if(vertice.elemento == elemento){
+      return true;
+    }
+    if(vertice.get().compareTo(elemento) < 0){
+      return search(vertice.derecho, elemento);
+      
+    }
+    if(vertice.get().compareTo(elemento) > 0){
+      return search(vertice.izquierdo, elemento);
+    }
+    return false;
+  }
+
+  public void insert(Vertice verti, T elemento) {
+    if (verti.get().compareTo(elemento) > 0) {
+      if (!verti.hayIzquierdo()) {
+        Vertice nuevo = nuevoVertice(elemento);
+        verti.izquierdo = nuevo;
+      } else {
+        insert(verti.izquierdo, elemento);
+      }
+    }
+
+    if (verti.get().compareTo(elemento) < 0) {
+      if (!verti.hayDerecho()) {
+        Vertice nuevo = nuevoVertice(elemento);
+        verti.derecho = nuevo;
+      } else {
+        insert(verti.derecho, elemento);
+      }
+    }
+  }
+
+  /*public void insert(T elemento) {
+    Vertice verti = this.BFS();
+
+    if (verti.get().compareTo(elemento) > 0) {
+      if (!verti.hayIzquierdo()) {
+        Vertice anadido = nuevoVertice(elemento);
+        verti.izquierdo = anadido;
+      } else {
+        //verti=this.ultimoIzquierdo(verti);
+        while (verti.hayIzquierdo()) {
+          verti = verti.izquierdo;
+          if (verti.get().compareTo(elemento) < 0 && !verti.hayDerecho()) {
+            Vertice anadido = nuevoVertice(elemento);
+            verti.derecho = anadido;
+            return;
+          }
+        }
+        if (verti.get().compareTo(elemento) > 0) {
+          Vertice anadido = nuevoVertice(elemento);
+          Vertice anadidoAux = verti.derecho;
+          verti.izquierdo = anadido;
+          verti.derecho = anadidoAux;
+        } else {
+          Vertice anadido = nuevoVertice(elemento);
+          verti.derecho = anadido;
+        }
+      }
+    } else {
+      while (verti.hayDerecho()) {
+        verti = verti.derecho;
+      }
+      Vertice anadido = nuevoVertice(elemento);
+      verti.derecho = anadido;
+    }
+  }*/
 
   private void ordenarLista(Lista<T> lista, int inicio, int ultimo) {
     Lista<T> listaNueva = new Lista<T>();
@@ -198,20 +269,19 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     //return lista;
   }
 
-  
-  public ArbolBinarioBusqueda<T> buildUnsorted(Lista<T> lista) {
+
+  public void buildUnsorted(Lista<T> lista) {
     ArbolBinarioBusqueda<T> arbolinio = new ArbolBinarioBusqueda<T>();
+    if(lista.isEmpty){
+      System.out.println("No puedo proceder con una lista vacia");
+      return;
+    }
     ordenarLista(lista, 0, lista.size() - 1);
     System.out.println(lista.toString());
     T elem = lista.elemIndice(lista.size() / 2);
     arbolinio.add(elem);
     lista.delete(elem);
-    while (!lista.isEmpty()) {
-      T elementoAgreg;
-      int p = lista.size() / 2;
-      if (p <= 0) {
-        p = 2;
-      }
+    buildSorted(lista);
       /* elementoAgreg= lista.elemIndice(p);
     arbolinio.add(elementoAgreg);
     lista.delete(elementoAgreg);
@@ -221,13 +291,18 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     lista.delete(elementoAgreg);*/
 
     }
-    return arbolinio;
+   // return arbolinio;
     // Iterator<T> ite = new lista.iterator();
     //   System.out.println(ordenarLista(lista));
 
   }
+
   
-  
+  /**
+   * 
+   * @param verti
+   * @param elemento
+   */
   public void insert(Vertice verti, T elemento){
         if(verti.get().compareTo(elemento)>0){
             if(!verti.hayIzquierdo()){
@@ -248,7 +323,61 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
                 insert(verti.derecho,elemento);
             }
         }
+
+
+  public void buildSorted(Lista<T> lista) {
+    if (lista.size() == 0) {
+      return;
     }
+    if (lista.size() == 1) {
+      T elemento = lista.peek();
+      this.raiz = new Vertice(lista.peek());
+      return;
+    }
+    int mitad;
+    if (lista.size() % 2 != 0) {
+      mitad = (lista.size() / 2) + 1;
+    } else {
+      mitad = lista.size() / 2;
+    }
+    System.out.println("Lista-->" + lista);
+    //System.out.println("Mitad "+lista.size()/2);
+    this.raiz = new Vertice(lista.eliminarIndice(mitad));
+    System.out.println("Lista-->" + lista);
+    Lista<Integer> listaIzq = new Lista<>();
+    IteradorLista<T> iterador = lista.iteradorLista();
+    /**
+     * Desplazamos el iterador hasta donde estaba la raiz, a partir de ahi
+     * vamos a recorrer hacia la izquiera, de mayor a menor para insertar
+     * en el nodo izquierdo
+     */
+    for (int i = 0; i < mitad - 1; i++) {
+      if (iterador.hasNext()) {
+        iterador.next();
+      }
+    }
+    /**
+     * Insertamos los elementos al arbol
+     */
+    for (int i = 0; i < mitad - 1; i++) {
+      if (iterador.hasPrevious()) {
+        this.insert(this.raiz, iterador.previous());
+      }
+    }
+    iterador = lista.iteradorLista();
+    for (int i = 0; i < mitad - 2; i++) {
+      if (iterador.hasNext()) {
+        iterador.next();
+      }
+    }
+    for (int i = 0; i < mitad; i++) {
+      if (iterador.hasNext()) {
+        this.insert(this.raiz, iterador.next());
+      }
+    }
+
+    return;
+  }
 
 
 
@@ -301,8 +430,9 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
 
   public ArbolBinarioBusqueda(Lista<T> lista, boolean isSorted) {
     if (isSorted) {
-      //buildSorted(lista);
+      buildSorted(lista);
     } else {
+      System.out.println("Unsorted");
       buildUnsorted(lista);
     }
   }
