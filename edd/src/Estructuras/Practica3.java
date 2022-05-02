@@ -629,7 +629,7 @@ public class Practica3 {
    // miArbol.add(-10);
    // miArbol.add(0);
     
-    miArbol.pop();
+    /*miArbol.pop();
     System.out.println(miArbol);
 
     ArbolBinarioBusqueda<Integer> ab= miArbol;
