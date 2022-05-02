@@ -632,7 +632,7 @@ public class Practica3 {
     for (int i = 0; i < 7; i++) {
       listu.add(i);
     }*/
-    ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
+    //ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>();
    // ArbolBinario arbolix = ArbolBinario(listu);
     
    
@@ -679,26 +679,39 @@ public class Practica3 {
 
     */
     //N_Reinas(10);
-    permutacionesCadena("abcd");
+    //permutacionesCadena("abcd");
 
-  }
+  
 
     //pedirDatosBinariSearch();
-    /*Lista <Integer> miLista = new Lista<>();
-    for (int i = 3; i <= 20; i+=2) {
+    Lista <Integer> miLista = new Lista<>();
+    /*for (int i = 3; i <= 20; i+=2) {
       miLista.add(i);
-    }
+    }*/
+    miLista.add(10);
     ArbolBinarioBusqueda <Integer> miArbol = new ArbolBinarioBusqueda<Integer>(miLista, true);
-    System.out.println("Mi arbol \n"+miArbol);
-    miArbol.insert(miArbol.raiz, 2);
     miArbol.insert(miArbol.raiz, 6);
-    miArbol.insert(miArbol.raiz, 4);  
+    miArbol.insert(miArbol.raiz, 11);
+    //System.out.println("Mi arbol \n"+miArbol);
+    /*miArbol.insert(miArbol.raiz, 2);
+    miArbol.insert(miArbol.raiz, 6);
+    miArbol.insert(miArbol.raiz, 4);
+    miArbol.insert(miArbol.raiz, 12);
+    miArbol.insert(miArbol.raiz, 16);  
+    miArbol.insert(miArbol.raiz, 10);*/
     System.out.println("Mi arbol \n"+miArbol);
+    //System.out.println("Existe el 12? "+miArbol.search(miArbol.raiz, 12));
+    /*System.out.println("Mi arbol \n"+miArbol);
+    System.out.println("Raiz ->"+miArbol.raiz);
+    System.out.println("Izquierdo ->"+miArbol.raiz.izquierdo());
+    System.out.println("Derecho ->"+miArbol.raiz.derecho());*/
     System.out.println(miArbol.delete(6));
+    System.out.println(miArbol.delete(11));
     System.out.println("Mi arbol \n"+miArbol);
+    //System.out.println("Mi arbol \n"+miArbol);
     //System.out.println("Rama izquierda \n"+miArbol.raiz.izquierdo);
     //miArbol.add(-10);
-    //miArbol.add(0);*/
-    
+    //miArbol.add(0);
+  }
   }
  
