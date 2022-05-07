@@ -1,7 +1,6 @@
-# Practica Numero 3
+# Practica Numero 4
 
 ## Temario: 
-#### Ordenamientos
-#### Backtracking
 #### Arboles Binarios
 #### Arboles Binarios de busqueda
+#### Arboles AVL 

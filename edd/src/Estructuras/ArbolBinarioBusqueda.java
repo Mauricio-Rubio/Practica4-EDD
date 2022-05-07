@@ -42,6 +42,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     }
   }
 
+  /*public ArbolBinarioBusqueda() {
+    super();
+}*/
+
+
   private boolean esHijoIzq = false;
 
   public Vertice verticeReemplazo(Vertice vertice) {
@@ -453,7 +458,13 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>>
     }
   }
 
-  public ArbolBinarioBusqueda() {}
+  public ArbolBinarioBusqueda() {
+    super();
+  }
+
+  public ArbolBinarioBusqueda(Collection<T> coleccion) {
+    super(coleccion);
+  }
 
   /**
    * Regresa un iterador para iterar el árbol. El árbol se itera en orden.
