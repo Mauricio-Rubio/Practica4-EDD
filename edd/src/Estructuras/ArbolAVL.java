@@ -38,5 +38,17 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda {
       VerticeAVL vertice = (VerticeAVL) o;
       return altura == vertice.altura && super.equals(o);
     }
+
+    public int getAltura(){
+        return this.altura;
+    }
+
+    public void setAltura(){
+        this.altura = super.altura();
+    }
+  }
+
+  public ArbolAVL(){
+      super();
   }
 }
