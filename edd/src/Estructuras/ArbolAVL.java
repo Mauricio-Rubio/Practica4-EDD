@@ -122,6 +122,7 @@ VerticeAVL  vert = convertirAVL(vertice);
   public boolean delete(T elemento){
     boolean k =super.delete(elemento);
     actualizarAlturas(this.raiz);
+    revisarBalance(this.raiz);
     return k;
   }
 
@@ -168,32 +169,80 @@ VerticeAVL  vert = convertirAVL(vertice);
       super.insert(this.raiz, elemento);
     }
     actualizarAlturas(this.raiz);
+   /* if(verti.hayPadre(
+      if(verti.padre.hayPadre()){
+   revisarBalance(verti.padre.padre);
+      }
+    }*/
+    verti= search(this.raiz, elemento);
+    if(verti.hayPadre()){
+      if(verti.padre.hayPadre()){
+    revisarBalance(verti.padre.padre);
+      }else{
+        revisarBalance(verti.padre);
+      }
+    }
+    /*if(verti.hayPadre()){
+    revisarBalance(verti.padre);
+    }*/
+    revisarBalance(this.raiz);
   }
 
 
 public void rebalancear(Vertice vert, int hIzq, int hDer){
+  if(hDer==hIzq+2){
+    vert=vert.derecho;
+    System.out.println("ENTRAMOS");
+    System.out.println("Vertice "+vert);
+    VerticeAVL  vertD= convertirAVL(vert.derecho);
+
+    int wd = vertD.altura()-1;
+
+    System.out.println("Altura hijo derecho de vert"+wd);
+
+   if(wd==hIzq+1){
+    System.out.println("ENTRAMOS2");
+    rotarI(vert);
+    actualizarAlturas(this.raiz);
+   }
+  }
+
   
 }
 
   public boolean revisarBalance(Vertice verti){
+    System.out.println("REVISANDO "+verti);
     int izq=0, der=0;
     if(verti.hayIzquierdo()){
       VerticeAVL  vertI= convertirAVL(verti.izquierdo);
       vertI.setAltura();
       izq=vertI.altura()-1;
+      System.out.println(vertI);
+      System.out.println("Altura izquierda"+izq);
     }
 
     if(verti.hayDerecho()){
       VerticeAVL  vertD = convertirAVL(verti.derecho);
       vertD.setAltura();
       der=vertD.altura()-1;
+      System.out.println(vertD);
+      System.out.println("Altura derecha"+der);
     }
-
+    
+int op=Math.abs(izq-der);
+System.out.println("DESB"+op);
     if(Math.abs(izq-der)<2){
+      if(verti.hayDerecho()){
+       // System.out.println("REVISANDO HIJO DER");
       revisarBalance(verti.derecho);
+      }
+      if(verti.hayIzquierdo()){
+        //System.out.println("REVISANDO HIJO IZQ");
       revisarBalance(verti.izquierdo);
+      }
           }else{
-      return false;
+            System.out.println("REBALANCE");
+      rebalancear(verti, izq, der);
     }
 
     return true;
@@ -201,34 +250,58 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
 
   public void rotarI(Vertice verti){
    Vertice aux = nuevoVertice(verti.get());
+   /*System.out.println("Verti"+ verti);
+   System.out.println("Aux"+ aux);
+   System.out.println("Verti der" + verti.derecho);*/
+  // System.out.println("Verti izq"+ verti,izquierdo);
     if(verti.hayIzquierdo()){
     aux.izquierdo= verti.izquierdo;
     verti.izquierdo.padre=aux;
+    //System.out.println("Aux"+aux);
     }
 
    if(verti.derecho.hayIzquierdo()){
    aux.derecho= verti.derecho.izquierdo;
    aux.derecho.padre=aux;
+   //System.out.println("Aux der"+aux.derecho);
+    }
+    verti=verti.derecho;
+    //System.out.println("CONTROL");
+    System.out.println(verti);
+    if(verti.padre.hayIzquierdo()){
+    if(verti.padre.izquierdo.get().compareTo(verti.elemento)==0){ 
+      //System.out.println("IZQUIERDO");
+      verti=verti.derecho;
+      if(verti.padre.hayPadre()){
+      verti.padre=verti.padre.padre;
+      }
     }
 
-    if(verti.padre.izquierdo.get().compareTo(verti.elemento)==0){ 
-      verti=verti.derecho;
-      if(verti.padre.hayPadre()){
-      verti.padre=verti.padre.padre;
-      }
-
-      verti.padre.izquierdo=verti;
+     // verti.padre.izquierdo=verti;
+     //System.out.println("CONTROL1");
     } else if(verti.padre.derecho.get().compareTo(verti.elemento)==0){ 
-      verti=verti.derecho;
+      //System.out.println("CONTROL2");
+      //System.out.println("DERECHO");
+      //System.out.println("Verti"+ verti);
+   /*   verti=verti.derecho;
+      System.out.println("Verti"+ verti);*/
       if(verti.padre.hayPadre()){
+        //System.out.println("Vertice padre "+verti.padre);
       verti.padre=verti.padre.padre;
+      //System.out.println("Vertice padre "+verti.padre);
+      //System.out.println("CONTROL3");
       }
-
+      //System.out.println("Vertice padre "+verti.padre);
+      //System.out.println("Vertice derecho del padre de verti "+verti.padre.derecho);
       verti.padre.derecho=verti;
+      //System.out.println("Vertice derecho del padre de verti "+verti.padre.derecho);
     }
     
     //
+    //System.out.println("Vertice izquierdo verti "+verti.izquierdo);
     verti.izquierdo=aux;
+    //System.out.println("AUX"+aux);
+    //System.out.println("Vertice izquierdo verti "+verti.izquierdo);
     aux.padre=verti;
 
   }

@@ -3,21 +3,27 @@ public class Practica4 {
     public static void main(String[] args) {
         ArbolAVL miArbolito = new ArbolAVL();
         miArbolito.add(50);
+        System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(57);
+        System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(45);
-        miArbolito.add(46);
-        miArbolito.add(47);
+        System.out.println("Mi arbolito \n"+miArbolito);
+        miArbolito.add(58);
+        System.out.println("Mi arbolito \n"+miArbolito);
+       // miArbolito.add(56);
+        miArbolito.add(59);
        /* miArbolito.insert(miArbolito.raiz,57);
         miArbolito.insert(miArbolito.raiz,45);
         miArbolito.insert(miArbolito.raiz,46);
        /* miArbolito.insert(miArbolito.raiz,5);
         miArbolito.insert(miArbolito.raiz,13);
         miArbolito.insert(miArbolito.raiz,47);*/
-       System.out.println( miArbolito.revisarBalance(miArbolito.raiz));
+      /* System.out.println( miArbolito.revisarBalance(miArbolito.raiz));*/
         System.out.println("Mi arbolito \n"+miArbolito);
         //System.out.println("El vertice es: " + miArbolito.search(miArbolito.raiz,4).toString());
-        miArbolito.rotarI(miArbolito.search(miArbolito.raiz, 45));
-        miArbolito.delete(57);
+      //  miArbolito.rotarI(miArbolito.search(miArbolito.raiz, 57));
+        System.out.println("Mi arbolito \n"+miArbolito);
+       /* miArbolito.delete(57);
         System.out.println("Mi arbolito \n"+miArbolito);
         
        /* miArbolito.insert(miArbolito.raiz,0);
