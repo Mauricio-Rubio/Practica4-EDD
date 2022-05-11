@@ -10,14 +10,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   protected class VerticeAVL extends Vertice {
 
     public int altura;
-    //@Override
-   // public VerticeAVL padreAVL;
+   public VerticeAVL padreAVL;
     /** El izquierdo del vértice. */
    // @Override
-   // public VerticeAVL izq;
+   public VerticeAVL izquierdo;
     /** El derecho del vértice. */
     //@Override
-   // public VerticeAVL derec;
+   public VerticeAVL derecho;
 
    
 
