@@ -7,11 +7,17 @@ public class Practica4 {
         miArbolito.add(57);
         System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(45);
+
         System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(58);
         System.out.println("Mi arbolito \n"+miArbolito);
        // miArbolito.add(56);
         miArbolito.add(59);
+
+        /*miArbolito.add(46);
+        miArbolito.add(47);
+        miArbolito.add(48);*/
+
        /* miArbolito.insert(miArbolito.raiz,57);
         miArbolito.insert(miArbolito.raiz,45);
         miArbolito.insert(miArbolito.raiz,46);
@@ -21,10 +27,14 @@ public class Practica4 {
       /* System.out.println( miArbolito.revisarBalance(miArbolito.raiz));*/
         System.out.println("Mi arbolito \n"+miArbolito);
         //System.out.println("El vertice es: " + miArbolito.search(miArbolito.raiz,4).toString());
+//
       //  miArbolito.rotarI(miArbolito.search(miArbolito.raiz, 57));
-        System.out.println("Mi arbolito \n"+miArbolito);
+       // System.out.println("Mi arbolito \n"+miArbolito);
        /* miArbolito.delete(57);
+
+>>>>>>> 01a9818870d98138c924da0518bf63a1bf42e14d
         System.out.println("Mi arbolito \n"+miArbolito);
+        System.out.println("Mi arbolito \n"+miArbolito.revisarBalance(miArbolito.raiz));
         
        /* miArbolito.insert(miArbolito.raiz,0);
         miArbolito.insert(miArbolito.raiz,1);
