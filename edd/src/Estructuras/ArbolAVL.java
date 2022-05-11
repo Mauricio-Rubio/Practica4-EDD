@@ -170,6 +170,11 @@ VerticeAVL  vert = convertirAVL(vertice);
     actualizarAlturas(this.raiz);
   }
 
+
+public void rebalancear(Vertice vert, int hIzq, int hDer){
+  
+}
+
   public boolean revisarBalance(Vertice verti){
     int izq=0, der=0;
     if(verti.hayIzquierdo()){
