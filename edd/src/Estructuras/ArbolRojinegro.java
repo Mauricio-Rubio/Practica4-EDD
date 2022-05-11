@@ -42,7 +42,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
             return "N{" + this.elemento.toString() + "}";
         }
 
-        /**
+     /**
          * Compara el vértice con otro objeto. La comparación es
          * <em>recursiva</em>.
          * 
@@ -76,7 +76,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
      *                  rojinegro.
      */
     public ArbolRojinegro(Collection<T> coleccion) {
-        super(coleccion);
+        //super(coleccion);
     }
 
     /**
