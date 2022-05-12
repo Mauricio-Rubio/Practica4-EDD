@@ -19,7 +19,12 @@ public class Practica4 {
         miArbolito.add(60);
         System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(61);
+        System.out.println("Mi arbolito \n"+miArbolito);
+        miArbolito.add(89);
+        System.out.println("Mi arbolito \n"+miArbolito);
 
+       miArbolito.add(100);
+       System.out.println("Mi arbolito \n"+miArbolito);
 
         /*miArbolito.add(46);
         miArbolito.add(47);
@@ -32,7 +37,7 @@ public class Practica4 {
         miArbolito.insert(miArbolito.raiz,13);
         miArbolito.insert(miArbolito.raiz,47);*/
       /* System.out.println( miArbolito.revisarBalance(miArbolito.raiz));*/
-        System.out.println("Mi arbolito \n"+miArbolito);
+       
         //System.out.println("El vertice es: " + miArbolito.search(miArbolito.raiz,4).toString());
 //
       //  miArbolito.rotarI(miArbolito.search(miArbolito.raiz, 57));
