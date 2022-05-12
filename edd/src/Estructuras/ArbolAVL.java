@@ -150,19 +150,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
   //public void rebalancear(Vertice vert, int hIzq, int hDer) {}
 
-  
-
-public void rebalancear(Vertice vert, int hIzq, int hDer){
- 
-  if(hDer==hIzq+2){
-    
-   
+  public void desbalanceDerecho(Vertice vert, int hIzq, int hDer){
     vert=vert.derecho;
-   
+    int wd=0;
+   if(vert.hayDerecho()){
     VerticeAVL  vertD= convertirAVL(vert.derecho);
+     wd = vertD.altura()-1;
+   }else{
+      wd=0;
+   }
    
    
-    int wd = vertD.altura()-1;
+    
   
    if(wd==hIzq+1){
     
@@ -179,6 +178,17 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     
     actualizarAlturas(this.raiz);
    }
+
+  }
+
+  
+
+public void rebalancear(Vertice vert, int hIzq, int hDer){
+ 
+  if(hDer==hIzq+2){
+    
+   desbalanceDerecho(vert, hIzq, hDer);
+   
   }else{
    // desbalanceIzquierda(vert,hIzq,hDer);
   }
@@ -321,12 +331,12 @@ if(!verti.hayIzquierdo()){
    
     
       if(verti.padre.hayPadre()){
-         System.out.println("Ojoooooooo"+verti);
-         System.out.println("Ojooooooxxxoo"+aux);
+         
+        
         
        verti.padre=verti.padre.padre;
        verti.padre.derecho=verti;
-       System.out.println("Verti padre  def"+verti.padre);
+      
        
        }
      

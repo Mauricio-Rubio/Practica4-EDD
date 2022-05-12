@@ -191,7 +191,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @param arbolE Arbol binario
    */
  
-  private Cola<T> modBFS(ArbolBinario arbolE) {
+  protected Cola<T> modBFS(ArbolBinario arbolE) {
 
     //Si es vacio no procedemos
     if (arbolE.isEmpty()) {
