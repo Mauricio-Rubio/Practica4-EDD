@@ -10,6 +10,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   protected class VerticeAVL extends Vertice {
 
     public int altura;
+    public VerticeAVL raiz;
     public VerticeAVL padreAVL = null;
     /** El izquierdo del vértice. */
     // @Override
@@ -155,7 +156,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     actualizarAlturas(this.raiz);
   }
 
-  public void rebalancear(Vertice vert, int hIzq, int hDer) {}
+  public void rebalancear(Vertice vert, int hIzq, int hDer) {
+    desbalanceIzquierda(vert, hIzq, hDer);
+  }
 
   public boolean revisarBalance(Vertice verti) {
     int izq = 0, der = 0;
@@ -175,6 +178,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       revisarBalance(verti.derecho);
       revisarBalance(verti.izquierdo);
     } else {
+      rebalancear(verti,izq ,der );
       return false;
     }
 
@@ -209,271 +213,35 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       verti.padre.derecho = verti;
     }
 
-    //
     verti.izquierdo = aux;
     aux.padre = verti;
   }
 
-  public void desbalanceIzquierda(VerticeAVL vertice) {
-    int k = vertice.derecho.altura;
-    VerticeAVL HIzq = vertice.izquierdo;
-    if (HIzq.altura == k + 2) {
+  public void desbalanceIzquierda(Vertice vertice, int kIzq, int k) {
+    //int k = vertice.derecho.altura;
+    Vertice HIzq = vertice.izquierdo;
+    //System.out.println("Hijo izquierdo: "+HIzq.izquierdo);
+    //System.out.println("Hijo derecho: "+vertice.derecho);
+    if (HIzq.altura() >= k + 2) {
       System.out.println("Se necesita balance izquierdo");
     }
     if (HIzq.hayIzquierdo()) {
-      VerticeAVL WIzq = HIzq.izquierdo;
-      if (WIzq.altura == k + 1) {
+      Vertice WIzq = HIzq.izquierdo;
+      VerticeAVL WizqAVL = convertirAVL(WIzq);
+      System.out.println("Altura de esta prra mmada: "+WizqAVL+" este es k "+k+" este es k + 1: "+(k+1));
+      System.out.println("Iniciando balanceo");
+      if (WizqAVL.altura == k + 1) {
         System.out.println("Caso 1: Linea recta");
         rotarD(vertice);
         //Recalculo de las alturas y rebalanceo
-      } else if (WIzq.altura == k) {
+      } else if (WIzq.altura() == k) {
+        System.out.println("Caso 2: Linea recta");
         rotarI(HIzq);
         rotarD(vertice);
+      }else{
+        System.out.println("CTPM");
       }
       actualizarAlturas(vertice);
     }
   }
-  /*verti= verti.izquierdo;
-    aux.izquierdo=verti.derecho;
-    verti.derecho.padre=aux;
-    //verti.derecho=aux;
-   // aux.padre=verti;
-  }
-
-  public void add(T elemento){
-    if(this.raiz==null){
-      this.raiz = nuevoVertice(elemento);
-    }else{
-      super.insert(this.raiz, elemento);
-    }
-    actualizarAlturas(this.raiz);
-  }
-  //public VerticeAVL raizAVL;
-
- /* public void actualizarAlturas(Vertice vertice, int alt){
-  VerticeAVL  vert = convertirAVL(vertice);
-    if(this.raiz==null){
-      System.out.println("No puedo trabajar con un árbol vacio");
-      return;
-    }
-  
-    if(alt>0){
-    vert.setAltura(alt);
-  
-    if(vert.hayDerecho() || vert.hayIzquierdo()){
-      if(vert.hayDerecho()){
-        vert.derec.setAltura(vert.getAltura()-1);
-        actualizarAlturas(vert.derec, vert.derec.getAltura());
-  
-      }
-  
-      if(vert.hayIzquierdo()){
-        vert.izq.setAltura(vert.getAltura()-1);
-        actualizarAlturas(vert.izq, vert.izq.getAltura());
-      }
-  
-  
-    }
-  
-  
-    }
-  }
-
-  /*
-  public boolean delet(T object) {
-    VerticeAVL vertice = this.search(this.raizAVL, object);
-   // VerticeAVL vertice = verti;
-    if (vertice == null) {
-      System.out.println("No se ha encontrado");
-      return false;
-    }
-    if (vertice.izq != null && vertice.derec!= null) {
-      VerticeAVL aux = vertice;
-      VerticeAVL padre = vertice.padreAVL;
-      VerticeAVL reemplazo = verticeReemplazo(aux);
-      if (aux.equals(this.raiz)) {
-        this.raizAVL = reemplazo;
-      } else if (esHijoIzq) {
-        padre.izq = reemplazo;
-      } else {
-        padre.derec = reemplazo;
-      }
-      reemplazo.izq = aux.izq;
-      return true;
-    }
-    if (vertice.izq == null && vertice.derec == null) {
-      if (vertice.equals(this.raiz)) {
-        this.raizAVL = null;
-        return true;
-      }
-      if (vertice.padreAVL.get().compareTo(vertice.elemento) < 0) {
-        vertice.padreAVL.derec = null;
-        return true;
-      } else {
-        vertice.padreAVL.izq = null;
-      }
-      return true;
-    }
-    if (vertice.izq == null || vertice.derec != null) {
-      if (vertice.padreAVL.get().compareTo(vertice.elemento) < 0) {
-        vertice.padreAVL.derec = vertice.derec;
-      } else {
-        vertice.padreAVL.izq = vertice.derec;
-      }
-      return true;
-    }
-    if (vertice.izq != null || vertice.derec == null) {
-      if (vertice.padreAVL.get().compareTo(vertice.elemento) < 0) {
-        vertice.padreAVL.derec = vertice.izq;
-      } else {
-        vertice.padreAVL.izq = vertice.izq;
-      }
-      //vertice = vertice.izquierdo;
-      return true;
-    }
-
-    return true;
-  }
-
-  private boolean esHijoIzq = false;
-
-  //@Override
-  public VerticeAVL search(VerticeAVL vertice, T elemento) {
-    if (vertice == null) {
-      return null;
-    }
-    if (vertice.elemento == elemento) {
-      return vertice;
-    }
-    if (vertice.get().compareTo(elemento) < 0) {
-      return search(vertice.derec, elemento);
-    }
-    if (vertice.get().compareTo(elemento) > 0) {
-      esHijoIzq = true;
-      return search(vertice.izq, elemento);
-    }
-    return null;
-  }
-
-//@Override
-  public VerticeAVL verticeReemplazo(VerticeAVL vertice) {
-    VerticeAVL reemplazarPadre = vertice;
-    VerticeAVL reemplazo = vertice;
-    VerticeAVL aux = vertice.derec;
-    while (aux != null) {
-      reemplazarPadre = reemplazo;
-      reemplazo = aux;
-      aux = aux.izq;
-    }
-    if (!reemplazo.equals(vertice.derec)) {
-      reemplazarPadre.izq = reemplazo.derec;
-      reemplazo.derec = vertice.derec;
-    }
-    return reemplazo;
-  }
-
- 
-  public void add(T elemento) {
-    if (elemento == null) {
-      throw new IllegalArgumentException();
-    }
-    Vertice a = nuevoVertice(elemento);
-    elementos++;
-    if (isEmpty()) {
-      raizAVL = a;
-    } else {
-      VerticeAVL b = BFS();
-      if (!b.hayIzquierdo()) {
-        b.izq = a;
-        a.padreAVL = b;
-        return;
-      }
-      if (!b.hayDerecho()) {
-        b.derec = a;
-        a.padreAVL = b;
-      }
-    }
-  }
-
-
-  private VerticeAVL BFS() {
-    if (this.isEmpty()) {
-      return null;
-    }
-    Cola<VerticeAVL> a = new Cola<VerticeAVL>();
-    a.push(this.raizAVL);
-    while (a.cabeza != null) {
-      VerticeAVL b = a.pop();
-      if (b.hayIzquierdo()) {
-        a.push(b.izq);
-      }
-      if (b.hayDerecho()) {
-        a.push(b.derec);
-      }
-      if (!b.hayIzquierdo() || !b.hayDerecho()) {
-        return b;
-      }
-    }
-    return null;
-  }
-
-  /*
-                 // @Override
-
-
-  public ArbolAVL(){
-      super();
-  }
-
-                 
-
-
-
-
-@Override
-public String toString() {
-    if (this.raizAVL == null) {
-        return "";
-    }
-    int[] a = new int[this.raizAVL.alturaAVL() + 1];
-    for (int i = 0; i < a.length; i++) {
-        a[i] = 0;
-    }
-    return toString(this.raizAVL, 0, a);
-}
-
-private String toString(VerticeAVL v, int l, int[] m) {
-  String s = v.toString() + "\n";
-  m[l] = 1;
-
-  if (v.izq != null && v.derec != null) {
-      s = s + dibujaEspacios(l, m, m.length);
-      s = s + "├─›";
-      s = s + toString(v.izq, l + 1, m);
-      s = s + dibujaEspacios(l, m, m.length);
-      s = s + "└─»";
-      m[l] = 0;
-      s = s + toString(v.derec, l + 1, m);
-  } else if (v.izq != null) {
-      s = s + dibujaEspacios(l, m, m.length);
-      s = s + "└─›";
-      m[l] = 0;
-      s = s + toString(v.izq, l + 1, m);
-  } else if (v.derec!= null) {
-      s = s + dibujaEspacios(l, m, m.length);
-      s = s + "└─»";
-      m[l] = 0;
-      s = s + toString(v.derec, l + 1, m);
-  }
-  return s;
-}
-
-private String dibujaEspacios(int l, int[] a, int n) {
-  String s = "";
-  for (int i = 0; i < l; i++) {void
-          s = s + "   ";
-      }
-  }
-  return s;
-}*/
 }
