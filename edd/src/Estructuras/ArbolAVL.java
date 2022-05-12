@@ -189,11 +189,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   //public void rebalancear(Vertice vert, int hIzq, int hDer) {}
 
   public void desbalanceDerecho(Vertice vert, int hIzq, int hDer){
-    vert=vert.derecho;
+   // vert=vert.derecho;
     int wd=0;
    if(vert.hayDerecho()){
     VerticeAVL  vertD= convertirAVL(vert.derecho);
-     wd = vertD.altura()-1;
+     wd = vertD.altura;
    }else{
       wd=0;
    }
