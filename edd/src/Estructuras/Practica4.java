@@ -13,6 +13,13 @@ public class Practica4 {
         System.out.println("Mi arbolito \n"+miArbolito);
        // miArbolito.add(56);
         miArbolito.add(59);
+        System.out.println("Mi arbolito \n"+miArbolito);
+        miArbolito.add(56);
+        System.out.println("Mi arbolito \n"+miArbolito);
+        miArbolito.add(60);
+        System.out.println("Mi arbolito \n"+miArbolito);
+        miArbolito.add(61);
+
 
         /*miArbolito.add(46);
         miArbolito.add(47);
