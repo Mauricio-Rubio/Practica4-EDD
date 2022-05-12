@@ -179,7 +179,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     } else {
       super.insert(this.raiz, elemento);
     }
-   // revisarBalanceInv(ultimoDerecho(this.raiz));
+   revisarBalanceInv(ultimoDerecho(this.raiz));
  
     actualizarAlturas(this.raiz);
    // revisarBalanceInv(ultimoIzquierdo(this.raiz));
@@ -358,40 +358,31 @@ if(!verti.hayDerecho()){
     
     if(verti.hayIzquierdo()){
     aux.izquierdo= verti.izquierdo;
-    aux.izquierdo.padre=aux;
- 
-   // verti.izquierdo.padre=aux;
-  
+    verti.izquierdo.padre=aux;
     }
     
    // verti.padre=verti.padre;
    
    if(verti.derecho.hayIzquierdo()){
    aux.derecho= verti.derecho.izquierdo;
-  
+   verti.derecho.izquierdo.padre=aux;
    aux.derecho.padre=aux;
   
     }
    // verti.padre=verti;
     //if()
-   verti=verti.derecho;
+  // verti=verti.derecho;
+   //verti.derecho.padre=verti;
    
+   verti=verti.derecho;
     
       if(verti.padre.hayPadre()){
-         
-        
-        
        verti.padre=verti.padre.padre;
-       verti.padre.derecho=verti;
-      
-       
+       verti.padre.izquierdo=verti;
        }
-     
-    verti.izquierdo=aux;
-    aux.padre=verti;
-
-
     
+   verti.izquierdo=aux;
+    aux.padre=verti; 
   }
   actualizarAlturas(this.raiz);
 
