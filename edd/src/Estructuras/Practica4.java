@@ -20,10 +20,12 @@ public class Practica4 {
         System.out.println("Mi arbolito \n"+miArbolito);
         miArbolito.add(61);
         System.out.println("Mi arbolito \n"+miArbolito);
+        System.out.println("Mi arbolito \n"+miArbolito.ptoString());
         miArbolito.add(89);
         System.out.println("Mi arbolito \n"+miArbolito);
 
        miArbolito.add(100);
+       miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,89));
        System.out.println("Mi arbolito \n"+miArbolito);
 
         /*miArbolito.add(46);
