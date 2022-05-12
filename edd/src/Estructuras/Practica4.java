@@ -28,7 +28,14 @@ public class Practica4 {
         System.out.println("Mi arbolito \n"+miArbolito.modBFS(miArbolito));
 
        miArbolito.add(100);
+      // miArbolito.add(200);
        miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,89));
+       miArbolito.revisarBalance(miArbolito.raiz);
+       miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,100));
+       System.out.println("Mi arbolito \n"+miArbolito);
+       miArbolito.delete(61);
+       System.out.println("Mi arbolito \n"+miArbolito.modBFS(miArbolito));
+      // miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,200));
        System.out.println("Mi arbolito \n"+miArbolito);
   }
 

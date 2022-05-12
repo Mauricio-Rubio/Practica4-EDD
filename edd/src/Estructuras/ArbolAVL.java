@@ -103,22 +103,38 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
   public void rotarD(Vertice verti) {
     Vertice aux = nuevoVertice(verti.get());
+    if(this.raiz==verti){
+      System.out.println("CONTROLA");
+      this.raiz=verti.izquierdo;
+      System.out.println("CONTROLB");
+      if(verti.izquierdo.hayDerecho()){
+        aux.izquierdo= verti.izquierdo.derecho;
+        aux.izquierdo.padre=aux;
+      }
+      if(verti.hayDerecho()){
+        aux.derecho=verti.derecho;
+        aux.derecho.padre=aux;
+      }
+      this.raiz.izquierdo=aux;
+    }else{
+
     if (verti.hayDerecho()) {
       aux.derecho = verti.derecho;
       verti.derecho.padre = aux;
     }
-
+    System.out.println("CONTROL J");
     if (verti.izquierdo.hayDerecho()) {
       aux.izquierdo = verti.izquierdo.derecho;
       aux.izquierdo.padre = aux;
     }
-
+    System.out.println("CONTROL K");
+    if(verti.padre.hayIzquierdo()){
     if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
       verti = verti.izquierdo;
       if (verti.padre.hayPadre()) {
         verti.padre = verti.padre.padre;
       }
-
+      System.out.println("CONTROL Z");
       verti.padre.izquierdo = verti;
     } else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
       verti = verti.izquierdo;
@@ -128,11 +144,20 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
       verti.padre.derecho = verti;
     }
+  }else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
+    verti = verti.izquierdo;
+    if (verti.padre.hayPadre()) {
+      verti.padre = verti.padre.padre;
+    }
+
+    verti.padre.derecho = verti;
+  }
 
     //
     verti.derecho = aux;
     aux.padre = verti;
     actualizarAlturas(this.raiz);
+  }
   }
 
   public void add(T elemento) {
@@ -189,8 +214,8 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     
    desbalanceDerecho(vert, hIzq, hDer);
    
-  }else{
-   // desbalanceIzquierda(vert,hIzq,hDer);
+  }else if(hIzq==hDer+2){
+    desbalanceIzquierda(vert,hIzq,hDer);
   }
   actualizarAlturas(this.raiz);
  // revisarBalance(this.raiz);
