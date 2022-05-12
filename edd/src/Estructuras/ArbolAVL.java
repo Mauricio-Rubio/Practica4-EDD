@@ -81,13 +81,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     if (vert.hayDerecho() || vert.hayIzquierdo()) {
       if (vert.hayDerecho()) {
         VerticeAVL vertD = convertirAVL(vertice.derecho);
-        //vertD.setAltura(vert.getAltura()-1);
         actualizarAlturas(vertD);
       }
 
       if (vert.hayIzquierdo()) {
         VerticeAVL vertI = convertirAVL(vertice.izquierdo);
-        // vertI.setAltura(vert.getAltura()-1);
         actualizarAlturas(vertI);
       }
     }
@@ -119,23 +117,23 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         aux.derecho = verti.derecho;
         aux.derecho.padre = aux;
       }
-      this.raiz.izquierdo = aux;
-    } else {
-      if (verti.hayDerecho()) {
-        aux.derecho = verti.derecho;
-        verti.derecho.padre = aux;
-      }
-      if (verti.izquierdo.hayDerecho()) {
-        aux.izquierdo = verti.izquierdo.derecho;
-        aux.izquierdo.padre = aux;
-      }
-      if (verti.padre.hayIzquierdo()) {
-        if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
-          verti = verti.izquierdo;
-          if (verti.padre.hayPadre()) {
-            verti.padre = verti.padre.padre;
-          }
-          verti.padre.izquierdo = verti;
+      this.raiz.derecho=aux;
+    }else{
+
+    if (verti.hayDerecho()) {
+      aux.derecho = verti.derecho;
+      verti.derecho.padre = aux;
+    }
+    if (verti.izquierdo.hayDerecho()) {
+      aux.izquierdo = verti.izquierdo.derecho;
+      aux.izquierdo.padre = aux;
+    }
+    if(verti.padre.hayIzquierdo()){
+    if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
+      verti = verti.izquierdo;
+      if (verti.padre.hayPadre()) {
+        verti.padre = verti.padre.padre;
+
         } else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
           verti = verti.izquierdo;
           if (verti.padre.hayPadre()) {
@@ -164,8 +162,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     } else {
       super.insert(this.raiz, elemento);
     }
-    revisarBalanceInv(ultimoDerecho(this.raiz));
+    actualizarAlturas(this.raiz);
 
+    revisarBalanceInv(ultimoDerecho(this.raiz));
     actualizarAlturas(this.raiz);
   }
 
@@ -249,17 +248,26 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       vertD.setAltura();
       der = vertD.altura() - 1;
     }
+    
+int op=Math.abs(izq-der);
+    if(Math.abs(izq-der)<2){
+     
+if(!verti.hayIzquierdo()){
+  if(verti.hayDerecho()&& verti.derecho.altura()-1==2){
+    if(izq+1==der){
+      rebalancear(verti.padre, izq, der+1);
+    }
+  }
+}
 
-    int op = Math.abs(izq - der);
-    if (Math.abs(izq - der) < 2) {
-      if (!verti.hayIzquierdo()) {
-        if (verti.hayDerecho() && verti.derecho.altura() - 1 == 2) {
-          if (izq + 1 == der) {
-            rebalancear(verti.padre, izq, der + 1);
-          }
-        }
-      }
-      if (verti.hayPadre()) {
+if(!verti.hayDerecho()){
+  if(verti.hayIzquierdo()&& verti.altura()-1==2){
+    if(der+1==izq){
+      rebalancear(verti.padre, izq+1, der);
+    }
+  }
+}
+      if(verti.hayPadre()){
         revisarBalanceInv(verti.padre);
       }
     } else {
