@@ -58,8 +58,6 @@ public class Practica4 {
 
        miArbolito.add(100);
        miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,89));
-       System.out.println("Mi arbolito \n"+miArbolito);
+       System.out.println("Mi arbolito \n"+miArbolito);*/
   }
-
-
 }
