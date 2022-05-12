@@ -175,9 +175,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     revisarBalance(this.raiz);
   }
 
-  public void rebalancear(Vertice vert, int hIzq, int hDer) {
+ /* public void rebalancear(Vertice vert, int hIzq, int hDer) {
     desbalanceIzquierda(vert, hIzq, hDer);
-  }
+  }*/
 
   public void rebalancear(Vertice vert, int hIzq, int hDer) {
     System.out.println(
@@ -188,7 +188,8 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       " hIzq " +
       hIzq
     );
-    if (hDer == hIzq + 2 || ((!vert.hayIzquierdo()) && hDer == hIzq + 1)) {
+    desbalanceIzquierda(vert, hIzq, hDer);
+    /*if (hDer == hIzq + 2 || ((!vert.hayIzquierdo()) && hDer == hIzq + 1)) {
       vert = vert.derecho;
       System.out.println("ENTRAMOS");
       System.out.println("Vertice " + vert);
@@ -212,30 +213,30 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
         actualizarAlturas(this.raiz);
       }
-    }
+    }*/
   }
 
   public boolean revisarBalance(Vertice verti) {
-    System.out.println("REVISANDO " + verti);
+    //System.out.println("REVISANDO " + verti);
     int izq = 0, der = 0;
     if (verti.hayIzquierdo()) {
       VerticeAVL vertI = convertirAVL(verti.izquierdo);
       vertI.setAltura();
       izq = vertI.altura() - 1;
-      System.out.println(vertI);
-      System.out.println("Altura izquierda" + izq);
+      //System.out.println(vertI);
+      //System.out.println("Altura izquierda" + izq);
     }
 
     if (verti.hayDerecho()) {
       VerticeAVL vertD = convertirAVL(verti.derecho);
       vertD.setAltura();
       der = vertD.altura() - 1;
-      System.out.println(vertD);
-      System.out.println("Altura derecha" + der);
+      //System.out.println(vertD);
+      //System.out.println("Altura derecha" + der);
     }
 
     int op = Math.abs(izq - der);
-    System.out.println("DESB" + op);
+    //System.out.println("DESB" + op);
     if (Math.abs(izq - der) < 2) {
       if (verti.hayDerecho()) {
         revisarBalance(verti.derecho);
@@ -312,22 +313,27 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   public void desbalanceIzquierda(Vertice vertice, int kIzq, int k) {
     //int k = vertice.derecho.altura;
     Vertice HIzq = vertice.izquierdo;
-    //System.out.println("Hijo izquierdo: "+HIzq.izquierdo);
-    //System.out.println("Hijo derecho: "+vertice.derecho);
+    System.out.println("Quien es vertice: "+vertice);
+    System.out.println("Hijo izquierdo: "+HIzq);
+    System.out.println("Hijo derecho: "+vertice.derecho);
     if (HIzq.altura() >= k + 2) {
       System.out.println("Se necesita balance izquierdo");
     }
+    System.out.println("Tu perro arbol \n"+this);
     if (HIzq.hayIzquierdo()) {
       Vertice WIzq = HIzq.izquierdo;
+      Vertice WDer = HIzq.derecho;
       VerticeAVL WizqAVL = convertirAVL(WIzq);
+      VerticeAVL WderAVL = convertirAVL(WDer);
       System.out.println("Altura de esta prra mmada: "+WizqAVL+" este es k "+k+" este es k + 1: "+(k+1));
       System.out.println("Iniciando balanceo");
       if (WizqAVL.altura == k + 1) {
         System.out.println("Caso 1: Linea recta");
-        rotarD(vertice);
+        rotarD(HIzq);
+        actualizarAlturas(vertice);
         //Recalculo de las alturas y rebalanceo
-      } else if (WIzq.altura() == k) {
-        System.out.println("Caso 2: Linea recta");
+      } else if (WizqAVL.altura == k && WderAVL.altura == k+1) {
+        System.out.println("Caso 2: ZIG ZAG");
         rotarI(HIzq);
         rotarD(vertice);
       }else{
