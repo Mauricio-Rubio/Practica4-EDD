@@ -99,10 +99,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   }
 
   public void rotarDMau(Vertice vertice) {
-    Vertice aux = vertice;
-    aux.padre = aux.izquierdo;
-    aux.izquierdo = aux.padre.derecho;
-    aux.padre.derecho = aux;
+    Vertice verticeX = vertice.izquierdo;
+    Vertice verticeZ = vertice.derecho;
+    verticeX.derecho = vertice;
+    vertice.izquierdo = verticeZ;
+    actualizarAlturas(vertice);
+  }
+
+  public void rotarIMau(Vertice vertice) {
+    Vertice x = vertice.derecho;
+    Vertice subArbolIzquierdo = x.izquierdo;
+    vertice.padre = x;
+    vertice.derecho = subArbolIzquierdo;
   }
 
   public void rotarD(Vertice verti) {
@@ -117,23 +125,23 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         aux.derecho = verti.derecho;
         aux.derecho.padre = aux;
       }
-      this.raiz.derecho=aux;
-    }else{
-
-    if (verti.hayDerecho()) {
-      aux.derecho = verti.derecho;
-      verti.derecho.padre = aux;
-    }
-    if (verti.izquierdo.hayDerecho()) {
-      aux.izquierdo = verti.izquierdo.derecho;
-      aux.izquierdo.padre = aux;
-    }
-    if(verti.padre.hayIzquierdo()){
-    if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
-      verti = verti.izquierdo;
-      if (verti.padre.hayPadre()) {
-        verti.padre = verti.padre.padre;
-
+      this.raiz.derecho = aux;
+    } else {
+      if (verti.hayDerecho()) {
+        aux.derecho = verti.derecho;
+        verti.derecho.padre = aux;
+      }
+      if (verti.izquierdo.hayDerecho()) {
+        aux.izquierdo = verti.izquierdo.derecho;
+        aux.izquierdo.padre = aux;
+      }
+      if (verti.padre.hayIzquierdo()) {
+        if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
+          verti = verti.izquierdo;
+          if (verti.padre.hayPadre()) {
+            verti.padre = verti.padre.padre;
+          }
+          verti.padre.izquierdo = verti;
         } else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
           verti = verti.izquierdo;
           if (verti.padre.hayPadre()) {
@@ -165,6 +173,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     actualizarAlturas(this.raiz);
 
     revisarBalanceInv(ultimoDerecho(this.raiz));
+    actualizarAlturas(this.raiz);
     actualizarAlturas(this.raiz);
   }
 
@@ -248,26 +257,25 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       vertD.setAltura();
       der = vertD.altura() - 1;
     }
-    
-int op=Math.abs(izq-der);
-    if(Math.abs(izq-der)<2){
-     
-if(!verti.hayIzquierdo()){
-  if(verti.hayDerecho()&& verti.derecho.altura()-1==2){
-    if(izq+1==der){
-      rebalancear(verti.padre, izq, der+1);
-    }
-  }
-}
 
-if(!verti.hayDerecho()){
-  if(verti.hayIzquierdo()&& verti.altura()-1==2){
-    if(der+1==izq){
-      rebalancear(verti.padre, izq+1, der);
-    }
-  }
-}
-      if(verti.hayPadre()){
+    int op = Math.abs(izq - der);
+    if (Math.abs(izq - der) < 2) {
+      if (!verti.hayIzquierdo()) {
+        if (verti.hayDerecho() && verti.derecho.altura() - 1 == 2) {
+          if (izq + 1 == der) {
+            rebalancear(verti.padre, izq, der + 1);
+          }
+        }
+      }
+
+      if (!verti.hayDerecho()) {
+        if (verti.hayIzquierdo() && verti.altura() - 1 == 2) {
+          if (der + 1 == izq) {
+            rebalancear(verti.padre, izq + 1, der);
+          }
+        }
+      }
+      if (verti.hayPadre()) {
         revisarBalanceInv(verti.padre);
       }
     } else {
@@ -346,9 +354,9 @@ if(!verti.hayDerecho()){
         //Recalculo de las alturas y rebalanceo
       } else if (WizqAVL.altura == k && WderAVL.altura == k + 1) {
         System.out.println("Caso 2: ZIG ZAG");
-        System.out.println("Soy HIzq "+HIzq);
-        rotarI(HIzq);
-        System.out.println("Asi se va viendo el arbol \n"+this);
+        System.out.println("Soy HIzq " + HIzq);
+        rotarIMau(HIzq);
+        System.out.println("Asi se va viendo el arbol \n" + this);
         //rotarD(vertice);
       } else {
         //System.out.println("CTPM");
