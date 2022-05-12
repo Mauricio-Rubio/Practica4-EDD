@@ -109,22 +109,33 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
   public void rotarD(Vertice verti) {
     Vertice aux = nuevoVertice(verti.get());
+    if(this.raiz==verti){
+      this.raiz=verti.izquierdo;
+      if(verti.izquierdo.hayDerecho()){
+        aux.izquierdo= verti.izquierdo.derecho;
+        aux.izquierdo.padre=aux;
+      }
+      if(verti.hayDerecho()){
+        aux.derecho=verti.derecho;
+        aux.derecho.padre=aux;
+      }
+      this.raiz.izquierdo=aux;
+    }else{
+
     if (verti.hayDerecho()) {
       aux.derecho = verti.derecho;
       verti.derecho.padre = aux;
     }
-
     if (verti.izquierdo.hayDerecho()) {
       aux.izquierdo = verti.izquierdo.derecho;
       aux.izquierdo.padre = aux;
     }
-
+    if(verti.padre.hayIzquierdo()){
     if (verti.padre.izquierdo.get().compareTo(verti.elemento) == 0) {
       verti = verti.izquierdo;
       if (verti.padre.hayPadre()) {
         verti.padre = verti.padre.padre;
       }
-
       verti.padre.izquierdo = verti;
     } else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
       verti = verti.izquierdo;
@@ -134,11 +145,17 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
       verti.padre.derecho = verti;
     }
-
-    //
+  }else if (verti.padre.derecho.get().compareTo(verti.elemento) == 0) {
+    verti = verti.izquierdo;
+    if (verti.padre.hayPadre()) {
+      verti.padre = verti.padre.padre;
+    }
+    verti.padre.derecho = verti;
+  }
     verti.derecho = aux;
     aux.padre = verti;
     actualizarAlturas(this.raiz);
+  }
   }
 
   public void add(T elemento) {
@@ -153,41 +170,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     actualizarAlturas(this.raiz);
   }
 
-  //public void rebalancear(Vertice vert, int hIzq, int hDer) {}
 
-  public void rebalancear(Vertice vert, int hIzq, int hDer) {
-    System.out.println(
-      "El vertice desde donde hacemos balanceo" +
-      vert +
-      " hDer " +
-      hDer +
-      " hIzq " +
-      hIzq
-    );
-    desbalanceIzquierda(vert, hIzq, hDer);
-    /*if (hDer == hIzq + 2 || ((!vert.hayIzquierdo()) && hDer == hIzq + 1)) {
-      vert = vert.derecho;
-      System.out.println("ENTRAMOS");
-      System.out.println("Vertice " + vert);
-      VerticeAVL vertD = convertirAVL(vert.derecho);
-
-public void rebalancear(Vertice vert, int hIzq, int hDer){
- 
-  if(hDer==hIzq+2){
-    
-   
+  public void desbalanceDerecho(Vertice vert, int hIzq, int hDer){
     vert=vert.derecho;
-   
+    int wd=0;
+   if(vert.hayDerecho()){
     VerticeAVL  vertD= convertirAVL(vert.derecho);
-   
-   
-    int wd = vertD.altura()-1;
-  
+     wd = vertD.altura()-1;
+   }else{
+      wd=0;
+   }
    if(wd==hIzq+1){
-    
-    
       rotarI(vert);
-    
     actualizarAlturas(this.raiz);
    }
 
@@ -195,14 +189,20 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     Vertice padre = vert.padre;
     rotarD(vert);
     rotarI(padre);
-    
     actualizarAlturas(this.raiz);
    }
+  }
+
+  
+
+public void rebalancear(Vertice vert, int hIzq, int hDer){
+ 
+  if(hDer==hIzq+2){
+   desbalanceDerecho(vert, hIzq, hDer);
   }else{
-   // desbalanceIzquierda(vert,hIzq,hDer);
+   desbalanceIzquierda(vert,hIzq,hDer);
   }
   actualizarAlturas(this.raiz);
- // revisarBalance(this.raiz);
 }
 
 
@@ -219,7 +219,7 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     if (verti.hayIzquierdo()) {
       VerticeAVL vertI = convertirAVL(verti.izquierdo);
       vertI.setAltura();
-      izq = vertI.altura() - 1;
+      izq = vertI.altura() - 1;  
     }
 
     if (verti.hayDerecho()) {
@@ -243,18 +243,18 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
         }
       }
     } else {
-      // System.out.println("REBALANCE");
       rebalancear(verti, izq, der);
     }
 
     return true;
   }
 
-  //SEPARADOR
-  public boolean revisarBalanceInv(Vertice verti) {
-    int izq = 0, der = 0;
-    if (verti.hayIzquierdo()) {
-      VerticeAVL vertI = convertirAVL(verti.izquierdo);
+
+  public boolean revisarBalanceInv(Vertice verti){
+    
+    int izq=0, der=0;
+    if(verti.hayIzquierdo()){
+      VerticeAVL  vertI= convertirAVL(verti.izquierdo);
       vertI.setAltura();
       izq = vertI.altura() - 1;
     }
@@ -264,18 +264,18 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
       vertD.setAltura();
       der = vertD.altura() - 1;
     }
-
-    int op = Math.abs(izq - der);
-    //System.out.println("DESB"+op);
-    if (Math.abs(izq - der) < 2) {
-      if (!verti.hayIzquierdo()) {
-        if (verti.hayDerecho() && verti.derecho.altura() - 1 == 2) {
-          if (izq + 1 == der) {
-            rebalancear(verti.padre, izq, der + 1);
-          }
-        }
-      }
-      if (verti.hayPadre()) {
+    
+int op=Math.abs(izq-der);
+    if(Math.abs(izq-der)<2){
+     
+if(!verti.hayIzquierdo()){
+  if(verti.hayDerecho()&& verti.derecho.altura()-1==2){
+    if(izq+1==der){
+      rebalancear(verti.padre, izq, der+1);
+    }
+  }
+}
+      if(verti.hayPadre()){
         revisarBalanceInv(verti.padre);
       }
     } else {
@@ -285,7 +285,7 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     return true;
   }
 
-  //SEPARADOOOR
+
 
   public void rotarI(Vertice verti) {
     Vertice aux = nuevoVertice(verti.get());
@@ -304,37 +304,42 @@ public void rebalancear(Vertice vert, int hIzq, int hDer){
     } else {
       //  verti=verti.derecho;
 
-      if (verti.hayIzquierdo()) {
-        aux.izquierdo = verti.izquierdo;
-        aux.izquierdo.padre = aux;
-        // verti.izquierdo.padre=aux;
-
-      }
-
-      // verti.padre=verti.padre;
-
-      if (verti.derecho.hayIzquierdo()) {
-        aux.derecho = verti.derecho.izquierdo;
-
-        aux.derecho.padre = aux;
-      }
-      // verti.padre=verti;
-      //if()
-      verti = verti.derecho;
-
-      if (verti.padre.hayPadre()) {
-        System.out.println("Ojoooooooo" + verti);
-        System.out.println("Ojooooooxxxoo" + aux);
-
-        verti.padre = verti.padre.padre;
-        verti.padre.derecho = verti;
-        System.out.println("Verti padre  def" + verti.padre);
-      }
-
-      verti.izquierdo = aux;
-      aux.padre = verti;
+  public void rotarI(Vertice verti){
+    
+   Vertice aux = nuevoVertice(verti.get());
+   if(this.raiz==verti){
+     this.raiz=verti.derecho;
+     if(verti.derecho.hayIzquierdo()){
+       aux.derecho= verti.derecho.izquierdo;
+       aux.derecho.padre=aux;
+     }
+     if(verti.hayIzquierdo()){
+       aux.izquierdo=verti.izquierdo;
+       aux.izquierdo.padre=aux;
+     }
+     this.raiz.izquierdo=aux;
+   }else{
+    if(verti.hayIzquierdo()){
+    aux.izquierdo= verti.izquierdo;
+    aux.izquierdo.padre=aux;
     }
-    actualizarAlturas(this.raiz);
+    
+   
+   if(verti.derecho.hayIzquierdo()){
+   aux.derecho= verti.derecho.izquierdo;
+   aux.derecho.padre=aux;
+    }
+   verti=verti.derecho;
+   
+    
+      if(verti.padre.hayPadre()){
+       verti.padre=verti.padre.padre;
+       verti.padre.derecho=verti;
+       }
+    verti.izquierdo=aux;
+    aux.padre=verti;
+  }
+  actualizarAlturas(this.raiz);
   }
 
   public void desbalanceIzquierda(Vertice vertice, int kIzq, int k) {
