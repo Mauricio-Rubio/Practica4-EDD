@@ -53,67 +53,13 @@ public class Practica4 {
 
     /* System.out.println("Mi arbolito \n"+miArbolito);
         System.out.println("Mi arbolito \n"+miArbolito.ptoString());
-        System.out.println("La raiz es: "+miArbolito.raiz);*/
-    // System.out.println("Altura de la raiz es: "+miArbolito.altura());
-    //miArbolito.actualizarAlturas(miArbolito.raiz);
-    /* System.out.println("Mi arbolito \n"+miArbolito);
-        miArbolito.delete(4);
-        System.out.println("Elimino a 4");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-        miArbolito.delete(5);
-        System.out.println("Elimino a 5");
-       // miArbolito.insert(miArbolito.raiz, 0);
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
+        miArbolito.add(89);
         System.out.println("Mi arbolito \n"+miArbolito);
 
-        miArbolito.delete(11);
-        System.out.println("Elimino a 11");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(7);
-        System.out.println("Elimino a 7");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(9);
-        System.out.println("Elimino a 9");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        //miArbolito.insert(miArbolito.raiz,15);
-
-        miArbolito.delete(13);
-        System.out.println("Elimino a 13");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(57);
-        System.out.println("Elimino a 11");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(91);
-        System.out.println("Elimino a 91");
-        //miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(0);
-        System.out.println("Elimino a 0");
-       // miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-       /* miArbolito.delete(0);
-        System.out.println("Elimino a 0");
-        miArbolito.actualizarAlturas(miArbolito.raiz);
-        System.out.println("Mi arbolito \n"+miArbolito);
-
-        miArbolito.delete(5);
-        System.out.println("Elimino a 5");*/
-    /*miArbolito.insert(miArbolito.raiz, 0);
-        miArbolito.actualizarAlturas(miArbolito.raiz);*/
-
-    //System.out.println("La raiz es: "+miArbolito.raizAVL);
+       miArbolito.add(100);
+       miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,89));
+       System.out.println("Mi arbolito \n"+miArbolito);
   }
+
+
 }
