@@ -32,6 +32,7 @@ public class Practica4 {
        miArbolito.add(-1);
        miArbolito.add(2);
        miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,89));
+       miArbolito.revisarBalanceInv(miArbolito.search(miArbolito.raiz,59));
        System.out.println("Mi arbolito \n"+miArbolito);
   }
 

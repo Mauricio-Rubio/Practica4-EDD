@@ -270,6 +270,14 @@ if(!verti.hayIzquierdo()){
     }
   }
 }
+
+if(!verti.hayDerecho()){
+  if(verti.hayIzquierdo()&& verti.altura()-1==2){
+    if(der+1==izq){
+      rebalancear(verti.padre, izq+1, der);
+    }
+  }
+}
       if(verti.hayPadre()){
         revisarBalanceInv(verti.padre);
       }
