@@ -397,7 +397,7 @@ if(!verti.hayDerecho()){
     
       if(verti.padre.hayPadre()){
        verti.padre=verti.padre.padre;
-       verti.padre.izquierdo=verti;
+      // verti.padre.izquierdo=verti;
        }
     
    verti.izquierdo=aux;
