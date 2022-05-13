@@ -384,8 +384,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     if (HIzq.altura() >= k + 2) {
       System.out.println("Iniciando balanceo izquierdo");
     }
+    System.out.println("Iniciando desde vertice "+vertice);
+    System.out.println("Vertice izquierdo "+HIzq);
+    System.out.println("No me mientas "+HIzq.izquierdo);
     System.out.println("Arbol a balancear\n" + this);
     if (HIzq.hayIzquierdo()) {
+      System.out.println("Caso base");
       Vertice WIzq = HIzq.izquierdo;
       Vertice WDer = HIzq.derecho;
       VerticeAVL WizqAVL = convertirAVL(WIzq);
@@ -396,6 +400,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         System.out.println("Caso 1: Linea recta");
         rotarD(HIzq);
         actualizarAlturas(vertice);
+        revisarBalanceInv(HIzq.izquierdo);
       } 
       /**Caso donde esta en forma zig zag */
       else if (WizqAVL.altura == k && WderAVL.altura == k + 1) {
@@ -403,6 +408,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         rotarI(HIzq);
         rotarD(vertice);
       }
+    }else if(HIzq.hayDerecho()){
+      System.out.println("T ptmadre");
+      Vertice WIzq = HIzq.izquierdo;
+      Vertice WDer = HIzq.derecho;
+      VerticeAVL WizqAVL = convertirAVL(WIzq);
+      VerticeAVL WderAVL = convertirAVL(WDer);
     }
   }
 
