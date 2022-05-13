@@ -1,3 +1,7 @@
+/**
+ * @Author Mauricio Rubio Haro
+ * @Author Kevin Isaac Alcántara Estrada
+ */
 package edd.src.Estructuras;
 
 import java.util.Comparator;
@@ -191,7 +195,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @param arbolE Arbol binario
    */
  
-  private Cola<T> modBFS(ArbolBinario arbolE) {
+  protected Cola<T> modBFS(ArbolBinario arbolE) {
 
     //Si es vacio no procedemos
     if (arbolE.isEmpty()) {
@@ -225,7 +229,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @param verti Vertice inicial (usualmente la raiz)
    * @return Verti 
    */
-  private Vertice ultimoIzquierdo(Vertice verti) {
+  protected Vertice ultimoIzquierdo(Vertice verti) {
     while(verti.hayIzquierdo()){
     
       verti = verti.izquierdo;
@@ -240,7 +244,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @param verti Vertice inicial (usualmente la raiz)
    * @return Verti 
    */
-  private Vertice ultimoDerecho(Vertice verti) {
+  protected Vertice ultimoDerecho(Vertice verti) {
     
     //Mientras el vertice tenga vertice derecho, recorremos el arbol
       while(verti.hayDerecho()){
