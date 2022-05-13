@@ -22,9 +22,7 @@ public class Practica4 {
       miArbolito.rotarI(miArbolito.search(miArbolito.raiz,10));
       System.out.println("Mi arbolito \n"+miArbolito);*/
       miArbolito.add(49);
-     // miArbolito.rotarI(miArbolito.search(miArbolito.raiz,47));
       System.out.println("Mi arbolito \n"+miArbolito);
-     // miArbolito.rotarD(miArbolito.search(miArbolito.raiz,50));
       System.out.println("Mi arbolito \n"+miArbolito);
       miArbolito.add(45);
       System.out.println("Mi arbolito \n"+miArbolito);

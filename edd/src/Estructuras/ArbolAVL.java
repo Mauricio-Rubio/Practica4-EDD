@@ -372,45 +372,37 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
     actualizarAlturas(this.raiz);
   }
 
+  /**
+   * Metodo que balancea cuando se encuentra desbalancea del lado izquierdo
+   *
+   * @param vertice
+   * @param kIzq
+   * @param k altura de hijo derecho de vertice
+   */
   public void desbalanceIzquierda(Vertice vertice, int kIzq, int k) {
-    //int k = vertice.derecho.altura;
     Vertice HIzq = vertice.izquierdo;
     if (HIzq.altura() >= k + 2) {
-      System.out.println("Se necesita balance izquierdo");
+      System.out.println("Iniciando balanceo izquierdo");
     }
-    System.out.println("Tu perro arbol \n" + this);
+    System.out.println("Arbol a balancear\n" + this);
     if (HIzq.hayIzquierdo()) {
       Vertice WIzq = HIzq.izquierdo;
       Vertice WDer = HIzq.derecho;
       VerticeAVL WizqAVL = convertirAVL(WIzq);
       VerticeAVL WderAVL = convertirAVL(WDer);
-      //WderAVL.setAltura();
-      System.out.println(
-        "Altura de esta prra mmada: " +
-        WizqAVL +
-        " este es k " +
-        k +
-        " este es k + 1: " +
-        (k + 1) +
-        " Altura de otra prra mmada: " +
-        WderAVL
-      );
-      System.out.println("Iniciando balanceo");
+      
+      /**Caso donde esta en forma de linea recta */
       if (WizqAVL.altura == k + 1) {
         System.out.println("Caso 1: Linea recta");
         rotarD(HIzq);
         actualizarAlturas(vertice);
-        //System.out.println(revisarB(HIzq));
-        //Recalculo de las alturas y rebalanceo
-      } else if (WizqAVL.altura == k && WderAVL.altura == k + 1) {
+      } 
+      /**Caso donde esta en forma zig zag */
+      else if (WizqAVL.altura == k && WderAVL.altura == k + 1) {
         System.out.println("Caso 2: ZIG ZAG");
-        //System.out.println("Soy HIzq " + HIzq);
-        //rotarIMau(HIzq);
         rotarI(HIzq);
-        //System.out.println("Asi se va viendo el arbol \n" + this);
         rotarD(vertice);
       }
-      //actualizarAlturas(vertice);
     }
   }
 
