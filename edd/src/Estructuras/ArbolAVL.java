@@ -105,8 +105,62 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   public boolean delete(T elemento) {
     boolean k = super.delete(elemento);
     actualizarAlturas(this.raiz);
-    revisarBalance(this.raiz);
+    actualizarAlturas(this.raiz);
+    System.out.println("ARBOL KK"+this);
+    if(revisarB(this.raiz)==false){
+   // revisarBalance(this.raiz);
+    }
     return k;
+  }
+
+  public void rotacionDerecha(Vertice vert){
+    if(vert==null|| !vert.hayIzquierdo()){
+      return;
+    }
+
+    Vertice v = vert;
+    Vertice vi = vert.izquierdo;
+    vi.padre=v.padre;
+    if(v!=this.raiz){
+      if(v.padre.izquierdo.get().compareTo(v.elemento)==0){
+        vi.padre.izquierdo=vi;
+      }else{
+        vi.padre.derecho=vi;
+      }
+    }else{
+      this.raiz=vi;
+    }
+    v.izquierdo=vi.derecho;
+    if(vi.hayDerecho()){
+      vi.derecho.padre=v;
+    }
+    v.padre=vi;
+    vi.derecho=v;
+  }
+
+  public void rotacionIzquierda(Vertice vert){
+    if(vert==null|| !vert.hayDerecho()){
+      return;
+    }
+
+    Vertice v = vert;
+    Vertice vd= vert.derecho;
+    vd.padre=v.padre;
+    if(v!=this.raiz){
+      if(v.padre.derecho.get().compareTo(v.elemento)==0){
+        vd.padre.derecho=vd;
+      }else{
+        vd.padre.izquierdo=vd;
+      }
+    }else{
+      this.raiz=vd;
+    }
+    v.derecho=vd.izquierdo;
+    if(vd.hayIzquierdo()){
+      vd.izquierdo.padre=v;
+    }
+    v.padre=vd;
+    vd.izquierdo=v;
   }
 
   /**
@@ -114,9 +168,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
    * @param verti
    */
   public void rotarD(Vertice verti) {
+    
     Vertice aux = nuevoVertice(verti.get());
-    Vertice aux2= verti.izquierdo;
+    //Vertice aux2= verti.izquierdo;
     if (this.raiz == verti) {
+     // if(verti.hayIzquierdo()){
       this.raiz = verti.izquierdo;
       if (verti.izquierdo.hayDerecho()) {
         aux.izquierdo = verti.izquierdo.derecho;
@@ -128,7 +184,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         aux.derecho.padre = aux;
       }
       this.raiz.derecho = aux;
+    //}else{
+      //rotarI(verti);
+   // }
     } else {
+      if(verti.hayIzquierdo()){
+        Vertice aux2= verti.izquierdo;
       if (verti.hayDerecho()) {
         aux.derecho = verti.derecho;
         verti.derecho.padre = aux;
@@ -158,6 +219,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       actualizarAlturas(this.raiz);
     }
   }
+  }
 
   /**
    * Metodo para añadir elementos
@@ -172,6 +234,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
     actualizarAlturas(this.raiz);
     revisarBalance(this.raiz);
+    //revisarBalanceInv(search(this.raiz,elemento));
     actualizarAlturas(this.raiz);
   }
 
@@ -182,25 +245,65 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
    * @param hDer
    */
   public void desbalanceDerecho(Vertice vert, int hIzq, int hDer) {
-    int wd = 0;
+    System.out.println("DESBALANCE DERECHO");
+    int wd = -100;
     if (vert.hayDerecho()) {
       if (vert.derecho.hayDerecho()) {
         wd = vert.derecho.derecho.altura() - 1;
-      } else {}
-    } else {
-      wd = 0;
+      } else {
+        wd = vert.derecho.izquierdo.altura()-1;
+      }
     }
 
     if (wd == hIzq + 1) {
-      rotarI(vert);
+      System.out.println("CASO 1");
+      rotacionIzquierda(vert);
+      //Vertice padre= vert.padre;
+     /* if(vert.hayPadre()){
+        if(vert.padre.hayDerecho()){
+          if(vert.padre.derecho.get().compareTo(vert.elemento)==0){
+    Vertice aux= rotarIzquierda(vert);
+     aux.padre=vert.padre;
+     vert.padre.derecho=aux;
+          }
+          System.out.println("JUJY\n"+this);
+        }
+      }*/
+      //rotarI(vert);
 
       actualizarAlturas(this.raiz);
     } else if (wd == hIzq) {
-      Vertice padre = vert;
-      rotarD(vert.derecho);
-      rotarI(padre);
+      System.out.println("CASO 2 "+vert);
+      System.out.println(this);
+    //  Vertice der = vert.derecho;
+      if(vert.altura()-1==2&!vert.hayIzquierdo()){
+        System.out.println("AVISO");
+        Vertice padre= vert.padre;
+        rotacionIzquierda(vert);
+        rotacionDerecha(padre);
+       // vert=rotarIzquierda(vert);
+       //vert.padre=vert.padre;
+      }else{
+   // vert.derecho=  rotarDerecha(vert.derecho);
+   // vert.derecho.padre=vert;
+    //vert.padre=vert.padre;
+      }
+    // vertice.izquierdo.padre=vertice;
+     actualizarAlturas(this.raiz);
+     System.out.println(this);
+     System.out.println(modBFS(this).toString());
+     /*  if(vert.derecho.padre.hayIzquierdo()){
+     vert.padre=rotarIzquierda(vert.derecho.padre);
+    }else{vert.padre.derecho=vert.derecho;}*/
+     actualizarAlturas(vert);
+     
+      revisarBalance(this.raiz);
+      
 
       actualizarAlturas(this.raiz);
+    }else{
+      revisarBalance(vert.derecho);
+      revisarBalance(vert.izquierdo);
     }
   }
 
@@ -217,6 +320,38 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       desbalanceIzquierda(vert, hIzq, hDer);
     }
     actualizarAlturas(this.raiz);
+  }
+
+  public Vertice rotarDerecha(Vertice v){
+   /* if(v==this.raiz){
+      rotarD(v);
+      return v;
+    }else{*/
+    Vertice t2 = v.izquierdo.derecho;
+    Vertice izq= v.izquierdo;
+    izq.derecho=v;
+    izq.padre=v.padre;
+    v.padre=izq;
+    
+    
+    v.izquierdo=t2;
+    if(t2!=null){
+      t2.padre=izq;
+    }
+    return izq;
+    //}
+  }
+
+  public Vertice rotarIzquierda(Vertice v){
+    Vertice t2 = v.derecho.izquierdo;
+    Vertice der= v.derecho;
+    der.izquierdo=v;
+    v.padre=der;
+    v.derecho=t2;
+    if(t2!=null){
+      t2.padre=v;
+    }
+    return der;
   }
 
   /**
@@ -248,7 +383,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         revisarBalance(verti.izquierdo);
       }
 
-      VerticeAVL vert = convertirAVL(verti);
+   /* VerticeAVL vert = convertirAVL(verti);
       if (!vert.hayIzquierdo()) {
         if (vert.hayDerecho() && vert.altura == 2) {
           if (izq + 1 == der) {
@@ -260,11 +395,17 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         if (vert.hayIzquierdo() && vert.altura == 2) {
           if (izq == 1) {
             rebalancear(vert, izq, der);
-          }
+         }
         }
-      }
-    } else {
+      }*/
+    } else if(op==2){
+      System.out.println("HAY DESBALANCE EN"+verti);
+      System.out.println("PUTA VERGAAA\n"+this);
+      
       rebalancear(verti, izq, der);
+    }else{
+      revisarBalance(verti.derecho);
+      revisarBalance(verti.izquierdo);
     }
     return true;
   }
@@ -290,7 +431,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
     int op = Math.abs(izq - der);
     if (Math.abs(izq - der) < 2) {
-      /*if (!verti.hayIzquierdo()) {
+    /* if (!verti.hayIzquierdo()) {
         if (verti.hayDerecho() && verti.derecho.altura() - 1 == 2) {
           if (izq + 1 == der) {
             rebalancear(verti.padre, izq, der + 1);
@@ -309,6 +450,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         revisarBalanceInv(verti.padre);
       }
     } else {
+      System.out.println("HAY DESBALANCE EN"+verti);
       rebalancear(verti, izq, der);
     }
 
@@ -379,27 +521,74 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
    * @param k altura de hijo derecho de vertice
    */
   public void desbalanceIzquierda(Vertice vertice, int kIzq, int k) {
+    System.out.println("DESBALANCE IZQUIERDO"+vertice);
+    System.out.println(modBFS(this).toString());
     Vertice HIzq = vertice.izquierdo;
     if (HIzq.hayIzquierdo()) {
       Vertice WIzq = HIzq.izquierdo;
       Vertice WDer = HIzq.derecho;
       VerticeAVL WizqAVL = convertirAVL(WIzq);
       VerticeAVL WderAVL = convertirAVL(WDer);
-
-      /**Caso donde esta en forma de linea recta */
+System.out.println(kIzq +"AND"+k);
+      //Caso donde esta en forma de linea recta */
       if (WizqAVL.altura == k + 1) {
+
         System.out.println("Caso 1: Linea recta");
-        rotarD(HIzq);
-        actualizarAlturas(vertice);
-        revisarBalanceInv(HIzq.izquierdo);
+       /* if(verti==this.raiz){
+
+          revisarBalance(vertice.derecho);
+        }*/
+       rotacionDerecha(vertice);
+         //vertice= rotarDerecha(vertice);
+         //vertice.padre=vertice.padre;
+         // revisarBalanceInv(vertice);
+          revisarB(this.raiz);
+        
+
+        
+      
+        /*if(vertice.padre.hayDerecho()){
+        if(vertice.padre.derecho.get().compareTo(vertice.elemento)==0){
+      vertice.padre.derecho=  rotarDerecha(vertice);
+        }
+        }else{
+          if(vertice.padre.hayIzquierdo()){
+            if(vertice.padre.izquierdo.get().compareTo(vertice.elemento)==0){
+          vertice.padre.izquierdo=  rotarDerecha(vertice);
+            }
+          }
+        }*/
+      //  System.out.println(this);
+        actualizarAlturas(this.raiz);
+        System.out.println(this);
+       // revisarBalanceInv(HIzq);
+        revisarBalance(this.raiz);
       } /**Caso donde esta en forma zig zag */else if (
         WizqAVL.altura == k && WderAVL.altura == k + 1
       ) {
         System.out.println("Caso 2: ZIG ZAG");
-        rotarI(HIzq);
-        rotarD(vertice);
+        
+      vertice.izquierdo=  rotarIzquierda(HIzq);
+     // vertice.izquierdo.padre=vertice;
+      actualizarAlturas(this.raiz);
+      System.out.println(this);
+      System.out.println(modBFS(this).toString());
+        //BORRAR?
+     vertice.padre= rotarDerecha(vertice.izquierdo.padre);
+      actualizarAlturas(vertice);
+       //vertice.izquierdo.padre=aux;
+       //System.out.println(this);
+      }else{
+        /*revisarBalance(vertice.derecho);
+      revisarBalance(vertice.izquierdo);*/
       }
+    }else{
+    // vertice.izquierdo= rotarIzquierda(vertice.izquierdo);
+    // vertice.izquierdo.padre=vertice;
+      actualizarAlturas(this.raiz);
     }
+    revisarBalance(vertice.derecho);
+     // revisarBalance(vertice.izquierdo);
   }
 
   /**
