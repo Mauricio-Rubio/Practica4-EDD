@@ -8,7 +8,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<T> {
+public class ArbolBinarioBusqueda<T extends Comparable<T>>
+  extends ArbolBinario<T> {
 
   private class Iterador implements Iterator<T> {
 
@@ -45,29 +46,26 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
   }
 
- private boolean esHijoIzq = false;
+  private boolean esHijoIzq = false;
 
- public Vertice verticeReemplazo(Vertice vertice) {
-  Vertice reemplazarPadre = vertice;
-  Vertice reemplazo = vertice;
-  Vertice aux = vertice.derecho;
-  while (aux != null) {
-    reemplazarPadre = reemplazo;
-    reemplazo = aux;
-    aux = aux.izquierdo;
+  public Vertice verticeReemplazo(Vertice vertice) {
+    Vertice reemplazarPadre = vertice;
+    Vertice reemplazo = vertice;
+    Vertice aux = vertice.derecho;
+    while (aux != null) {
+      reemplazarPadre = reemplazo;
+      reemplazo = aux;
+      aux = aux.izquierdo;
+    }
+    if (!reemplazo.equals(vertice.derecho)) {
+      reemplazarPadre.izquierdo = reemplazo.derecho;
+      reemplazo.derecho = vertice.derecho;
+    }
+    System.out.println("El padre reemplazo es " + reemplazo.padre);
+    System.out.println("El reemplazo es " + reemplazo);
+    System.out.println("Es hijIzq" + esHijoIzq);
+    return reemplazo;
   }
-  if (!reemplazo.equals(vertice.derecho)) {
-    reemplazarPadre.izquierdo = reemplazo.derecho;
-    reemplazo.derecho = vertice.derecho;
-  }
-  System.out.println("El padre reemplazo es "+ reemplazo.padre);
-  System.out.println("El reemplazo es "+ reemplazo);
-  System.out.println("Es hijIzq"+ esHijoIzq);
-  return reemplazo;
-}
-
-
-
 
   public boolean delete(T object) {
     Vertice vertice = this.search(this.raiz, object);
@@ -81,44 +79,44 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
       Vertice reemplazo = verticeReemplazo(aux);
       if (aux.equals(this.raiz)) {
         this.raiz = reemplazo;
-      } else if (padre.izquierdo.get().compareTo(aux.elemento)==0) {
+      } else if (padre.izquierdo.get().compareTo(aux.elemento) == 0) {
         padre.izquierdo = reemplazo;
-        reemplazo.padre=padre;
+        reemplazo.padre = padre;
       } else {
         padre.derecho = reemplazo;
-        reemplazo.padre=padre;
+        reemplazo.padre = padre;
       }
       reemplazo.izquierdo = aux.izquierdo;
       reemplazo.izquierdo.padre = reemplazo;
       System.out.println("REMp izq " + reemplazo.izquierdo);
       System.out.println("REMp der" + reemplazo.derecho);
       System.out.println("REMp izq padre" + reemplazo.izquierdo.padre);
-     // System.out.println("REMp der padre " + reemplazo.derecho.padre);
+      // System.out.println("REMp der padre " + reemplazo.derecho.padre);
       return true;
     }
     if (vertice.izquierdo == null && vertice.derecho == null) {
-      System.out.println("PADRE "+ vertice.padre);
+      System.out.println("PADRE " + vertice.padre);
       if (vertice.equals(this.raiz)) {
         this.raiz = null;
         return true;
       }
       if (vertice.padre.get().compareTo(vertice.elemento) < 0) {
         vertice.padre.derecho = null;
-        vertice=null;
+        vertice = null;
         return true;
       } else {
         vertice.padre.izquierdo = null;
-        vertice=null;
+        vertice = null;
       }
       return true;
     }
     if (vertice.izquierdo == null || vertice.derecho != null) {
       if (vertice.padre.get().compareTo(vertice.elemento) < 0) {
         vertice.padre.derecho = vertice.derecho;
-        vertice.derecho.padre=vertice.padre;
+        vertice.derecho.padre = vertice.padre;
       } else {
         vertice.padre.izquierdo = vertice.derecho;
-        vertice.derecho.padre=vertice.padre;
+        vertice.derecho.padre = vertice.padre;
         //vertice=null;
       }
       return true;
@@ -187,16 +185,14 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     return null;
   }
 
-   
   /**
    * Metodo que regresa el recorrido BFS del arbol
    * @author Alcantara Estrada Kevin Isaac
    * @author Rubio Haro Mauricio
    * @param arbolE Arbol binario
    */
- 
-  protected Cola<T> modBFS(ArbolBinario arbolE) {
 
+  protected Cola<T> modBFS(ArbolBinario arbolE) {
     //Si es vacio no procedemos
     if (arbolE.isEmpty()) {
       System.out.println("No puedo proceder con un arbol vacio");
@@ -204,7 +200,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
     //Colas para llevar a cabo el recorrido
     Cola<Vertice> a = new Cola<Vertice>();
-     Cola<T> colaBFS = new Cola<T>();
+    Cola<T> colaBFS = new Cola<T>();
     //Anadimos vertice inicial
     a.push(arbolE.raiz);
     //Mientras la cola no sea vacia, proseguimos con el algoritmo
@@ -219,7 +215,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         a.push(b.derecho);
       }
     }
-   return colaBFS;
+    return colaBFS;
   }
 
   /**
@@ -227,11 +223,10 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @author Alcantara Estrada Kevin
    * @author Rubio Haro Mauricio
    * @param verti Vertice inicial (usualmente la raiz)
-   * @return Verti 
+   * @return Verti
    */
   protected Vertice ultimoIzquierdo(Vertice verti) {
-    while(verti.hayIzquierdo()){
-    
+    while (verti.hayIzquierdo()) {
       verti = verti.izquierdo;
     }
     return verti;
@@ -242,13 +237,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @author Alcantara Estrada Kevin
    * @author Rubio Haro Mauricio
    * @param verti Vertice inicial (usualmente la raiz)
-   * @return Verti 
+   * @return Verti
    */
   protected Vertice ultimoDerecho(Vertice verti) {
-    
     //Mientras el vertice tenga vertice derecho, recorremos el arbol
-      while(verti.hayDerecho()){
-    
+    while (verti.hayDerecho()) {
       verti = verti.derecho;
     }
     return verti;
@@ -278,10 +271,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     return null;
   }
 
-
- 
-
- 
   /**
    * Metodo para ordenar una lista haciendo uso del metodo quicksort
    * @author Alcantara Estrada Kevin Isaac
@@ -343,18 +332,17 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
     //return lista;
   }
-  
 
-/**
- * Metodo para construir un arbol de acuerdo a una lista desordenada
- * @author Alcantara Estrada Kevin
- * @author Rubio Haro Mauricio
- * @param lista Lista desordenada
- */
+  /**
+   * Metodo para construir un arbol de acuerdo a una lista desordenada
+   * @author Alcantara Estrada Kevin
+   * @author Rubio Haro Mauricio
+   * @param lista Lista desordenada
+   */
   public void buildUnsorted(Lista<T> lista) {
     ArbolBinarioBusqueda<T> arbolinio = new ArbolBinarioBusqueda<T>();
     //Si la lista es vacia
-    if(lista.isEmpty()){
+    if (lista.isEmpty()) {
       System.out.println("No puedo proceder con una lista vacia");
       return;
     }
@@ -366,14 +354,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     arbolinio.add(elem);
     lista.delete(elem);*/
     buildSorted(lista);
-     
-    }
-   
+  }
 
-  
-
-
-  
   /**
    * Metodo para insertar un elemento en el arbol
    * @author Alcantara Estrada Kevin Isaac
@@ -381,35 +363,32 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
    * @param elemento Elemento a insertar
    */
 
-  public void insert(Vertice verti, T elemento){
+  public void insert(Vertice verti, T elemento) {
     /*if(verti==null){
       Vertice nuevo = nuevoVertice(elemento);
       this.add(elemento);
     }*/
-        if(verti.get().compareTo(elemento)>0){
-            if(!verti.hayIzquierdo()){
-                Vertice nuevo = nuevoVertice(elemento);
-                verti.izquierdo=nuevo;
-                nuevo.padre=verti;
-            }else{
-                insert(verti.izquierdo,elemento);
-            }
-        }
-
-        if(verti.get().compareTo(elemento)<0){
-            if(!verti.hayDerecho()){
-                Vertice nuevo = nuevoVertice(elemento);
-                verti.derecho=nuevo;
-                nuevo.padre=verti;
-            }else{
-                insert(verti.derecho,elemento);
-            }
-        }
-
+    if (verti.get().compareTo(elemento) > 0) {
+      if (!verti.hayIzquierdo()) {
+        Vertice nuevo = nuevoVertice(elemento);
+        verti.izquierdo = nuevo;
+        nuevo.padre = verti;
+      } else {
+        insert(verti.izquierdo, elemento);
       }
+    }
 
+    if (verti.get().compareTo(elemento) < 0) {
+      if (!verti.hayDerecho()) {
+        Vertice nuevo = nuevoVertice(elemento);
+        verti.derecho = nuevo;
+        nuevo.padre = verti;
+      } else {
+        insert(verti.derecho, elemento);
+      }
+    }
+  }
 
-       
   /**
    * Metodo para crear el arbol conn una lista ordenada
    * @author Alcantara Estrada Kevin Isaac
@@ -470,93 +449,87 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     return;
   }
 
+  /**
+   * Metodo que devuelve un toString del arbol con el recorrido in orden DFS
+   * @author Alcantara Estrada Kevin Isaac
+   * @author Rubio Haro Mauricio
+   * @
+   */
+  Lista<T> colaDFS = new Lista<T>();
 
-
-    /**
-     * Metodo que devuelve un toString del arbol con el recorrido in orden DFS
-     * @author Alcantara Estrada Kevin Isaac
-     * @author Rubio Haro Mauricio
-     * @
-     */
-    Lista<T> colaDFS = new Lista<T>();
-   // Override
-    public String ptoString(){
-      //LLevamos el algoritmo hasta tener al final de la lista al elemnto mas grande de todo el arbol
-      while((!colaDFS.contains(ultimoDerecho(this.raiz).get()))){
-       // System.out.println("Ultimo Der" +ultimoDerecho(this.raiz).get());
+  // Override
+  public String toString() {
+    //LLevamos el algoritmo hasta tener al final de la lista al elemnto mas grande de todo el arbol
+    while ((!colaDFS.contains(ultimoDerecho(this.raiz).get()))) {
+      // System.out.println("Ultimo Der" +ultimoDerecho(this.raiz).get());
       inOrderDFS(raiz.izquierdo, raiz, raiz.derecho);
-      }
-       String s= colaDFS.toString();
-       return s;
-
     }
-
-    /**
-     * Metodo que recorre el arbol en DFS inOrder y devuelve la lista con los vertices
-     * @author Alcantara Estrada Kevin
-     * @author Rubio Haro Mauricio
-     * @param izq Vertice izquierdo
-     * @param cen Vertice del centro
-     * @param der Vertice de la derecha
-     */
-    private void inOrderDFS(Vertice izq, Vertice cen, Vertice der){
-     
-      //Mientras el elemento que checamos no este en la lista
-      if(!colaDFS.contains(cen.get())){
-        //mientras haya vertice izquierdo y este no este ya en la lista
-      if(cen.hayIzquierdo()&&!colaDFS.contains(izq.get())){
-        //seguimos recorriendo hacia la izquierda
-        cen= cen.izquierdo;
-        inOrderDFS(cen.izquierdo,cen,cen.derecho);
-      }else{
-        //agregamos el vertice sobre el que estamos a la lista
-      T elemento = cen.get();
-        colaDFS.add(elemento);
-       
-        //si hay vertices derechos los recorremos con este algoritmo
-        if(cen.hayDerecho()){
-          cen=cen.derecho;
-          inOrderDFS(cen.izquierdo,cen,cen.derecho);
-          }
-         
-        }
-      }else{
-        //De nuevo revisamos si hay derecho para seguir el algoritmo por ahi
-        if(cen.hayDerecho()){ 
-          cen=cen.derecho;
-          inOrderDFS(cen.izquierdo,cen,cen.derecho);
-          }
-      }
-      }
-    
-
-      /**
- * Metodo que toma un arbol binario y lo transforma en un Arbol Binario de Busqueda balanceado y devuelve este
- * @param arb Arbol
- * @return ArbolBinarioBusqueda
- */
-public ArbolBinarioBusqueda convertBST(ArbolBinario arb){
-  
- Cola<T> colaBFS = modBFS(arb);
- // System.out.println("COLA" +colaBFS.toString());
- Lista<T> lista = new Lista<T>();
- Lista<T> mitad1 = new Lista<T>();
-  Lista<T> mitad2 = new Lista<T>();
-
-  //nuevo.add(colaBFS.pop());
-  while(!colaBFS.isEmpty()){
-    lista.add(colaBFS.pop());
+    String s = colaDFS.toString();
+    return s;
   }
-  ArbolBinarioBusqueda nuevo = new ArbolBinarioBusqueda(lista,true);
+
+  /**
+   * Metodo que recorre el arbol en DFS inOrder y devuelve la lista con los vertices
+   * @author Alcantara Estrada Kevin
+   * @author Rubio Haro Mauricio
+   * @param izq Vertice izquierdo
+   * @param cen Vertice del centro
+   * @param der Vertice de la derecha
+   */
+  private void inOrderDFS(Vertice izq, Vertice cen, Vertice der) {
+    //Mientras el elemento que checamos no este en la lista
+    if (!colaDFS.contains(cen.get())) {
+      //mientras haya vertice izquierdo y este no este ya en la lista
+      if (cen.hayIzquierdo() && !colaDFS.contains(izq.get())) {
+        //seguimos recorriendo hacia la izquierda
+        cen = cen.izquierdo;
+        inOrderDFS(cen.izquierdo, cen, cen.derecho);
+      } else {
+        //agregamos el vertice sobre el que estamos a la lista
+        T elemento = cen.get();
+        colaDFS.add(elemento);
+
+        //si hay vertices derechos los recorremos con este algoritmo
+        if (cen.hayDerecho()) {
+          cen = cen.derecho;
+          inOrderDFS(cen.izquierdo, cen, cen.derecho);
+        }
+      }
+    } else {
+      //De nuevo revisamos si hay derecho para seguir el algoritmo por ahi
+      if (cen.hayDerecho()) {
+        cen = cen.derecho;
+        inOrderDFS(cen.izquierdo, cen, cen.derecho);
+      }
+    }
+  }
+
+  /**
+   * Metodo que toma un arbol binario y lo transforma en un Arbol Binario de Busqueda balanceado y devuelve este
+   * @param arb Arbol
+   * @return ArbolBinarioBusqueda
+   */
+  public ArbolBinarioBusqueda convertBST(ArbolBinario arb) {
+    Cola<T> colaBFS = modBFS(arb);
+    // System.out.println("COLA" +colaBFS.toString());
+    Lista<T> lista = new Lista<T>();
+    Lista<T> mitad1 = new Lista<T>();
+    Lista<T> mitad2 = new Lista<T>();
+
+    //nuevo.add(colaBFS.pop());
+    while (!colaBFS.isEmpty()) {
+      lista.add(colaBFS.pop());
+    }
+    ArbolBinarioBusqueda nuevo = new ArbolBinarioBusqueda(lista, true);
 
     return nuevo;
-}
+  }
 
-/**
- * Metodo que crear al Arbol BInario
- * @param lista Lista sobre la cual construirlo
- * @param isSorted para decir si esta ordenada la lista o no
- */
+  /**
+   * Metodo que crear al Arbol BInario
+   * @param lista Lista sobre la cual construirlo
+   * @param isSorted para decir si esta ordenada la lista o no
+   */
   public ArbolBinarioBusqueda(Lista<T> lista, boolean isSorted) {
     if (isSorted) {
       buildSorted(lista);
@@ -566,10 +539,9 @@ public ArbolBinarioBusqueda convertBST(ArbolBinario arb){
     }
   }
 
-
-/**
- * Metodo que constructor sin parametros
- */
+  /**
+   * Metodo que constructor sin parametros
+   */
   public ArbolBinarioBusqueda() {}
 
   /**
@@ -582,4 +554,4 @@ public ArbolBinarioBusqueda convertBST(ArbolBinario arb){
     return new Iterador();
   }
 }
- // }
+// }
