@@ -44,6 +44,34 @@ public class Practica4 {
       System.out.println("Mi arbolito \n"+miArbolito.modBFS(miArbolito));
       miArbolito.add(19);
       System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.add(-23);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.add(-3);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      System.out.println("Mi arbolito \n"+miArbolito.modBFS(miArbolito));
+      miArbolito.add(-15);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.add(-19);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.add(5);
+      System.out.println("Mi arbolito \n" + miArbolito);
+     /* miArbolito.delete(-105);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(108);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(12);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(44);
+      System.out.println("Mi arbolito \n" + miArbolito);
+
+      miArbolito.delete(8);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(-15);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(47);
+      System.out.println("Mi arbolito \n" + miArbolito);
+      miArbolito.delete(-3);
+      System.out.println("Mi arbolito \n" + miArbolito);
       /*
       miArbolito.add(10);
       System.out.println("Mi arbolito \n" + miArbolito);
