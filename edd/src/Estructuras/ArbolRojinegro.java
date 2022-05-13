@@ -1,3 +1,7 @@
+/**
+ * @Author Mauricio Rubio Haro
+ * @Author Kevin Isaac Alcántara Estrada
+ */
 package edd.src.Estructuras;
 
 /**
