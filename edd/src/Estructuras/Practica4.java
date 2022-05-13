@@ -34,14 +34,22 @@ public class Practica4 {
       System.out.println("Mi arbolito \n"+miArbolito);
       miArbolito.add(0);
       System.out.println("Mi arbolito \n"+miArbolito);
-      miArbolito.insert(miArbolito.raiz, 83);
+      miArbolito.add(83);
       //miArbolito.add(83);
       System.out.println("Mi arbolito \n"+miArbolito);
-      miArbolito.rotarI(miArbolito.search(miArbolito.raiz,49));
+      //miArbolito.rotarI(miArbolito.search(miArbolito.raiz,49));
       System.out.println("Mi arbolito \n"+miArbolito);
-    /*  miArbolito.add(590);
+      miArbolito.add(590);
       System.out.println("Mi arbolito \n"+miArbolito);
      miArbolito.revisarBalance(miArbolito.raiz);
+     miArbolito.add(2);
+     System.out.println("Mi arbolito \n"+miArbolito);
+     miArbolito.add(9);
+     System.out.println("Mi arbolito \n"+miArbolito);
+     miArbolito.revisarBalance(miArbolito.raiz);
+     //miArbolito.insert(miArbolito.raiz, 83);
+     //miArbolito.add(83);
+     System.out.println("Mi arbolito \n"+miArbolito);
      // miArbolito.rotarD(miArbolito.search(miArbolito.raiz,47));
     //  miArbolito.rotarD(miArbolito.search(miArbolito.raiz,47));
    // miArbolito.insert(miArbolito.raiz, 44);}
