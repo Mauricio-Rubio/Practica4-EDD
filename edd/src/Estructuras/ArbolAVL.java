@@ -105,11 +105,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
   public boolean delete(T elemento) {
     boolean k = super.delete(elemento);
     actualizarAlturas(this.raiz);
-    do{
+   // do{
       revisarBalance(this.raiz);
       actualizarAlturas(this.raiz);
-      desbalanceado=revisarB(this.raiz);
-      }while(desbalanceado==true);
+      //desbalanceado=revisarB(this.raiz);
+     // }while(desbalanceado==true);
+     System.out.println(this);
     return k;
   }
 
@@ -154,27 +155,27 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       return;
     }
 
-    Vertice v = vert;
-    Vertice vd= vert.derecho;
-    vd.padre=v.padre;
-    if(v!=this.raiz){
-      if(vd.padre.hayIzquierdo()){
-      if(v.padre.izquierdo.get().compareTo(v.elemento)==0){
-        vd.padre.izquierdo=vd;
+    Vertice vertice = vert;
+    Vertice verticed= vert.derecho;
+    verticed.padre=vertice.padre;
+    if(vertice!=this.raiz){
+      if(verticed.padre.hayIzquierdo()){
+      if(vertice.padre.izquierdo.get().compareTo(vertice.elemento)==0){
+        verticed.padre.izquierdo=verticed;
       }
     }else{
-        vd.padre.derecho=vd;
+        verticed.padre.derecho=verticed;
       }
     }else{
-      this.raiz=vd;
+      this.raiz=verticed;
     }
-    v.derecho=vd.izquierdo;
-    //vd.izquierdo.padre=v.derecho.padre;
-    if(vd.hayIzquierdo()){
-      vd.izquierdo.padre=v;
+    vertice.derecho=verticed.izquierdo;
+   
+    if(verticed.hayIzquierdo()){
+      verticed.izquierdo.padre=vertice;
     }
-    v.padre=vd;
-    vd.izquierdo=v;
+    vertice.padre=verticed;
+    verticed.izquierdo=vertice;
   }
 
   
@@ -188,25 +189,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       this.raiz = verti;
     } else {
       super.insert(this.raiz, elemento);
-      System.out.println(search(this.raiz,elemento));
-      System.out.println(search(this.raiz,elemento).padre);
-      System.out.println(search(this.raiz,elemento).padre.izquierdo);
+     
     }
 
     actualizarAlturas(this.raiz);
-    actualizarAlturas(this.raiz);
-    System.out.println("Desbalanceado"+revisarB(this.raiz));
+    
+   
     do{
-     /* verti=search(this.raiz,elemento);
-      if(verti.hayPadre()){
-       revisarBalance(verti.padre);
-        if(verti.padre.hayPadre()){
-          revisarBalance(verti.padre.padre);
-        }
-      }else{*/ revisarBalance(this.raiz);//}
+     revisarBalance(this.raiz);//}
     actualizarAlturas(this.raiz);
     desbalanceado=revisarB(this.raiz);
     }while(desbalanceado==true);
+    System.out.println(this);
   }
 
   /**
@@ -216,17 +210,17 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
    * @param hDer
    */
   public void desbalanceDerecho(Vertice vert, int hIzq, int hDer) {
-    System.out.println("DESBALANCE DERECHO "+vert);
+  
     int wd = 0;
     if (vert.hayDerecho()) {
       if (vert.derecho.hayDerecho()) {
         wd = vert.derecho.derecho.altura() - 1;
       } else {
-        /*rotacionDerecha(vert.derecho);
+        rotacionDerecha(vert.derecho);
       actualizarAlturas(this.raiz);
         rotacionIzquierda(vert);
         actualizarAlturas(this.raiz);
-        return;*/
+        return;
         
       }
     }else{
@@ -237,12 +231,14 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       rotacionIzquierda(vert);
       actualizarAlturas(this.raiz);
     } else if (wd == hIzq) {
+      if(vert.hayIzquierdo()){
         rotacionDerecha(vert.derecho);
         actualizarAlturas(this.raiz);
         rotacionIzquierda(vert);
         actualizarAlturas(this.raiz);
       revisarBalance(this.raiz);
       actualizarAlturas(this.raiz);
+      }
     }else{
       if(vert.hayDerecho()){
       revisarBalance(vert.derecho);
@@ -395,11 +391,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
       ) {
         System.out.println("Caso 2: ZIG ZAG");
         
-        rotacionIzquierda(vertice.izquierdo);
-        rotacionDerecha(vertice);
+        
         
        
-          
+        if(vertice.hayDerecho()){
+          rotacionIzquierda(vertice.izquierdo);
+          actualizarAlturas(vertice);
+          rotacionDerecha(vertice);
+          actualizarAlturas(vertice);
+          }else{
+            rotacionDerecha(vertice);
+            actualizarAlturas(vertice);
+          }
         
     
       

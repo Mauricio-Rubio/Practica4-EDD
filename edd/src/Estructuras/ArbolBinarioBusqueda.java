@@ -41,31 +41,29 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
   }
 
- private boolean esHijoIzq = false;
 
- public Vertice verticeReemplazo(Vertice vertice) {
-  Vertice reemplazarPadre = vertice;
-  Vertice reemplazo = vertice;
-  Vertice aux = vertice.derecho;
-  while (aux != null) {
-    reemplazarPadre = reemplazo;
-    reemplazo = aux;
-    aux = aux.izquierdo;
+
+  private boolean esHijoIzq = false;
+
+  public Vertice verticeReemplazo(Vertice vertice) {
+    Vertice reemplazarPadre = vertice;
+    Vertice reemplazo = vertice;
+    Vertice aux = vertice.derecho;
+    while (aux != null) {
+      reemplazarPadre = reemplazo;
+      reemplazo = aux;
+      aux = aux.izquierdo;
+    }
+    if (!reemplazo.equals(vertice.derecho)) {
+      reemplazarPadre.izquierdo = reemplazo.derecho;
+      reemplazo.derecho = vertice.derecho;
+    }
+   
+    return reemplazo;
   }
-  if (!reemplazo.equals(vertice.derecho)) {
-    reemplazarPadre.izquierdo = reemplazo.derecho;
-    reemplazo.derecho = vertice.derecho;
-  }
-  System.out.println("El padre reemplazo es "+ reemplazo.padre);
-  System.out.println("El reemplazo es "+ reemplazo);
-  System.out.println("Es hijIzq"+ esHijoIzq);
-  return reemplazo;
-}
-
-
-
 
   public boolean delete(T object) {
+   
     Vertice vertice = this.search(this.raiz, object);
     if (vertice == null) {
       System.out.println("No se ha encontrado");
@@ -77,61 +75,57 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
       Vertice reemplazo = verticeReemplazo(aux);
       if (aux.equals(this.raiz)) {
         this.raiz = reemplazo;
-      } else if (padre.izquierdo.get().compareTo(aux.elemento)==0) {
+      } else if (esHijoIzq) {
         padre.izquierdo = reemplazo;
-        reemplazo.padre=padre;
       } else {
         padre.derecho = reemplazo;
-        reemplazo.padre=padre;
       }
       reemplazo.izquierdo = aux.izquierdo;
-      reemplazo.izquierdo.padre = reemplazo;
-      System.out.println("REMp izq " + reemplazo.izquierdo);
-      System.out.println("REMp der" + reemplazo.derecho);
-      System.out.println("REMp izq padre" + reemplazo.izquierdo.padre);
-     // System.out.println("REMp der padre " + reemplazo.derecho.padre);
       return true;
     }
-    if (vertice.izquierdo == null && vertice.derecho == null) {
-      System.out.println("PADRE "+ vertice.padre);
-      if (vertice.equals(this.raiz)) {
+    Vertice parent = null;
+    Vertice curr = this.raiz;
+    while (curr != null && curr.elemento != object) {
+      parent = curr;
+
+      
+      if (curr.elemento.compareTo(object) > 0) {
+        curr = curr.izquierdo;
+      } else {
+        curr = curr.derecho;
+      }
+    }
+    if (curr.izquierdo == null && curr.derecho == null) {
+      
+      if (curr != this.raiz) {
+        if (parent.izquierdo == curr) {
+          parent.izquierdo = null;
+        } else {
+          parent.derecho = null;
+        }
+      }
+      
+      else {
         this.raiz = null;
-        return true;
       }
-      if (vertice.padre.get().compareTo(vertice.elemento) < 0) {
-        vertice.padre.derecho = null;
-        vertice=null;
-        return true;
-      } else {
-        vertice.padre.izquierdo = null;
-        vertice=null;
+    } else {
+      
+      Vertice child = (curr.izquierdo != null) ? curr.izquierdo : curr.derecho;
+
+    
+      if (curr != this.raiz) {
+        if (curr == parent.izquierdo) {
+          parent.izquierdo = child;
+        } else {
+          parent.derecho = child;
+        }
       }
-      return true;
+      
+      else {
+        this.raiz = child;
+      }
     }
-    if (vertice.izquierdo == null || vertice.derecho != null) {
-      if (vertice.padre.get().compareTo(vertice.elemento) < 0) {
-        vertice.padre.derecho = vertice.derecho;
-        vertice.derecho.padre=vertice.padre;
-      } else {
-        vertice.padre.izquierdo = vertice.derecho;
-        vertice.derecho.padre=vertice.padre;
-        //vertice=null;
-      }
-      return true;
-    }
-    if (vertice.izquierdo != null || vertice.derecho == null) {
-      if (vertice.padre.get().compareTo(vertice.elemento) < 0) {
-        System.out.println(vertice.padre.get());
-        vertice.padre.derecho = vertice.izquierdo;
-        System.out.println("Ojo");
-        System.out.println(vertice.padre.get());
-      } else {
-        vertice.padre.izquierdo = vertice.izquierdo;
-        System.out.println("Ojo2");
-      }
-      //vertice = vertice.izquierdo;
-      return true;
-    }
+
 
     return true;
   }
