@@ -495,7 +495,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param cen Vertice del centro
      * @param der Vertice de la derecha
      */
-    private void inOrderDFS(Vertice izq, Vertice cen, Vertice der){
+    protected void inOrderDFS(Vertice izq, Vertice cen, Vertice der){
      
       //Mientras el elemento que checamos no este en la lista
       if(!colaDFS.contains(cen.get())){
