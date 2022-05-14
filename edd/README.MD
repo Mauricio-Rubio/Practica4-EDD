@@ -1,6 +1,6 @@
 ## Autores
-### Mauricio Rubio Haro
-### Kevin Isaac Alcantara Estrada
+### Mauricio Rubio Haro 319256970
+### Kevin Isaac Alcantara Estrada 319073799
 
 compilar -> javac -d . src/Estructuras/*.java
 
